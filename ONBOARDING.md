@@ -10,11 +10,10 @@
 
 ## 📦 받은 것 확인
 
-관리자가 카톡으로 두 가지를 보냈을 거예요:
+관리자가 카톡으로 보냈을 거예요:
 
-1. **개인 토큰** — 길고 이상한 문자열 (예: `xYz...`)
+- **개인 토큰** — 길고 이상한 문자열 (예: `xYz...`)
    ⚠️ 비밀번호와 같음. 다른 사람에게 공유 X
-2. **feature-spec.zip** 파일
 
 없으면 관리자에게 다시 요청하세요.
 
@@ -45,20 +44,23 @@ npm install -g @anthropic-ai/claude-code
 
 ---
 
-### Step 2. 스킬 폴더 설치
-
-받은 `feature-spec.zip` 이 `~/Downloads/` 에 있다고 가정.
+### Step 2. 스킬 폴더 설치 (GitHub에서 clone)
 
 터미널에서 다음 4줄을 한 줄씩 복붙:
 
 ```bash
 mkdir -p ~/.claude/skills
-cd ~/.claude/skills
-unzip -o ~/Downloads/feature-spec.zip
-ls feature-spec
+git clone https://github.com/starryetribe-droid/AX-Pilot.git \
+  ~/.claude/skills/feature-spec
+ls ~/.claude/skills/feature-spec
 ```
 
 마지막 줄 결과에 `SKILL.md`, `scripts`, `templates` 가 보이면 ✅
+
+> **업데이트 받기**: 스킬이 갱신되면 다음 명령으로 최신 받기:
+> ```bash
+> cd ~/.claude/skills/feature-spec && git pull
+> ```
 
 ---
 
@@ -91,8 +93,11 @@ nano ~/.etribe/config.json
 ### Step 4. 동작 확인
 
 ```bash
-python3 ~/.claude/skills/feature-spec/scripts/fetch_guide.py --mode feature-list | head -5
+python3 ~/.claude/skills/feature-spec/scripts/fetch_guide.py \
+  --mode feature-list --author "테스트" | head -5
 ```
+
+`--author`는 작성자명 (사용 로그용). 본인 이름을 적으세요.
 
 다음과 같이 한글이 나오면 **성공!** 🎉
 
