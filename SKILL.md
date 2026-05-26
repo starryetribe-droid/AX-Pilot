@@ -172,8 +172,8 @@ Step 1   python3 .claude/skills/feature-spec/scripts/fetch_guide.py \
 Step 2   PRD 분석 → 화면 분리 (가이드의 화면 분리 원칙 적용 — variant 무관)
 Step 3   ★ Python 헬퍼 스크립트로 화면 body 작성 (HTML 직접 작성 금지)
          - 위치: /tmp/{기능ID}_gen.py
-         - PC: from sb_components import pc, base  (가이드 §6.3 카탈로그 참조)
-         - 모바일: 현재 라이브러리 미구축 → 일회용 헬퍼 함수 inline 정의 (J-01 패턴)
+         - PC:     from sb_components import pc, base       (가이드 §6.3 PC 카탈로그)
+         - Mobile: from sb_components import mobile, base   (가이드 §6.3 Mobile 카탈로그)
          - Description 영역은 base.db/lv2/lv3/note 헬퍼 사용
 Step 4   python3 /tmp/{기능ID}_gen.py → /tmp/{기능ID}_screens.json 출력
 Step 5   python3 .claude/skills/feature-spec/scripts/generate_sb.py \
@@ -183,69 +183,67 @@ Step 5   python3 .claude/skills/feature-spec/scripts/generate_sb.py \
          - pc 출력:     "01. 공통 기능/{cat}/SB/{기능ID}_PC/"
 ```
 
-### ★ PC SB는 반드시 헬퍼 라이브러리 사용 (HTML 직접 작성 금지)
+### ★ SB는 반드시 헬퍼 라이브러리 사용 (PC/Mobile 공통, HTML 직접 작성 금지)
 
 이유:
-1. **일관성**: 같은 컴포넌트(GNB, 테이블 등)가 모든 화면에서 동일한 마크업으로 렌더링
-2. **DS 교체 대비**: 추후 자사 DS로 교체 시 `pc_krds.py` 하나만 갈아끼우면 모든 SB 자동 적용
-3. **토큰 효율**: PC 한 화면 ~9KB HTML이 헬퍼 호출 ~20줄로 압축
+1. **일관성**: 같은 컴포넌트가 모든 화면에서 동일한 마크업으로 렌더링
+2. **PC ↔ Mobile 동기화**: 같은 의미 컴포넌트는 동일/유사 함수 시그니처 → 콘텐츠 동일성 원칙 준수 쉬움
+3. **DS 교체 대비**: 추후 자사 DS로 교체 시 `pc_krds.py` / `mobile_krds.py` 갈아끼우면 모든 SB 자동 적용
+4. **토큰 효율**: 한 화면 마크업이 헬퍼 호출 코드로 압축
 
 위반 시:
 - 화면마다 미묘하게 다른 마크업 → 일관성 깨짐
+- PC ↔ Mobile 콘텐츠 동일성 검증 어려움
 - DS 교체 시 모든 SB를 다시 그려야 함
 
-### Python 헬퍼 사용 예 (PC)
+### Python 헬퍼 사용 예 — PC와 Mobile을 같이 작성
 
 ```python
-from sb_components import pc, base
+from sb_components import pc, mobile, base
 
-canvas_001 = (
-    pc.gnb(num=1, items=["메인", "공지사항", "FAQ"], active_idx=1,
-           utility=["로그인", "회원가입"])
+# === 같은 콘텐츠의 PC와 Mobile 페어 ===
+# 번호(num)와 lvl1 대제목 의미는 PC/Mobile 동일하게 유지
+
+# PC 화면
+canvas_pc = (
+    pc.gnb(num=1, items=["메인", "공지사항", "FAQ"], active_idx=1)
     + pc.container(
-        pc.page_title(num=2, title="공지사항",
-                      breadcrumb_items=["홈", "고객지원", "공지사항"])
-        + pc.filter_bar(num=3, search_placeholder="제목 검색",
-                        filters=[("분류", ["전체", "공지", "이벤트"])],
-                        action_btn="글쓰기")
+        pc.page_title(num=2, title="공지사항")
+        + pc.filter_bar(num=3, filters=[("분류", ["전체", "공지", "이벤트"])])
         + pc.data_table(num=4,
             columns=["번호", "제목", "작성자", "작성일"],
-            rows=[["10", "공지 제목", "관리자", "2026-05-01"], ...],
-            action_label="보기")
+            rows=[["10", "공지 제목", "관리자", "2026-05-01"]])
         + pc.pagination(num=5, current=1, total=10)
     )
 )
 
-desc_001 = (
-    base.desc_overview("공지사항 목록 화면. GNB → 페이지 타이틀 → 필터바 → 데이터 테이블 → 페이지네이션 구조."),
+# Mobile 화면 (같은 번호 = 같은 의미)
+canvas_mobile = (
+    mobile.app_bar(num=1, title="공지사항", back=True)         # ↔ pc.gnb
+    + mobile.page_title(num=2, title="공지사항")               # ↔ pc.page_title
+    + mobile.filter_chips(num=3, items=["전체", "공지", "이벤트"])  # ↔ pc.filter_bar
+    + mobile.card_list(num=4, items=[                          # ↔ pc.data_table
+        {"title": "공지 제목", "subtitle": "관리자 · 2026-05-01"},
+    ])
+    + mobile.pagination(num=5, current=1, total=10)            # ↔ pc.pagination
+)
+
+# Description은 PC/Mobile 공통 (lvl1 대제목 동일, 안내 문구 단어 단위 동일)
+desc = (
+    base.desc_overview("공지사항 목록 화면."),
     base.dl([
-        base.db("1. GNB Header",
-            base.lv2("로고 / 1차 메뉴 / 우측 유틸리티 버튼"),
-            base.lv2("'공지사항' 메뉴 active 상태")),
-        base.db("2. 페이지 타이틀",
-            base.lv2("브레드크럼: 홈 > 고객지원 > 공지사항")),
+        base.db("1. 최상단 헤더",
+            base.lv2("[PC] GNB: 로고 + 1차 메뉴 + 유틸리티"),
+            base.lv2("[Mobile] App Bar: ← + 타이틀 '공지사항'")),
+        base.db("2. 페이지 타이틀", base.lv2("'공지사항' 표시")),
         # ...
     ])
 )
 
-body_001 = base.wf_panel(
-    canvas_html=base.canvas_wrap(canvas_001, variant="pc"),
-    desc=desc_001
-)
+# 화면 wrapper
+body_pc     = base.wf_panel(base.canvas_wrap(canvas_pc, variant="pc"), desc)
+body_mobile = base.wf_panel(base.canvas_wrap(canvas_mobile, variant="mobile"), desc)
 ```
-
-### 모바일 SB (라이브러리 미구축 — 잠정)
-
-모바일은 현재 헬퍼 라이브러리가 없어 J-01에서 했던 **일회용 헬퍼 inline 정의** 패턴 그대로:
-
-```python
-# /tmp/{기능ID}_gen.py 상단에 일회용 함수 정의
-def app_bar(num, title): ...
-def bot_msg(num, text): ...
-# ...
-```
-
-가이드 §6.3(KRDS 컴포넌트)의 마크업 예시를 참고해 함수 작성.
 
 ### 4.1 PC/모바일 차이 (절대 어기지 말 것)
 
