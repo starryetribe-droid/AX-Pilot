@@ -56,11 +56,16 @@ def load_config() -> dict:
 def fetch_guides(server_url: str, token: str, mode: str,
                  author: str = "", feature_id: str = "",
                  action: str = "", project_path: str = "") -> dict:
-    """서버에 POST 요청해서 가이드 dict 받기. 사용 로그 메타 동시 전송."""
+    """서버에 POST 요청해서 가이드 dict 받기. 사용 로그 메타 동시 전송.
+
+    ★ author 등 한글이 포함될 수 있는 모든 메타는 JSON body로만 전송.
+       HTTP 헤더는 ASCII(latin-1)만 허용되어 한글이면 UnicodeEncodeError 발생.
+    """
     url = server_url.rstrip("/") + "/api"
     body = {
         "mode": mode,
         # 사용 로그용 메타 (서버에서 Notion DB 적재 시 사용, 미설정 시 silent)
+        "author": author or "",
         "feature_id": feature_id or "",
         "action": action or "",
         "project_path": project_path or "",
@@ -70,8 +75,7 @@ def fetch_guides(server_url: str, token: str, mode: str,
         data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
         headers={
             "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-            "X-Author": author or "",
+            "Content-Type": "application/json; charset=utf-8",
         },
         method="POST",
     )
