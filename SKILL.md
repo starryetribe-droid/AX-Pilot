@@ -170,79 +170,17 @@ Step 1   python3 .claude/skills/feature-spec/scripts/fetch_guide.py \
            --feature-id "{기능ID}" --action {create|edit} \
            --project-path "01. 공통 기능/{카테고리}/SB/{기능ID}"
 Step 2   PRD 분석 → 화면 분리 (가이드의 화면 분리 원칙 적용 — variant 무관)
-Step 3   ★ Python 헬퍼 스크립트로 화면 body 작성 (HTML 직접 작성 금지)
-         - 위치: /tmp/{기능ID}_gen.py
-         - PC:     from sb_components import pc, base       (가이드 §6.3 PC 카탈로그)
-         - Mobile: from sb_components import mobile, base   (가이드 §6.3 Mobile 카탈로그)
-         - Description 영역은 base.db/lv2/lv3/note 헬퍼 사용
-Step 4   python3 /tmp/{기능ID}_gen.py → /tmp/{기능ID}_screens.json 출력
+Step 3   각 화면의 body HTML 작성 (wf-panel + desc-panel)
+         - mobile: .wf-canvas 390×min-height:844
+         - pc: .wf-canvas width:100%; max-width:2560px; height:auto
+         - 컴포넌트 마크업은 fetch한 가이드 §6 카탈로그를 그대로 적용
+         - Description 영역은 variant 무관하게 동일
+Step 4   /tmp/{기능ID}_screens.json 작성
 Step 5   python3 .claude/skills/feature-spec/scripts/generate_sb.py \
            --variant {mobile|pc} --input /tmp/{기능ID}_screens.json \
            --output "01. 공통 기능/{카테고리}/SB/{기능ID}{_PC?}"
          - mobile 출력: "01. 공통 기능/{cat}/SB/{기능ID}/"
          - pc 출력:     "01. 공통 기능/{cat}/SB/{기능ID}_PC/"
-```
-
-### ★ SB는 반드시 헬퍼 라이브러리 사용 (PC/Mobile 공통, HTML 직접 작성 금지)
-
-이유:
-1. **일관성**: 같은 컴포넌트가 모든 화면에서 동일한 마크업으로 렌더링
-2. **PC ↔ Mobile 동기화**: 같은 의미 컴포넌트는 동일/유사 함수 시그니처 → 콘텐츠 동일성 원칙 준수 쉬움
-3. **DS 교체 대비**: 추후 자사 DS로 교체 시 `pc_krds.py` / `mobile_krds.py` 갈아끼우면 모든 SB 자동 적용
-4. **토큰 효율**: 한 화면 마크업이 헬퍼 호출 코드로 압축
-
-위반 시:
-- 화면마다 미묘하게 다른 마크업 → 일관성 깨짐
-- PC ↔ Mobile 콘텐츠 동일성 검증 어려움
-- DS 교체 시 모든 SB를 다시 그려야 함
-
-### Python 헬퍼 사용 예 — PC와 Mobile을 같이 작성
-
-```python
-from sb_components import pc, mobile, base
-
-# === 같은 콘텐츠의 PC와 Mobile 페어 ===
-# 번호(num)와 lvl1 대제목 의미는 PC/Mobile 동일하게 유지
-
-# PC 화면
-canvas_pc = (
-    pc.gnb(num=1, items=["메인", "공지사항", "FAQ"], active_idx=1)
-    + pc.container(
-        pc.page_title(num=2, title="공지사항")
-        + pc.filter_bar(num=3, filters=[("분류", ["전체", "공지", "이벤트"])])
-        + pc.data_table(num=4,
-            columns=["번호", "제목", "작성자", "작성일"],
-            rows=[["10", "공지 제목", "관리자", "2026-05-01"]])
-        + pc.pagination(num=5, current=1, total=10)
-    )
-)
-
-# Mobile 화면 (같은 번호 = 같은 의미)
-canvas_mobile = (
-    mobile.app_bar(num=1, title="공지사항", back=True)         # ↔ pc.gnb
-    + mobile.page_title(num=2, title="공지사항")               # ↔ pc.page_title
-    + mobile.filter_chips(num=3, items=["전체", "공지", "이벤트"])  # ↔ pc.filter_bar
-    + mobile.card_list(num=4, items=[                          # ↔ pc.data_table
-        {"title": "공지 제목", "subtitle": "관리자 · 2026-05-01"},
-    ])
-    + mobile.pagination(num=5, current=1, total=10)            # ↔ pc.pagination
-)
-
-# Description은 PC/Mobile 공통 (lvl1 대제목 동일, 안내 문구 단어 단위 동일)
-desc = (
-    base.desc_overview("공지사항 목록 화면."),
-    base.dl([
-        base.db("1. 최상단 헤더",
-            base.lv2("[PC] GNB: 로고 + 1차 메뉴 + 유틸리티"),
-            base.lv2("[Mobile] App Bar: ← + 타이틀 '공지사항'")),
-        base.db("2. 페이지 타이틀", base.lv2("'공지사항' 표시")),
-        # ...
-    ])
-)
-
-# 화면 wrapper
-body_pc     = base.wf_panel(base.canvas_wrap(canvas_pc, variant="pc"), desc)
-body_mobile = base.wf_panel(base.canvas_wrap(canvas_mobile, variant="mobile"), desc)
 ```
 
 ### 4.1 PC/모바일 차이 (절대 어기지 말 것)
@@ -312,7 +250,7 @@ PRD 작성 시 Step 0/2.5는 그대로 적용.
 
 ## 6. 부분 수정
 
-기존 PRD/SB 파일은 Edit 툴로 직접 수정. 헬퍼 스크립트 불필요.
+기존 PRD/SB 파일은 Edit 툴로 직접 수정. 생성 스크립트(generate_sb.py) 불필요.
 SB 수정 시 `desc-block` 구조 유지 (§4 ★ 참고).
 
 ## 7. 보안
