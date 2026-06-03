@@ -28,6 +28,7 @@ description: |
 | 기능 ID/이름만 | (3) 통합 |
 | "PRD만"/"명세서만" | (1) PRD |
 | `.md` PRD 경로 + "SB" | (2) SB |
+| 챗봇/인텐트 워크북 기반 ("인텐트 9 챗봇 SB", "챗봇 SB 생성") | (2) SB — **챗봇 분기 §4.2** |
 | 기존 파일 + "수정/추가" | 부분 수정 (Edit) |
 
 ## 2. 카테고리 매핑
@@ -195,6 +196,40 @@ Step 5   python3 .claude/skills/feature-spec/scripts/generate_sb.py \
 | 입력/버튼 | 48px | 40–48px |
 
 **금지**: PC 양식이라고 컴포넌트 목록을 누락하거나 화면을 분리/병합 추가로 하지 말 것. 화면 분리 원칙은 variant 무관.
+
+### 4.2 챗봇 SB — 인텐트 워크북 기반 ★
+
+소스가 PRD `.md`가 아니라 **AI 챗봇 인텐트 정의 워크북(xlsx)** 인 경우 이 분기를 탄다.
+화면을 손으로 작성하지 않는다 — 워크북의 `09_컴포넌트스키마`(렌더 계약: 컴포넌트→아키타입, 슬롯→역할)
++ `10_모듈콘텐츠바인딩`(값)을 변환기가 자동으로 screens.json + KRDS 마크업으로 만든다.
+컴포넌트별 마크업 하드코딩은 없고, **12종 아키타입 렌더러**(`scripts/chatbot_components.py`)가 단일 출처다.
+작성 표준 = 가이드 **§13 «챗봇 컴포넌트 카탈로그»**.
+
+```
+Step 0   작성자명 입력 요청 (★ 공통)
+Step 0.1 인텐트 번호 + 워크북 경로 확인
+           - 인텐트 번호 (워크북 08 시트의 인텐트#, 예: 9)
+           - 워크북 경로 → 환경변수 CHATBOT_XLSX (미설정 시 사용자에게 질문)
+Step 1   python3 .claude/skills/feature-spec/scripts/fetch_guide.py \
+           --mode sb-mobile --author "{author}" \
+           --feature-id "IT{NNN}" --action create        # §13 카탈로그 포함
+Step 2   CHATBOT_XLSX="{워크북경로}" \
+         python3 .claude/skills/feature-spec/scripts/build_chatbot_sb.py {인텐트번호}
+```
+
+`build_chatbot_sb.py`가 한 번에 수행:
+- ① `chatbot_to_sb.py` — 워크북(08 메타 + 09 계약 + 10 바인딩) → `_build/IT{NNN}_screens.json` (아키타입 디스패치)
+- ② `generate_sb.py --variant mobile` — screens.json → 화면별 SB HTML
+- ③ `build_index()` — 모듈(단계)별 라벨 iframe `index.html`
+
+출력: `~/Downloads/SB_챗봇/IT{NNN}/` (환경변수 `CHATBOT_OUT`로 변경 가능)
+
+규칙:
+- **variant = mobile 고정** (챗봇은 모바일 대화 UI). §4.0의 PC 질문 생략.
+- 일반 SB의 Step 2~4(PRD 분석·화면 분리·수기 screens.json)는 **건너뛴다**. 변환기가 워크북 단일 소스로 전 과정 수행.
+- 화면 = 인텐트의 단계(모듈). 봇 답변 = (선택) 텍스트 말풍선 + 리치 컴포넌트 (§13.2).
+- 새 시각 유형이 필요하면 `chatbot_components.py`에 아키타입 렌더러만 추가(§13.4) — 변환기·SKILL 수정 불필요.
+- 환경변수: `CHATBOT_XLSX`(워크북, 필수) · `CHATBOT_OUT`(출력 루트) · `CHATBOT_AUTHOR`(작성자 기본 'AX Pilot').
 
 ### ★ 모달/다이얼로그 처리 규칙 (절대 어기지 말 것)
 
