@@ -215,7 +215,9 @@ def a_banner(roles, h):
                 f'border-radius:var(--krds-radius-lg);padding:14px 16px;min-width:240px;font-size:14px;'
                 f'color:var(--krds-gray-90);line-height:1.5;">{h.esc(msg)}</div>')
     if roles.get('buttons'):
-        body += a_buttons({'buttons': roles['buttons']}, h)
+        # 배너 박스와 액션 버튼을 세로 스택 + 간격(달라붙음 방지)
+        return (f'<div style="display:flex;flex-direction:column;gap:10px;min-width:240px;">'
+                f'{body}{a_buttons({"buttons": roles["buttons"]}, h)}</div>')
     return body
 
 def a_input_date(roles, h):
