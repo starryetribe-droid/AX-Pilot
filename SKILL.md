@@ -281,8 +281,10 @@ Step 2   CHATBOT_XLSX="{워크북경로}" \
 ### 4.3 챗봇 컴포넌트 가이드 — 단일 페이지 카탈로그 ★
 
 워크북의 컴포넌트(07 메타 + 09 렌더 계약)와 사용처(08+10)를 **한 장의 HTML 가이드**로 묶는다.
-화면(모듈)이 아니라 **컴포넌트(U-01~U-NN)가 단위**다. 분류(텍스트/선택/카드/입력/배너/액션)별로
-그룹핑하고, 각 컴포넌트 카드는 **[라이브 프리뷰 | 스펙 표]** 2단으로 구성한다.
+화면(모듈)이 아니라 **컴포넌트(U-01~U-NN)가 단위**다. 두 가지 포맷을 생성한다(`--format`, 기본 both):
+- **web**(`component-guide.html`): 분류별 좌측 네비 + 컴포넌트 카드 **[라이브 프리뷰 | 스펙 표]**.
+- **sb**(`component-guide-sb.html`): **ETRIBE SB 양식**(메타 헤더 + 와이어프레임∣Description 2단 + 푸터).
+  모든 컴포넌트를 **한 화면 보드**에 분류별로 취합하고, Description은 **UI 흐름**(진입→안내→조회→입력→결과→다음행동)으로 기술.
 
 프리뷰는 `chatbot_components.ARCHETYPES` 렌더러를 **그대로 호출**하므로 실 SB와 100% 동일(드리프트 0).
 
@@ -291,14 +293,18 @@ Step 0   작성자명 입력 요청 (★ 공통)
 Step 1   python3 .claude/skills/feature-spec/scripts/fetch_guide.py \
            --mode sb-mobile --author "{author}" --action view   # §13 카탈로그 포함(선택)
 Step 2   CHATBOT_XLSX="{워크북경로}" \
-         python3 .claude/skills/feature-spec/scripts/build_component_guide.py [--intents 7,9,10,14]
+         python3 .claude/skills/feature-spec/scripts/build_component_guide.py \
+           [--intents 7,9,10,14] [--format web|sb|both]   # 기본 both
 ```
 
 `build_component_guide.py` 동작:
 - ① 07 → 컴포넌트 메타(코드·명·분류·정의·사용 답변유형)
 - ② 09 → 슬롯→역할 계약 + 렌더 아키타입
 - ③ 08+10 → 컴포넌트별 사용처 역인덱스(어느 인텐트/모듈이 쓰는지) + 대표 바인딩값
-- ④ 분류별 그룹 + 좌측 고정 네비 → 단일 HTML 1장
+- ④ 분류별 그룹 → web(네비+카드) / sb(SB 양식 단일 보드) HTML 생성. SB는 `generate_sb` 스캐폴드 재사용.
+
+**★ 분기(케이스) 처리**: 분기가 있으면 **화면을 분리하지 않고** 해당 컴포넌트 옆에 케이스를 **나란히
+병치**한다. `CASES` 딕셔너리에 정의(현재 U-11 결과배너 성공/실패, U-10 로딩 기본/취소가능).
 
 규칙:
 - **데이터 주도**: 07/09 행 + `ARCHETYPES` 딕셔너리에서만 읽는다. 컴포넌트(07/09 행)+렌더러
@@ -313,7 +319,8 @@ Step 2   CHATBOT_XLSX="{워크북경로}" \
     UX 규칙 표현용으로 기본 안내 버블을 렌더하지만, 실 SB(IT090/IT098 등)는 위젯만 단독 출력됨 →
     규칙 일치를 원하면 워크북 10시트에 U-01 동반 바인딩 추가 필요.
 - `--intents` 미지정 시 워크북 전체 인텐트에서 사용처 집계. 지정 시 해당 인텐트로 한정.
-- 출력: `~/Downloads/SB_챗봇/_GUIDE/component-guide.html` (환경변수 `CHATBOT_OUT` 루트 하위).
+- 출력: `~/Downloads/SB_챗봇/_GUIDE/` 하위 — `component-guide.html`(web) · `component-guide-sb.html`(sb).
+  (환경변수 `CHATBOT_OUT` 루트 하위).
 
 **렌더러 주의**: 배너+액션 버튼(`a_banner`)은 세로 스택 + `gap:10px`로 분리(달라붙음 방지).
 이 수정은 `chatbot_components.py`에 있어 실 SB의 U-16 에러배너에도 동일 적용된다.
