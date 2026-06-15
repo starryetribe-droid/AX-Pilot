@@ -95,7 +95,7 @@ def app_bar(title='디자인밀 AI'):
             '<button class="krds-app-bar-action" style="font-size:18px;color:var(--krds-gray-90);">✕</button></div>')
 
 def input_bar():
-    return ('<div style="margin-top:auto;flex-shrink:0;padding:10px 12px;border-top:1px solid var(--krds-gray-10);'
+    return ('<div class="wf-bottom-fixed" style="padding:10px 12px;border-top:1px solid var(--krds-gray-10);'
             'background:var(--krds-gray-0);display:flex;align-items:center;gap:8px;">'
             '<input placeholder="메시지를 입력하세요" style="flex:1 1 0;min-width:0;box-sizing:border-box;height:40px;'
             'border:1px solid var(--krds-gray-20);border-radius:20px;padding:0 14px;font-size:14px;color:var(--krds-gray-90);">'
@@ -103,8 +103,8 @@ def input_bar():
             'background:var(--krds-primary-50);color:var(--krds-gray-0);font-size:18px;cursor:pointer;">↑</button></div>')
 
 def chat_canvas(messages):
-    return (f'<div class="wf-canvas" style="display:flex;flex-direction:column;">{app_bar()}'
-            f'<div style="flex:1;overflow:visible;padding:16px;background:var(--krds-gray-5);'
+    return (f'<div class="wf-canvas">{app_bar()}'
+            f'<div class="wf-canvas-content" style="padding:16px;background:var(--krds-gray-5);'
             f'display:flex;flex-direction:column;gap:14px;">{messages}</div>{input_bar()}</div>')
 
 def wf_panel(messages):
