@@ -22,6 +22,7 @@ import argparse
 import json
 import os
 import sys
+import time
 import urllib.request
 import urllib.error
 from pathlib import Path
@@ -61,7 +62,9 @@ def fetch_guides(server_url: str, token: str, mode: str,
     ★ author 등 한글이 포함될 수 있는 모든 메타는 JSON body로만 전송.
        HTTP 헤더는 ASCII(latin-1)만 허용되어 한글이면 UnicodeEncodeError 발생.
     """
-    url = server_url.rstrip("/") + "/api"
+    # 캐시버스터: Vercel 엣지가 동일 URL 응답을 캐시해 구버전 가이드를 내주는 문제 방지.
+    # 매 요청 고유 쿼리(_cb) + no-cache 헤더로 항상 최신 가이드 fetch.
+    url = server_url.rstrip("/") + "/api?_cb=" + str(time.time_ns())
     body = {
         "mode": mode,
         # 사용 로그용 메타 (서버에서 Notion DB 적재 시 사용, 미설정 시 silent)
@@ -76,6 +79,8 @@ def fetch_guides(server_url: str, token: str, mode: str,
         headers={
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json; charset=utf-8",
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
         },
         method="POST",
     )
