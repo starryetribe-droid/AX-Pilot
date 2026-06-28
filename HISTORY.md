@@ -3,7 +3,7 @@
 > 이 문서는 ETRIBE 기획 자동화 도구(`feature-spec` Claude Code 스킬)의 전체 구축 맥락을 정리합니다.
 > 로컬 PC가 바뀌어도, 새로운 담당자가 이 문서만 보면 전체 맥락을 이해할 수 있도록 설계되었습니다.
 >
-> **마지막 업데이트**: 2026-06-03
+> **마지막 업데이트**: 2026-06-28
 
 ---
 
@@ -27,10 +27,15 @@ common_source/.claude/skills/feature-spec/
 │   ├── generate_sb.py        # SB HTML 일괄 생성
 │   ├── build_chatbot_sb.py   # 챗봇 SB 일체 생성 (인텐트# → IT### 폴더)
 │   ├── chatbot_to_sb.py      # 인텐트 워크북(xlsx) → screens.json 변환
-│   └── chatbot_components.py # KRDS 아키타입 12종 렌더러 (가이드 §13 구현체)
-└── templates/
-    ├── sb-style-block.html   # SB의 인라인 <style> 전체
-    └── sb-logo-data-url.txt  # ETRIBE 로고 base64 data URL
+│   ├── chatbot_components.py # KRDS 아키타입 12종 렌더러 (가이드 §13 구현체)
+│   └── build_admin_sb.py     # 어드민 SB 생성 (템플릿+본문 → PC SB)
+├── templates/
+│   ├── sb-style-block.html   # SB의 인라인 <style> 전체
+│   ├── sb-logo-data-url.txt  # ETRIBE 로고 base64 data URL
+│   └── admin-pulmuone.html   # 풀무원 디자인밀 어드민 템플릿 (PC) <style>
+└── samples/
+    └── admin/
+        └── ADM-ORDER-001.src.html  # 어드민 주문상세 화면 본문(템플릿 제외)
 ```
 
 ### 2.2 서버 (별도 GitHub repo + Vercel)
@@ -331,6 +336,7 @@ base64 -i "00. Assets/etribe-logo.png" | tr -d '\n' > templates/sb-logo-data-url
 | 2026-05-16 | PC variant 추가 (`4b-sb-guide-pc.md`, `sb-pc` mode, `generate_sb --variant pc`) — 콘텐츠 동일, 양식만 분리 |
 | 2026-06-03 | 가이드 §13 «챗봇 컴포넌트 카탈로그»(KRDS 아키타입 12종 + 데이터 주도 렌더 계약) 서버 승격 |
 | 2026-06-03 | 챗봇 SB 분기 추가 (SKILL §4.2 + `build_chatbot_sb.py`/`chatbot_to_sb.py`/`chatbot_components.py`) — 인텐트 워크북(xlsx) → SB 자동 생성 |
+| 2026-06-28 | 어드민 SB 분기 추가 (SKILL §4.3 + `build_admin_sb.py` + `templates/admin-pulmuone.html`) — PC 고정, 템플릿 선택 → 화면 본문 → PC SB. 첫 화면 주문상세(`samples/admin/`) |
 
 ---
 

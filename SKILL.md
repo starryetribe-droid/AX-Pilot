@@ -30,6 +30,7 @@ description: |
 | `.md` PRD 경로 + "SB" | (2) SB |
 | 챗봇/인텐트 워크북 기반 ("인텐트 9 챗봇 SB", "챗봇 SB 생성") | (2) SB — **챗봇 분기 §4.2** |
 | 챗봇 컴포넌트 가이드 ("챗봇 컴포넌트 가이드", "컴포넌트 카탈로그 만들어줘") | (4) 가이드 — **§4.3** |
+| 어드민/관리자 화면 ("어드민 만들어줘", "관리자 화면 SB", "어드민 주문상세") | (2) SB — **어드민 분기 §4.4** |
 | 기존 파일 + "수정/추가" | 부분 수정 (Edit) |
 
 ## 2. 카테고리 매핑
@@ -324,6 +325,39 @@ Step 2   CHATBOT_XLSX="{워크북경로}" \
 
 **렌더러 주의**: 배너+액션 버튼(`a_banner`)은 세로 스택 + `gap:10px`로 분리(달라붙음 방지).
 이 수정은 `chatbot_components.py`에 있어 실 SB의 U-16 에러배너에도 동일 적용된다.
+
+### 4.4 어드민 SB — 템플릿 기반 ★
+
+관리자(백오피스) 화면. **PC 고정**(모바일/PC 질문 없음). 컴포넌트 룩은 **템플릿 1벌**
+(`templates/admin-<템플릿>.html`)이 단일 출처이고, 화면 본문은 화면별로 작성한다.
+
+```
+Step 0   작성자명 입력 요청 (★ 공통)
+Step 0.1 템플릿 선택 질문 (★ 필수) — "어떤 템플릿으로 만들까요?"
+           - 풀무원 디자인밀 → admin-pulmuone   (좌측 GNB + 상단 유틸바 + 그린)
+           - (향후) KRDS 기본 등
+           사용자가 "풀무원 버전으로"처럼 미리 답하면 그 값 사용.
+Step 0.2 화면 지정 질문 — "어떤 화면을 만들까요?"
+           - 등록된 화면(예: 주문상세) → 바로 생성
+           - 새 화면 → 시안 이미지/설명을 받아 본문 작성 (아래 Step 1.5)
+Step 1   fetch_guide.py --mode sb-pc --author "{author}" --feature-id "{ID}" --action create
+Step 1.5 (새 화면만) 본문 작성:
+           - templates/admin-<템플릿>.html 의 클래스(.adm-*)로 .wf-canvas 본문 + .desc-panel 작성
+           - samples/admin/ADM-ORDER-001.src.html 을 패턴으로 참고 (영역마다 .adm-num 배지 1:1)
+           - samples/admin/<ID>.src.html 로 저장하고 build_admin_sb.py SCREENS에 등록
+Step 2   python3 .claude/skills/feature-spec/scripts/build_admin_sb.py {화면키}
+           # 또는: --src samples/admin/<ID>.src.html --id <ID> --title "..." --path "..."
+```
+
+`build_admin_sb.py`가 한 번에 수행: ① 템플릿 스타일 + 화면 본문 결합 → ② `generate_sb.py --variant pc` 렌더.
+출력: `~/Downloads/SB_어드민/{ID}.html` (환경변수 `ADMIN_OUT`로 변경).
+
+규칙:
+- **variant = pc 고정**. §4.0의 PC 질문 생략. 모바일 페어 콘텐츠 동일성 규칙(가이드 PC §)은 어드민 단독이라 적용 안 함.
+- 넘버 배지는 프론트 표준(`.num-badge` 빨강 캡슐 스타일). `overflow:hidden` 컨테이너 안에 두지 말 것(가이드 §6.2).
+- 컴포넌트 룩 변경/추가는 `templates/admin-<템플릿>.html` 한 곳에서. 새 화면은 본문 src만 추가.
+- 챗봇과 달리 워크북이 없으므로 **새 화면은 시안(이미지/설명)** 이 입력 소스.
+- 환경변수: `ADMIN_OUT`(출력 루트, 기본 ~/Downloads/SB_어드민) · `ADMIN_AUTHOR`(작성자 기본 'AX Pilot').
 
 ## 5. 통합 모드
 

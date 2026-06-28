@@ -1,0 +1,83 @@
+<style>
+/* ===== 풀무원 디자인밀 어드민 템플릿 (PC) ===== */
+.admin-canvas{--dm-green:#8bc34a;--dm-green-d:#7cb342;--dm-bg:#ececec;--dm-line:#e3e3e3;--dm-red:#e53935;
+ width:1400px;min-height:900px;background:#fff;border-radius:0;overflow:visible;
+ box-shadow:0 2px 16px rgba(0,0,0,.08);font-family:var(--krds-font);color:#333;font-size:13px;position:relative;}
+.admin-canvas, .admin-canvas *{box-sizing:border-box;font-family:var(--krds-font);}
+.adm-num{position:absolute;z-index:6;min-width:22px;height:22px;padding:0 6px;border-radius:11px;
+ background:var(--krds-danger-5);color:var(--krds-danger-50);border:1px solid var(--krds-danger-50);
+ font-size:10px;font-weight:700;line-height:1;display:inline-flex;align-items:center;justify-content:center;}
+/* topbar */
+.adm-topbar{position:relative;height:58px;background:#fff;border-bottom:1px solid var(--dm-line);
+ display:flex;align-items:center;justify-content:space-between;padding:0 22px;}
+.adm-topbar>.adm-num{top:6px;left:6px;}
+.adm-logo{display:flex;align-items:center;gap:10px;}
+.adm-logo .mark{font-weight:800;font-size:13px;line-height:.95;letter-spacing:1px;color:#1f1f1f;}
+.adm-logo .dots{display:grid;grid-template-columns:repeat(3,4px);grid-auto-rows:4px;gap:2px;}
+.adm-logo .dots i{width:4px;height:4px;background:var(--dm-green);border-radius:1px;display:block;}
+.adm-logo .mode{font-style:italic;font-weight:700;font-size:18px;color:var(--dm-green-d);margin-left:8px;}
+.adm-utils{display:flex;align-items:center;gap:18px;color:#555;font-size:12.5px;}
+.adm-utils span{display:inline-flex;align-items:center;gap:6px;}
+.adm-utils .gi{width:13px;height:13px;border-radius:3px;background:var(--krds-gray-30);display:inline-block;}
+/* body row */
+.adm-body{display:flex;min-height:842px;}
+.adm-gnb{position:relative;width:198px;background:#f7f7f7;border-right:1px solid var(--dm-line);padding:8px 0;}
+.adm-gnb>.adm-num{top:6px;left:6px;}
+.adm-gnb .grp{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;color:#5a5a5a;}
+.adm-gnb .grp.active{color:var(--dm-green-d);font-weight:700;}
+.adm-gnb .grp .cv{font-size:9px;color:#b5b5b5;}
+.adm-gnb .grp.active .cv{color:var(--dm-green-d);}
+.adm-gnb .sub{background:#fff;border-top:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;}
+.adm-gnb .sub a{display:block;padding:9px 18px 9px 30px;color:#8a8a8a;text-decoration:none;font-size:12.5px;}
+.adm-gnb .sub a.active{color:var(--dm-green-d);font-weight:700;}
+/* main */
+.adm-main{position:relative;flex:1;background:var(--dm-bg);padding:20px 24px 56px;}
+.adm-page-head{position:relative;display:flex;align-items:center;justify-content:space-between;margin:2px 2px 16px;}
+.adm-page-head>.adm-num{top:-4px;left:-12px;}
+.adm-page-head .ttl{font-size:19px;font-weight:700;color:var(--dm-green-d);}
+.adm-page-head .ttl .oid{color:#444;font-weight:700;}
+.adm-page-head .acts{display:flex;gap:12px;}
+.adm-page-head .acts .gi{width:22px;height:20px;border-radius:3px;background:#cfcfcf;display:inline-block;}
+.adm-card{position:relative;background:#fff;border:1px solid var(--dm-line);border-radius:4px;margin-bottom:14px;}
+.adm-card>.adm-num{top:-9px;left:-9px;}
+.adm-kv{display:grid;grid-template-columns:120px 1fr 120px 1fr 120px 1fr;}
+.adm-kv>div{padding:13px 16px;border-bottom:1px solid #f1f1f1;font-size:13px;}
+.adm-kv .k{color:#777;}
+.adm-kv .v{color:#333;}
+.adm-kv .lastrow{border-bottom:none;}
+/* 배송지 */
+.adm-ship{display:grid;grid-template-columns:120px 210px 1fr 150px 130px;}
+.adm-ship .h{background:#fafafa;color:#777;padding:11px 16px;border-bottom:1px solid #eee;font-size:12.5px;text-align:center;}
+.adm-ship .c{padding:14px 16px;color:#333;font-size:13px;text-align:center;}
+.adm-ship .c.l{text-align:left;}
+.adm-pill-input{display:inline-block;border:1px solid var(--dm-line);border-radius:16px;padding:6px 14px;color:#555;background:#fafafa;font-size:12.5px;}
+/* memo + summary */
+.adm-flex{display:flex;gap:14px;margin-bottom:14px;align-items:stretch;}
+.adm-memo{position:relative;flex:1;background:#fff;border:1px solid var(--dm-line);border-radius:4px;padding:14px;}
+.adm-memo .ta{width:100%;height:300px;border:1px solid #e8e8e8;border-radius:4px;background:#f0f0f0;color:#aaa;padding:12px;font-size:13px;}
+.adm-summary{position:relative;width:330px;background:#fff;border:1px solid var(--dm-line);border-radius:4px;padding:6px 0;}
+.adm-summary .row{display:flex;justify-content:space-between;padding:11px 18px;font-size:13px;border-bottom:1px solid #f3f3f3;}
+.adm-summary .row .lb{color:#666;}
+.adm-summary .row .vl{color:#333;}
+.adm-summary .row .vl.red{color:var(--dm-red);}
+.adm-summary .row.total{font-weight:700;border-bottom:none;}
+.adm-summary .total-box{margin:6px 14px 12px;background:#ededed;border-radius:4px;padding:12px 14px;color:#444;font-size:13px;}
+/* actions */
+.adm-actions{position:relative;display:flex;justify-content:flex-end;gap:10px;margin-bottom:14px;}
+.adm-actions>.adm-num{top:2px;left:-12px;}
+.adm-btn{background:var(--dm-green);color:#fff;border:none;border-radius:18px;padding:9px 24px;font-size:13px;font-weight:600;font-family:var(--krds-font);}
+/* warn */
+.adm-warn{position:relative;color:var(--dm-red);font-size:13px;font-weight:600;margin:6px 2px 12px;}
+.adm-warn>.adm-num{top:-2px;left:-12px;}
+/* table */
+.adm-table-wrap{position:relative;background:#fff;border:1px solid var(--dm-line);border-radius:4px;overflow:visible;}
+.adm-table-wrap>.adm-num{top:-9px;left:-9px;}
+.adm-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.adm-table th{background:#fff;color:#777;font-weight:600;padding:13px 6px;border-bottom:1px solid #eaeaea;text-align:center;white-space:nowrap;}
+.adm-table td{padding:16px 6px;border-bottom:1px solid #f2f2f2;color:#444;text-align:center;}
+.adm-table td.l{text-align:left;}
+.adm-status{display:inline-block;border:1px solid var(--dm-green);color:var(--dm-green-d);border-radius:14px;padding:5px 14px;font-size:12px;}
+.adm-chk{width:15px;height:15px;border:1px solid #c9c9c9;border-radius:3px;display:inline-block;vertical-align:middle;}
+/* fab */
+.adm-fab{position:absolute;right:18px;bottom:14px;width:38px;height:38px;border-radius:50%;background:var(--dm-green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+</style>
