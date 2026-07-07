@@ -62,6 +62,11 @@ ls ~/.claude/skills/feature-spec
 
 마지막 줄 결과에 `SKILL.md`, `scripts`, `templates` 가 보이면 ✅
 
+```bash
+# 4) 엑셀 워크북 기반 기능(풀무원 어드민 SB, 챗봇 SB)용 파이썬 패키지
+python3 -m pip install openpyxl
+```
+
 ### Windows 사용자
 
 [Git for Windows](https://git-scm.com/download/win) 설치 후 **Git Bash** 실행:
@@ -70,6 +75,7 @@ ls ~/.claude/skills/feature-spec
 mkdir -p ~/.claude/skills
 git clone <https://github.com/starryetribe-droid/AX-Pilot.git> ~/.claude/skills/feature-spec
 ls ~/.claude/skills/feature-spec
+python -m pip install openpyxl
 ```
 
 > **스킬 업데이트를 받고 싶을 때** (가이드가 갱신되면 관리자가 안내해드림):
@@ -167,6 +173,22 @@ Claude Desktop 앱의 **Code 탭**에서 자연어로 요청하세요:
 | 명세서 + 화면 설계서(SB) 모두 | `A-02 기획해줘` |
 | 화면 설계서만 (PRD 이미 있을 때) | `A-01 PRD에서 SB 생성` |
 | 부분 수정 | `A-01-003 화면 4번 항목 문구 수정` |
+| **풀무원 어드민 SB** (기능정의 엑셀 기반) | `풀무원 SB 만들고 싶어` |
+
+### 풀무원 어드민 SB 흐름 (참고)
+
+```
+"풀무원 SB 만들고 싶어"
+    ↓
+① 작성자명 입력
+    ↓
+② 기능정의 엑셀(세부기능정의 워크북 xlsx) 첨부
+    ↓
+③ PRD 자동 생성 (워크북 커버리지 기계 검증 포함) → 내용 확인 후 "컨펌"
+    ↓
+④ SB 자동 생성 (풀무원 디자인밀 템플릿 · PC)
+    → 저장: ~/Downloads/SB_어드민/ + 작업 폴더의 "90. 어드민/SB/"
+```
 
 ### 동작 흐름 (참고)
 
