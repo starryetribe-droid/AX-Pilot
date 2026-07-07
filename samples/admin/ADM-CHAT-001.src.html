@@ -1,0 +1,272 @@
+<div class="wf-panel">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas admin-canvas">
+
+      <!-- 1. 상단 유틸리티 바 -->
+      <div class="adm-topbar">
+        <span class="adm-num">1</span>
+        <div class="adm-logo">
+          <span class="mark">DESIGN<br>MEAL</span>
+          <span class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="mode">Admin Mode</span>
+        </div>
+        <div class="adm-utils">
+          <span><span class="gi"></span>관리자(admin)</span>
+          <span><span class="gi"></span>Dark Mode</span>
+          <span><span class="gi"></span>View Site</span>
+          <span><span class="gi"></span>Log Out</span>
+        </div>
+      </div>
+
+      <div class="adm-body">
+
+        <!-- 2. 좌측 GNB -->
+        <div class="adm-gnb">
+          <span class="adm-num">2</span>
+          <div class="grp">CRM <span class="cv">▾</span></div>
+          <div class="grp">기준관리 <span class="cv">▾</span></div>
+          <div class="grp">상품관리 <span class="cv">▾</span></div>
+          <div class="grp">주문관리 <span class="cv">▾</span></div>
+          <div class="grp">프로모션 관리 <span class="cv">▾</span></div>
+          <div class="grp">멤버쉽 <span class="cv">▾</span></div>
+          <div class="grp">디자이너 관리 <span class="cv">▾</span></div>
+          <div class="grp">BBS/CS <span class="cv">▾</span></div>
+          <div class="grp active">챗봇 관리 <span class="cv">▴</span></div>
+          <div class="sub">
+            <a class="active">챗봇 대화 내역</a>
+          </div>
+          <div class="grp">컨텐츠 관리 <span class="cv">▾</span></div>
+          <div class="grp">설문관리 <span class="cv">▾</span></div>
+          <div class="grp">통계 <span class="cv">▾</span></div>
+          <div class="grp">환경설정 <span class="cv">▾</span></div>
+          <div class="grp">이력 <span class="cv">▾</span></div>
+        </div>
+
+        <!-- main -->
+        <div class="adm-main">
+
+          <!-- 3. 페이지 헤더 -->
+          <div class="adm-page-head">
+            <span class="adm-num">3</span>
+            <div class="ttl">챗봇 대화 내역</div>
+          </div>
+
+          <!-- 4. 필터 조건값 / 5. 검색·초기화 -->
+          <div class="adm-card">
+            <span class="adm-num">4</span>
+            <div class="adm-filter">
+              <div class="k"><span class="adm-num sub" style="margin-right:5px;">4-1</span>날짜(기간)</div>
+              <div class="v"><span class="adm-input">2026-06-29</span> ~ <span class="adm-input">2026-06-29</span></div>
+              <div class="k"><span class="adm-num sub" style="margin-right:5px;">4-2</span>검색</div>
+              <div class="v" style="grid-column:span 5;">
+                <span class="adm-select">검색어 전체 <span class="ar">▾</span></span>
+                <span class="adm-input" style="min-width:320px;">검색어를 입력해 주세요</span>
+              </div>
+              <div class="k"><span class="adm-num sub" style="margin-right:5px;">4-3</span>상담실 이관여부</div>
+              <div class="v"><span class="adm-select">전체 <span class="ar">▾</span></span></div>
+              <div class="k"><span class="adm-num sub" style="margin-right:5px;">4-4</span>미응답 여부</div>
+              <div class="v"><span class="adm-select">전체 <span class="ar">▾</span></span></div>
+              <div class="k"><span class="adm-num sub" style="margin-right:5px;">4-5</span>구매 전환 여부</div>
+              <div class="v"><span class="adm-select">전체 <span class="ar">▾</span></span></div>
+              <div class="k"><span class="adm-num sub" style="margin-right:5px;">4-6</span>대화 상태</div>
+              <div class="v"><span class="adm-select">전체 <span class="ar">▾</span></span></div>
+              <div class="k" style="border-bottom:none;"><span class="adm-num sub" style="margin-right:5px;">4-7</span>확인 결과</div>
+              <div class="v" style="border-bottom:none;"><span class="adm-select">전체 <span class="ar">▾</span></span></div>
+              <div class="k" style="border-bottom:none;"><span class="adm-num sub" style="margin-right:5px;">4-8</span>답변 피드백</div>
+              <div class="v" style="border-bottom:none;"><span class="adm-select">전체 <span class="ar">▾</span></span></div>
+              <div class="k" style="border-bottom:none;">&nbsp;</div>
+              <div class="v" style="border-bottom:none;grid-column:span 3;">&nbsp;</div>
+            </div>
+            <div class="adm-filter-acts" style="border-top:1px solid #f1f1f1;">
+              <span class="adm-num">5</span>
+              <button class="adm-btn">검색</button>
+              <button class="adm-btn-line">초기화</button>
+            </div>
+          </div>
+
+          <!-- 6. 리스트 솔팅 / 7. 엑셀 다운로드 -->
+          <div class="adm-toolbar">
+            <div class="total">총 4건</div>
+            <div class="right">
+              <span class="adm-num" style="position:static;">6</span>
+              <span class="adm-select" style="min-width:110px;">최신순 <span class="ar">▾</span></span>
+              <span class="adm-num" style="position:static;">7</span>
+              <button class="adm-btn-line">엑셀 다운로드</button>
+            </div>
+          </div>
+
+          <!-- 8. 대화 내역 테이블 -->
+          <div class="adm-table-wrap">
+            <span class="adm-num">8</span>
+            <table class="adm-table" style="font-size:11.5px;">
+              <thead>
+                <tr>
+                  <th style="width:36px"><span class="adm-num sub">8-1</span><br>No</th>
+                  <th><span class="adm-num sub">8-2</span><br>대화 고유 ID</th>
+                  <th><span class="adm-num sub">8-3</span><br>대화 식별 ID</th>
+                  <th><span class="adm-num sub">8-4</span><br>시작일시</th>
+                  <th><span class="adm-num sub">8-5</span><br>종료일시</th>
+                  <th><span class="adm-num sub">8-6</span><br>고객 ID</th>
+                  <th><span class="adm-num sub">8-7</span><br>대화 상태</th>
+                  <th><span class="adm-num sub">8-8</span><br>총 시간</th>
+                  <th><span class="adm-num sub">8-9</span><br>메시지 수</th>
+                  <th><span class="adm-num sub">8-10</span><br>사용 인텐트</th>
+                  <th><span class="adm-num sub">8-11</span><br>상담실<br>이관 여부</th>
+                  <th><span class="adm-num sub">8-12</span><br>미응답<br>여부</th>
+                  <th><span class="adm-num sub">8-13</span><br>구매 전환<br>여부</th>
+                  <th><span class="adm-num sub">8-14</span><br>확인 결과</th>
+                  <th><span class="adm-num sub">8-15</span><br>답변<br>피드백</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td><td>5b000af6-…-d34cea0e76fa</td><td>260629-142212-lyg701</td>
+                  <td>26-06-29 14:22:12</td><td>-</td><td>lyg701</td><td>대화 진행중</td>
+                  <td>-</td><td>3</td><td>주문내역 조회</td><td>N</td><td>N</td><td>N</td>
+                  <td>미확인</td><td>-</td>
+                </tr>
+                <tr style="background:#f6faf0;">
+                  <td>2</td><td>9c31b2d8-…-a01f4be21c77</td><td>260629-113408-kmjhappy</td>
+                  <td>26-06-29 11:34:08</td><td>26-06-29 11:41:17</td><td>kmjhappy</td><td>사용자 완료</td>
+                  <td>00:07:09</td><td>6</td><td>NDP문의</td><td>N</td><td>N</td><td>Y</td>
+                  <td>정답</td><td>긍정</td>
+                </tr>
+                <tr>
+                  <td>3</td><td>1f8a7c02-…-be90d2f6a4e1</td><td>260629-101155-psy202</td>
+                  <td>26-06-29 10:11:55</td><td>26-06-29 10:12:03</td><td>psy202</td><td>시스템 완료</td>
+                  <td>00:00:08</td><td>0</td><td>-</td><td>N</td><td>N</td><td>N</td>
+                  <td>미확인</td><td>-</td>
+                </tr>
+                <tr>
+                  <td>4</td><td>77d4e9ab-…-c3a58f01d92b</td><td>260629-095502-hjw331</td>
+                  <td>26-06-29 09:55:02</td><td>26-06-29 10:06:44</td><td>hjw331</td><td>사용자 완료</td>
+                  <td>00:11:42</td><td>8</td><td>배송지 변경</td><td>Y</td><td>Y(1)</td><td>N</td>
+                  <td>오답</td><td>부정</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 9. 페이지네이션 -->
+          <div class="adm-paging">
+            <span class="adm-num" style="position:static;">9</span>
+            <span>‹</span><span class="cur">1</span><span>2</span><span>3</span><span>›</span>
+          </div>
+
+          <div class="adm-fab">↑</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wf-sub-connector" style="padding-top:600px;">
+      <div class="wf-sub-connector-line"></div>
+      <div class="wf-sub-connector-label">테이블 행 클릭</div>
+    </div>
+
+    <div class="wf-sub-canvas admin-canvas" style="width:380px;min-height:0;margin-top:120px;">
+
+      <!-- 10. 팝업 헤더 / 14. 닫기 -->
+      <div class="adm-pop-head">
+        <span class="adm-num">10</span>
+        대화 로그
+        <span class="adm-pop-x"><span class="adm-num" style="position:static;margin-right:6px;">14</span>✕</span>
+      </div>
+
+      <!-- 10~12. 대화 상세 정보 -->
+      <div class="adm-pop-kv" style="position:relative;">
+        <div class="k">고객 ID</div><div class="v">kmjhappy</div>
+        <div class="k">대화 고유 ID</div>
+        <div class="v" style="position:relative;">9c31b2d8-…-a01f4be21c77 <span class="adm-copy"></span><span class="adm-num" style="position:static;margin-left:6px;">11</span></div>
+        <div class="k">대화 식별 ID</div>
+        <div class="v">260629-113408-kmjhappy <span class="adm-copy"></span></div>
+        <div class="k">메시지 수</div><div class="v">6</div>
+        <div class="k">상담실 이관 여부</div><div class="v">N</div>
+        <div class="k">미응답 여부</div><div class="v">N</div>
+        <div class="k">사용 인텐트</div><div class="v">NDP문의</div>
+        <div class="k">대화 상태</div><div class="v">사용자 완료</div>
+        <div class="k">총 시간</div>
+        <div class="v">26-06-29 11:34:08 ~ 26-06-29 11:41:17 (총 시간 00:07:09)</div>
+        <div class="k" style="position:relative;"><span class="adm-num" style="position:static;margin-right:4px;">12</span>API호출이력</div>
+        <div class="v">주문내역 API</div>
+      </div>
+
+      <!-- 13. 턴별 대화 로그 -->
+      <div class="adm-pop-sec" style="position:relative;"><span class="adm-num" style="position:static;margin-right:4px;">13</span>대화 로그</div>
+      <div class="adm-turn">
+        <div class="meta"><span class="adm-tag">NDP문의</span><span>26-06-29 11:34:21</span><span class="adm-tag gray">시나리오</span></div>
+        <div class="adm-bubble user">NDP가 뭔가요?</div>
+        <div class="adm-bubble bot">NDP(영양설계프로그램)는 고객님의 건강 데이터를 기반으로 식단을 설계하는 디자인밀의 맞춤 영양 프로그램입니다.</div>
+      </div>
+      <div class="adm-turn">
+        <div class="meta"><span class="adm-tag">주문내역 조회</span><span>26-06-29 11:36:05</span><span class="adm-tag gray">LLM</span><span class="adm-tag gray">주문내역 API</span></div>
+        <div class="adm-bubble user">내가 시킨 거 언제 와요?</div>
+        <div class="adm-bubble bot">6월 23일 주문하신 단백질관리Type 큐레이션 녹즙은 6월 30일 도착 예정입니다.</div>
+      </div>
+      <div class="adm-turn" style="border-bottom:none;padding-bottom:56px;">
+        <div class="meta"><span class="adm-tag">NDP문의</span><span>26-06-29 11:40:52</span><span class="adm-tag gray">RETRIEVAL</span></div>
+        <div class="adm-bubble user">고마워요</div>
+        <div class="adm-bubble bot">이용해 주셔서 감사합니다. 더 궁금하신 점이 있으면 언제든 말씀해 주세요.</div>
+      </div>
+
+      <!-- 11-1. 복사 토스트 -->
+      <div class="adm-toast">텍스트가 복사되었습니다.</div>
+    </div>
+  </div>
+</div>
+
+<div class="desc-panel">
+  <div class="desc-section">
+    <div class="desc-section-header">화면 정보</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">ADM-CHAT-001 · 챗봇 대화 내역</span></p></li>
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: 어드민 목록(조회 전용) + 대화 로그 팝업(오버레이)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 템플릿: 풀무원 디자인밀 (PC 고정)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 경로: Admin &gt; 챗봇 관리 &gt; 챗봇 대화 내역</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 소스: ADM-CHAT PRD (세부기능정의 워크북 기반)</span><br><span class="note">&nbsp;&nbsp;&nbsp;* GNB 메뉴 위치(챗봇 관리 그룹)는 워크북 미정의 — (제안)</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">UI 요소</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">1. 상단 유틸리티 바</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 좌: DESIGN MEAL 로고 + Admin Mode</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 우: 관리자(admin) · Dark Mode · View Site · Log Out</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">2. 좌측 GNB</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 활성: 챗봇 관리 → 하위 &lt;챗봇 대화 내역&gt; 선택</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 메뉴 접근 권한 보유 어드민 계정만 진입 가능</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">3. 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 타이틀 "챗봇 대화 내역"</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 진입 시 필터 기본값으로 자동 조회 (기간=당일 · 그 외 전체 · 최신순)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">4. 필터 조건값 (8종)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-1. 날짜(기간): 데이트피커, YYYY-MM-DD ~ YYYY-MM-DD</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 클릭 시 기간선택 달력 출력 / Default: 당일</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-2. 검색 기준 + 검색어</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 기준 셀렉박스 — Default: 검색어 전체 / 검색어 전체·고객 ID·대화 고유 ID·대화 식별 ID·사용 인텐트</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 검색어 인풋 — 플레이스홀더 "검색어를 입력해 주세요"</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-3. 상담실 이관여부 — Default: 전체 / 전체·상담실 이관 Y·상담실 이관 N</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-4. 미응답 여부 — Default: 전체 / 전체·미응답 Y·미응답 N</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-5. 구매 전환 여부 — Default: 전체 / 전체·구매 전환 Y·구매 전환 N</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-6. 대화 상태 — Default: 전체 / 전체·대화 진행중·사용자 완료·시스템 완료</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-7. 확인 결과 — Default: 전체 / 전체·미확인·정답·오답·모호</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-8. 답변 피드백 — Default: 전체 / 전체·긍정·부정·미답변</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. [검색] / [초기화] 버튼</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [검색] 클릭 또는 ENTER 시 필터 조건값으로 조회 실행</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [초기화] 클릭 시 선택/입력된 필터 조건값 초기화</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 초기화 후 재조회 여부는 워크북 미정의 — 조건값 리셋만 수행</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">6. 리스트 솔팅</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• Default: 최신순 / 최신순·오래된순</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 변경 시 테이블 재정렬</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">7. 엑셀 다운로드 버튼</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 클릭 시 현재 조회된 테이블 엑셀 다운로드 실행</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">8. 대화 내역 테이블 (15컬럼)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-1. No: 1부터 오름차순</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-2. 대화 고유 ID (예: 5b000af6-fbd4-40b1-8323-d34cea0e76fa)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-3. 대화 식별 ID (예: 260304-095502-lyg701)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-4/8-5. 시작·종료일시: YY-MM-DD HH:MM:SS, 세션 종료 전 "-"</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-6. 고객 ID / 8-7. 대화 상태(진행중·사용자 완료·시스템 완료)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-8. 총 시간: HH:MM:SS / 8-9. 메시지 수: 발화 없으면 0</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-10. 사용 인텐트: 해당 없으면 "-" (예: NDP문의)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-11. 상담실 이관 여부: Y/N</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-12. 미응답 여부: 미응답 시 Y(건수), 예: Y(1) / 없으면 N</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-13. 구매 전환 여부: 추천 상품 → 장바구니 이동 시 Y, 그 외 N</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-14. 확인 결과: 미확인·정답·오답·모호</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-15. 답변 피드백: 긍정·부정·-</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 각 행 클릭 시 대화 로그 팝업 출력 (⑩~⑭)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">9. 페이지네이션</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 워크북 미정의 — (제안) 10건/페이지, 이전·다음·번호 버튼</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">DIALOG — 대화 로그 팝업</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">10. 대화 상세 정보</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 고객 ID / 대화 고유 ID / 대화 식별 ID / 메시지 수 / 상담실 이관 여부 / 미응답 여부 / 사용 인텐트 / 대화 상태: 테이블 데이터와 동일하게 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 총 시간: YY-MM-DD HH:MM:SS ~ YY-MM-DD HH:MM:SS (총 시간 HH:MM:SS)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">11. 클립보드 복사</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 대화 고유 ID / 대화 식별 ID 우측에 클립보드 아이콘 노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 아이콘 클릭 시 ID 복사 처리 + 토스트 "텍스트가 복사되었습니다." 노출</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">12. API호출이력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 대화 중 호출된 API 출력 (예: 주문내역 API)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">13. 턴별 대화 로그</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 턴 구성: 사용 인텐트 / 발화 시점(YY-MM-DD HH:MM:SS) / 사용자 발화 메시지 / 챗봇 처리 모듈 / 챗봇 답변 메시지</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 처리 모듈: 시나리오 / LLM / RETRIEVAL / 상담실 / 가드레일</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 대화 중 API 호출된 경우 호출된 API 출력</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">14. 팝업 닫기</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 워크북 미정의 — (제안) X 버튼 + 배경 클릭 + ESC 키 / 닫기 후 목록 유지</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">동작 / 예외</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">진입 시 기본 조회</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 필터 기본값(기간=당일 · 전체 · 최신순)으로 대화 내역 조회 API 호출</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">조회 결과 0건</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 빈 목록 상태 — "조회된 대화 내역이 없습니다."</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">조회 API 실패</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 에러 상태 + 재시도 유도 — "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요."</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">엑셀 다운로드 실패</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 실패 토스트 — "다운로드에 실패했습니다. 다시 시도해주세요." / 목록 유지</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">접근 권한 없음</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 메뉴 접근 차단 — "접근 권한이 없습니다. 관리자에게 문의해주세요."</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">데이터 표기 예외</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 종료일시 없음(세션 종료 전) → "-"</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 사용자 발화 없음 → 메시지 수 0</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 해당 인텐트 없음 → "-"</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 미응답 없음 → N / 발생 시 Y(건수)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 구매 전환 미발생 → N</span></p></li>
+      </ul>
+    </div>
+  </div>
+</div>

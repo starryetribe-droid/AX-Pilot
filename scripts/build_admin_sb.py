@@ -28,6 +28,9 @@ SCREENS = {
     '주문상세': dict(id='ADM-ORDER-001', title='주문관리 > 주문상세',
                   path='Admin > 주문관리 > 주문상세',
                   src='samples/admin/ADM-ORDER-001.src.html'),
+    '챗봇대화내역': dict(id='ADM-CHAT-001', title='챗봇 관리 > 챗봇 대화 내역',
+                   path='Admin > 챗봇 관리 > 챗봇 대화 내역',
+                   src='samples/admin/ADM-CHAT-001.src.html'),
 }
 
 
