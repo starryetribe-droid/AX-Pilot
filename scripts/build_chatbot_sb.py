@@ -63,18 +63,29 @@ def build_index(target, outdir):
     return len(mods)
 
 def main():
-    if len(sys.argv) < 2:
-        sys.exit('사용법: python3 build_chatbot_sb.py <인텐트번호>   예) 7')
-    target = int(sys.argv[1])
+    args = [a for a in sys.argv[1:]]
+    generic = '--generic' in args
+    args = [a for a in args if a != '--generic']
+    if not args:
+        sys.exit('사용법: python3 build_chatbot_sb.py <인텐트번호> [--generic]   예) 7 / 7 --generic')
+    target = int(args[0])
     tag = f'IT{target:03d}'
-    out = os.path.join(OUT_ROOT, tag)
-    mirror = f'/tmp/sb_view/{tag}'
+    out_tag = f'{tag}_GENERIC' if generic else tag   # 제네릭 출력은 별도 폴더(실데이터 SB와 분리)
+    out = os.path.join(OUT_ROOT, out_tag)
+    mirror = f'/tmp/sb_view/{out_tag}'
     os.makedirs(out, exist_ok=True)
     json_path = os.path.join(HERE, '_build', f'{tag}_screens.json')
 
+    # 제네릭 모드 플래그를 변환기 서브프로세스에 환경변수로 전달
+    env = dict(os.environ)
+    if generic:
+        env['CHATBOT_GENERIC'] = '1'
+        print('· 제네릭(공통가이드) 모드: 와이어프레임=플레이스홀더, 디스크립션=변수명')
+
     # ① 변환
     print(f'① 변환  {tag} …')
-    subprocess.run([sys.executable, os.path.join(HERE, 'chatbot_to_sb.py'), str(target)], check=True)
+    subprocess.run([sys.executable, os.path.join(HERE, 'chatbot_to_sb.py'), str(target)],
+                   check=True, env=env)
     # ② SB HTML
     print(f'② 생성  → {out}')
     subprocess.run([sys.executable, GEN, '--variant', 'mobile',
@@ -89,7 +100,7 @@ def main():
 
     print('\n완료')
     print(f'  · Finder/브라우저: {out}/index.html')
-    print(f'  · 미리보기 서버:  http://127.0.0.1:8765/{tag}/index.html')
+    print(f'  · 미리보기 서버:  http://127.0.0.1:8765/{out_tag}/index.html')
 
 if __name__ == '__main__':
     main()

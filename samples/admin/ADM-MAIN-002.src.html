@@ -1,0 +1,85 @@
+<div class="wf-panel">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas admin-canvas" style="width:1000px;min-height:900px;background:#DFE2E6;display:flex;align-items:center;justify-content:center;padding:60px 0;">
+
+      <!-- 1. 배너 등록/수정 팝업 -->
+      <div class="adm-modal" style="width:520px;">
+        <span class="adm-num" style="top:-9px;left:-9px;">1</span>
+        <div class="m-head">
+          <span class="m-ttl">배너 등록/수정</span>
+          <span class="adm-anchor"><span class="adm-num sub">8</span><span class="m-x">✕</span></span>
+        </div>
+        <p class="m-desc">프론트 메인 배너 롤링 영역에 노출됩니다. (*표시는 필수 입력 사항입니다.)</p>
+        <div class="m-body">
+          <div class="adm-field"><span class="adm-num sub">2</span><label>배너명<span class="req">*</span></label><span class="adm-input ph">관리용 명칭을 입력해주세요 (프론트 미노출)</span></div>
+          <div class="adm-field"><span class="adm-num sub">3</span><label>배너 이미지<span class="req">*</span></label>
+            <div style="border:1px dashed #D3D7DD;border-radius:8px;padding:16px;display:flex;align-items:center;gap:12px;">
+              <span style="display:inline-block;width:120px;height:48px;background:#EEF0F3;border-radius:6px;"></span>
+              <span class="adm-btn line sm">파일 첨부</span>
+            </div>
+            <span class="help">권장 사이즈·용량·포맷(JPG/PNG) 안내 — 사이즈 정책 확정 필요</span>
+          </div>
+          <div class="adm-field"><span class="adm-num sub">4</span><label>배너 타이틀<span class="req">*</span></label><span class="adm-input ph">타이틀을 입력해주세요</span><span class="adm-count">0/00 (글자수 제한 추후 확정)</span></div>
+          <div class="adm-field"><span class="adm-num sub">5</span><label>배너 서브 타이틀</label><span class="adm-input ph">서브 타이틀을 입력해주세요</span><span class="adm-count">0/00 (글자수 제한 추후 확정)</span></div>
+          <div class="adm-field"><span class="adm-num sub">6</span><label>랜딩 URL</label><span class="adm-input ph">https:// (미입력 시 클릭 이동 없음)</span>
+            <span style="display:inline-flex;gap:16px;margin-top:4px;">
+              <span class="adm-opt"><span class="adm-radio on"></span>본창 이동</span>
+              <span class="adm-opt"><span class="adm-radio"></span>새창 이동</span>
+            </span>
+          </div>
+          <div class="adm-field"><span class="adm-num sub">7</span><label>노출 여부<span class="req">*</span></label>
+            <span style="display:inline-flex;gap:16px;">
+              <span class="adm-opt"><span class="adm-radio on"></span>노출</span>
+              <span class="adm-opt"><span class="adm-radio"></span>비노출</span>
+            </span>
+          </div>
+        </div>
+        <div class="m-foot" style="position:relative;">
+          <span class="adm-num sub" style="top:2px;left:-8px;">8-1</span>
+          <span class="adm-btn full">저장</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="desc-panel">
+  <div class="desc-section">
+    <div class="desc-section-header">화면 정보</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">ADM-MAIN-002 · 배너 등록/수정 팝업</span></p></li>
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: 모달 팝업 (W 520px)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 부모 화면: &lt;ADM-MAIN-001&gt; 메인 화면 관리 — ⑤ [배너 등록] 클릭(신규) / 배너 행 수정 진입(기존 값 바인딩 — 제안)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 딤: 부모 캔버스 전체 rgba(25,27,31,.5)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 소스: ADM-MAIN PRD (KTAX 세부기능정의 워크북 20260721 기반)</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">UI 요소</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">1. 팝업 컨테이너</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 타이틀 "배너 등록/수정" — 배너 등록/수정 화면 (등록/수정 공용, 수정 시 기존 값 바인딩)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">2. 배너명 입력 인풋필드 (필수)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 관리용 명칭 (프론트 미노출)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">3. 배너 이미지 업로드 (필수)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 파일 첨부 방식, 업로드 후 미리보기 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 권장 사이즈·용량·포맷(JPG/PNG) 안내 문구 노출 (사이즈 정책 확정 필요)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">4. 배너 타이틀 입력 (필수)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 글자수 제한, 정책은 추후 확정 — 카운터 표기</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. 배너 서브 타이틀 입력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 글자수 제한, 정책은 추후 확정 — 카운터 표기</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">6. 랜딩 URL 입력 인풋필드</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트에서 배너 클릭 시 해당 URL로 랜딩</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 미입력 시 배너 클릭 이동 없음</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 새창/본창 이동 선택 (라디오)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">7. 노출 여부 설정 (필수)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출 / 비노출 선택 (라디오)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">8. 닫기 / 8-1. 저장</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8. 닫기(✕): 입력값 미저장 종료</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 입력 중 닫기 시 확인 알럿 여부는 워크북 미정의 — (제안) 즉시 닫기</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 8-1. [저장]: 필수값 검증 후 저장, 프론트 배너 롤링에 반영</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출(Y) 상태 배너가 5건인 상태에서 노출(Y)로 등록 시도 시 등록 불가 처리 — 알럿 : '메인 배너는 최대 5개까지 노출 가능합니다.' (ADM-MAIN-001 ⑬)</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">동작 / 예외</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">필수값 미입력 저장 시도</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 해당 필드 에러 표시 — "필수 입력 항목입니다."</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">이미지 업로드 실패</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 실패 토스트 — "이미지 업로드에 실패했습니다. 다시 시도해주세요." / 팝업 유지</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">노출 5건 제한</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 저장 시점에 노출(Y) 배너 수 검사 — 5건 초과 시 등록 불가 + 알럿</span></p></li>
+      </ul>
+    </div>
+  </div>
+</div>

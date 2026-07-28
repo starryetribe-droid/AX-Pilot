@@ -141,8 +141,14 @@ def ensure_canvas_wrap(body: str, screen_id: str) -> str:
 
 
 def render_html(*, screen_id: str, title: str, path_str: str, author: str, ymd: str,
-                body: str, style_block: str, logo_data_url: str) -> str:
-    """단일 SB HTML 렌더링."""
+                body: str, style_block: str, logo_data_url: str, channel: str = "Front") -> str:
+    """단일 SB HTML 렌더링.
+
+    메타 헤더 구조 (사용자 확정 2026-07-22 — 레퍼런스 화면설계서 기준):
+      1행: 화면/컴포넌트 | {제목} | Local | KO | 화면ID(라벨) | 작성자(라벨) | 작성일(라벨)
+      2행: 화면경로     | {경로} | Channel | {채널} | {화면ID} | {작성자} | {작성일}
+    푸터: 버전 표기 없음, 우측 하단 ETRIBE 로고만 (background-image).
+    """
     # style block 안의 {LOGO_URL} placeholder 치환은 안 함 — 이미 base64가 들어있는 style block 사용
     return f'''<!DOCTYPE html>
 <html lang="ko">
@@ -160,20 +166,18 @@ def render_html(*, screen_id: str, title: str, path_str: str, author: str, ymd: 
 <!-- ===== ETRIBE: Top Meta Header ===== -->
 <table class="etribe-meta">
   <colgroup>
-    <col style="width:200px"><col><col style="width:140px"><col style="width:160px">
-    <col style="width:140px"><col style="width:280px"><col style="width:140px"><col style="width:200px">
+    <col style="width:200px"><col><col style="width:150px"><col style="width:220px">
+    <col style="width:260px"><col style="width:170px"><col style="width:170px">
   </colgroup>
   <tr>
     <th>화면/컴포넌트</th><td>{title}</td>
     <th>Local</th><td>KO</td>
-    <th>화면ID</th><td>{screen_id}</td>
-    <th>작성자</th><td>{author}</td>
+    <th>화면ID</th><th>작성자</th><th>작성일</th>
   </tr>
   <tr>
     <th>화면경로</th><td>{path_str}</td>
-    <th>Channel</th><td>Front</td>
-    <th></th><td></td>
-    <th>작성일</th><td>{ymd}</td>
+    <th>Channel</th><td>{channel}</td>
+    <td>{screen_id}</td><td>{author}</td><td>{ymd}</td>
   </tr>
 </table>
 
@@ -181,10 +185,8 @@ def render_html(*, screen_id: str, title: str, path_str: str, author: str, ymd: 
 {body}
 </div>
 
-<!-- ETRIBE Footer -->
-<div class="etribe-footer">
-  <span class="ver">Ver.0.1 (1)</span>
-</div>
+<!-- ETRIBE Footer (우측 하단 로고 — background-image) -->
+<div class="etribe-footer"></div>
 
 </div><!-- /.sb-page -->
 
@@ -227,6 +229,7 @@ def main():
     feature_id = data.get("feature_id", "")
     author = data.get("author", "-")
     ymd = data.get("ymd", "")
+    channel = data.get("channel", "Front")
     screens = data.get("screens", [])
 
     if not screens:
@@ -250,6 +253,7 @@ def main():
             body=body,
             style_block=style_block,
             logo_data_url=logo_data_url,
+            channel=channel,
         )
         out_path = out_dir / f"{sid}.html"
         out_path.write_text(html, encoding="utf-8")

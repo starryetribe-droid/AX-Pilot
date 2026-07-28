@@ -1,0 +1,121 @@
+<div class="wf-panel">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas admin-canvas" style="min-height:0;">
+
+      <!-- 1. 헤더 -->
+      <div class="adm-topbar">
+        <span class="adm-num">1</span>
+        <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">KT AX Admin</span></div>
+        <div class="adm-utils">
+          <span class="u"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
+          <span class="divider"></span>
+          <span class="adm-btn ghost sm">로그아웃</span>
+        </div>
+      </div>
+
+      <div class="adm-body">
+        <!-- 2. LNB -->
+        <div class="adm-gnb">
+          <span class="adm-num">2</span>
+          <div class="grp">대시보드</div>
+          <div class="grp active">메인 관리 <span class="cv">▴</span></div>
+          <div class="sub">
+            <a>메인 배너 관리</a>
+            <a class="active">메인 콘텐츠 관리</a>
+            <a>메인 팝업 관리</a>
+          </div>
+          <div class="grp">AX 솔루션 컨설턴트 <span class="cv">▾</span></div>
+          <div class="grp">AX 도입 관리 <span class="cv">▾</span></div>
+          <div class="grp">도입사례 관리 <span class="cv">▾</span></div>
+          <div class="grp">인사이트 관리 <span class="cv">▾</span></div>
+          <div class="grp">이벤트 관리 <span class="cv">▾</span></div>
+          <div class="grp">문의 관리 <span class="cv">▾</span></div>
+          <div class="grp">시스템 관리 <span class="cv">▾</span></div>
+        </div>
+
+        <div class="adm-main">
+          <div class="adm-content">
+
+            <!-- 3. 페이지 헤더 -->
+            <div class="adm-pagebar">
+              <span class="adm-num">3</span>
+              <div class="left">
+                <span class="ttl">메인 콘텐츠 관리</span>
+                <span class="adm-crumb">Home <span class="sep">›</span> 메인 관리 <span class="sep">›</span> 메인 콘텐츠 관리 <span class="sep">›</span> <span class="cur">신뢰 지표 관리</span></span>
+              </div>
+            </div>
+
+            <!-- 4. 탭 (Fixed) -->
+            <div style="position:relative;">
+              <span class="adm-num" style="top:-4px;left:-30px;">4</span>
+              <div class="adm-tabs fixed">
+                <span class="tab">도입사례 관리</span>
+                <span class="tab">인사이트 관리</span>
+                <span class="tab active">신뢰 지표 관리</span>
+              </div>
+            </div>
+
+            <!-- 5. 핵심 지표 리스트 / 6. 저장 -->
+            <div class="adm-card">
+              <span class="adm-num">5</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                <span style="font-size:17px;font-weight:700;">신뢰 지표 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">메인 하단 신뢰 지표 영역 · 3개 항목 고정 · 텍스트만 노출</span></span>
+                <span class="adm-anchor">
+                  <span class="adm-num">6</span>
+                  <span class="adm-btn">저장</span>
+                </span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+                <div style="border:1px solid #E4E7EB;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+                  <div style="font-size:12px;font-weight:600;color:#8A919C;">지표 1</div>
+                  <div class="adm-field"><span class="adm-num sub">5-1</span><label>지표값</label><span class="adm-input">40+</span></div>
+                  <div class="adm-field"><span class="adm-num sub">5-2</span><label>설명 텍스트</label><span class="adm-input">AX 상품·서비스</span></div>
+                </div>
+                <div style="border:1px solid #E4E7EB;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+                  <div style="font-size:12px;font-weight:600;color:#8A919C;">지표 2</div>
+                  <div class="adm-field"><label>지표값</label><span class="adm-input">AX Total Service</span></div>
+                  <div class="adm-field"><label>설명 텍스트</label><span class="adm-input">5 Layer MAGIC</span></div>
+                </div>
+                <div style="border:1px solid #E4E7EB;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:12px;">
+                  <div style="font-size:12px;font-weight:600;color:#8A919C;">지표 3</div>
+                  <div class="adm-field"><label>지표값</label><span class="adm-input">Alliance·Expert</span></div>
+                  <div class="adm-field"><label>설명 텍스트</label><span class="adm-input">산업·기술 전문 파트너</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="desc-panel">
+  <div class="desc-section">
+    <div class="desc-section-header">화면 설명</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page / 명칭: IA = «신뢰 지표 관리» (세부기능정의 «핵심 지표 관리»와 동일 대상)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 탭 페어: 도입사례 관리 &lt;KTAX-AD-MN01-2000&gt; · 인사이트 관리 &lt;KTAX-AD-MN01-2100&gt;</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트 연동: 메인 &gt; 핵심 지표 (신뢰 지표 영역) — 신뢰 소구용 지표 노출, 클릭 이동 없음</span></p></li>
+      
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">Description</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">1~4. 헤더 · LNB · 페이지 헤더 · 탭</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 도입사례 관리 화면과 동일 구조 (탭 활성만 상이)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. 핵심 지표 리스트 (3개 항목)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 메인 하단 신뢰 지표 영역에 노출되는 지표 3개 항목 출력</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예 : 40+ / AX 상품·서비스, AX Total Service / 5 Layer MAGIC, Alliance·Expert / 산업·기술 전문 파트너</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-1. 지표값 입력 인풋필드 (수치 또는 텍스트)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-2. 설명 텍스트 입력 인풋필드</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 텍스트만 노출 (이미지 없음, 클릭 이동 없음) / 노출 개수 3개 고정</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 항목 추가/삭제 정책 확정 필요 (워크북 명기)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">6. 지표 수정 — [저장]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 클릭 시 3개 항목 일괄 저장 → 프론트 신뢰 지표 영역 반영</span></p></li>
+      
+        <li><p class="desc-block"><span class="lvl1">[동작 / 예외]</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">빈 값 저장 시도</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 해당 필드 에러 — "지표값과 설명 텍스트를 입력해주세요."</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">저장 API 실패</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요."</span></p></li>
+      
+      </ul>
+    </div>
+  </div>
+</div>

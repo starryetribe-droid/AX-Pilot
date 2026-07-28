@@ -51,6 +51,67 @@ class Helpers:
         self.esc = html.escape
         self.parse_kv = staticmethod(parse_kv)
 
+# ===== 제네릭(공통가이드) 모드 — 역할→타입 플레이스홀더 =====
+# 화면설계서를 브랜드/실데이터 없이 공통가이드로 재사용하기 위한 변환.
+# 콘텐츠 역할(텍스트/금액 등)은 영문 타입명 플레이스홀더로 치환하고,
+# 제어 역할(렌더 분기 결정)·구조 역할(필드맵)은 보존해 컴포넌트 형태를 유지한다.
+# 플레이스홀더 = 이 자리에 들어갈 콘텐츠의 '필드/타입 이름'(실제 문구·값처럼 보이면 안 됨).
+ROLE_PLACEHOLDER = {
+    'primaryText': 'Body text', 'text': 'Body text', 'title': 'Title', 'subtitle': 'Subtitle',
+    'message': 'Message', 'detail': 'Detail', 'loadingText': 'Loading text',
+    'placeholder': 'Placeholder', 'buttonLabel': 'Button label', 'subText': 'Sub text',
+    'amount': 'Amount', 'default': 'Value',
+}
+# 보존 역할: 렌더 분기(status/layout/mode/cancelable) + 필드 구조 판별(listItems/cardItems).
+# listItems/cardItems의 렌더러(_list_item)는 이미 고정 플레이스홀더('상품명 N' 등)를
+# 그리므로 원본을 보존해도 실데이터가 노출되지 않는다.
+GENERIC_PRESERVE = {'status', 'cancelable', 'layout', 'mode', 'animation', 'listItems', 'cardItems'}
+# 설정(config) 역할: 데이터 변수가 아니라 고정 설정값(불리언/enum). 디스크립션에 변수명({{}})이
+# 아니라 실제 설정값(false·spinner·horizontal 등)을 그대로 표기한다.
+GENERIC_CONFIG_ROLES = {'status', 'cancelable', 'layout', 'mode', 'animation'}
+# 텍스트 역할 폴백 — PROMPT_PAIRED 선행 버블 등 제네릭 안내 문구.
+GENERIC_PROMPT = 'Prompt'
+# 변환기가 set: app_bar 등 공통 chrome의 브랜드명을 중립화할지 여부.
+GENERIC_MODE = False
+
+def _generic_buttons(s):
+    """버튼 라벨만 'Button N'으로 치환, action은 보존(primary/취소 분기 유지)."""
+    btns = parse_buttons(s)
+    if not btns:
+        return 'Button 1(action)'
+    return ' | '.join((f'Button {i+1}({act})' if act else f'Button {i+1}')
+                      for i, (_lbl, act) in enumerate(btns))
+
+def _generic_kv(s, single=False):
+    """kv 행 수를 보존하며 'Label N=Value'로 치환."""
+    n = len(_pipe(s)) or (1 if single else 2)
+    if single:
+        return 'Label=Value'
+    return ' | '.join(f'Label {i+1}=Value' for i in range(n))
+
+def _generic_options(s):
+    """옵션 칩 개수를 보존하며 'Option N'으로 치환."""
+    n = len(_pipe(s)) or 3
+    return ' | '.join(f'Option {i+1}' for i in range(n))
+
+def genericize_roles(roles):
+    """roles 딕셔너리를 공통가이드용 플레이스홀더로 변환(렌더러는 무수정)."""
+    out = {}
+    for r, v in (roles or {}).items():
+        if r in GENERIC_PRESERVE:
+            out[r] = v
+        elif r == 'buttons':
+            out[r] = _generic_buttons(v)
+        elif r == 'kvRows':
+            out[r] = _generic_kv(v)
+        elif r == 'highlight':
+            out[r] = _generic_kv(v, single=True)
+        elif r == 'quickOptions':
+            out[r] = _generic_options(v)
+        else:
+            out[r] = ROLE_PLACEHOLDER.get(r, r)   # 폴백: 역할 키 그대로
+    return out
+
 # ===== 공유 프리미티브 =====
 def avatar():
     return ('<span style="width:30px;height:30px;border-radius:50%;background:var(--krds-gray-10);'
@@ -88,7 +149,9 @@ def _btn(label, primary=False):
             f'border-radius:var(--krds-radius-md);background:var(--krds-gray-0);color:var(--krds-primary-50);'
             f'font-size:14px;font-weight:600;cursor:pointer;padding:0 12px;">{html.escape(label)}</button>')
 
-def app_bar(title='디자인밀 AI'):
+def app_bar(title=None):
+    if title is None:
+        title = 'AI 챗봇' if GENERIC_MODE else '디자인밀 AI'   # 제네릭 모드는 브랜드명 중립화
     return ('<div class="krds-app-bar">'
             '<button class="krds-app-bar-back" style="font-size:20px;">←</button>'
             f'<div class="krds-app-bar-title">{html.escape(title)}</div>'

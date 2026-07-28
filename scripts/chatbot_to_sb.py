@@ -13,6 +13,9 @@ import chatbot_components as cc
 
 SUP = os.environ.get('CHATBOT_XLSX',
                      '/Users/Starry/Downloads/풀무원_디자인밀_AI챗봇_인텐트정의_보완_20260602.xlsx')
+# 제네릭(공통가이드) 모드: 와이어프레임=역할 플레이스홀더, 디스크립션=변수명.
+GENERIC = str(os.environ.get('CHATBOT_GENERIC', '')).strip().lower() in ('1', 'true', 'yes')
+cc.GENERIC_MODE = GENERIC   # app_bar 등 공통 chrome 브랜드명 중립화
 TARGET = int(sys.argv[1]) if len(sys.argv) > 1 else 7
 BUILD_DIR = os.path.join(HERE, '_build')
 os.makedirs(BUILD_DIR, exist_ok=True)
@@ -93,7 +96,18 @@ def roles_of(code, comp):
     for (c, slot, _srctype, value, _note) in binds[code]:
         if c == comp:
             roles[ROLE.get((c, slot), slot)] = value
+    if GENERIC:
+        roles = cc.genericize_roles(roles)
     return roles
+
+def var_of(value, slot, role):
+    """디스크립션용 변수명: 동적 바인딩은 {{경로}}, 정적/리터럴은 {{슬롯명}}.
+    단 제어/설정 역할(cancelable·layout·mode·status·animation)은 데이터 변수가 아니므로
+    실제 설정값(false·spinner 등)을 그대로 둔다."""
+    if role in cc.GENERIC_CONFIG_ROLES:
+        return str(value)
+    m = re.search(r'\{\{\s*([^}]+?)\s*\}\}', str(value or ''))
+    return '{{' + m.group(1).strip() + '}}' if m else '{{' + str(slot) + '}}'
 
 # ---------- desc-panel (AX Pilot 규칙: 한 항목 = 하나의 desc-block) ----------
 def db(parts):  return '<li><p class="desc-block">' + '<br>'.join(parts) + '</p></li>'
@@ -144,7 +158,8 @@ for m in modules:
             continue
         roles = roles_of(code, comp)
         msgs += cc.bot_row(renderer(roles, h), n)
-        bds = [f"{slot} ({SRC_TAG.get(srctype, srctype)}): {value}"
+        bds = [f"{slot} ({SRC_TAG.get(srctype, srctype)}): "
+               f"{var_of(value, slot, ROLE.get((c, slot), slot)) if GENERIC else value}"
                for (c, slot, srctype, value, _note) in binds[code] if c == comp]
         cname = CNAME.get(comp, comp)
         ui_items.append((n, f'{n}. {comp} {cname} — {m["name"]}', bds))

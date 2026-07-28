@@ -217,7 +217,7 @@ Step 1   python3 .claude/skills/feature-spec/scripts/fetch_guide.py \
            --mode sb-mobile --author "{author}" \
            --feature-id "IT{NNN}" --action create        # §13 카탈로그 포함
 Step 2   CHATBOT_XLSX="{워크북경로}" \
-         python3 .claude/skills/feature-spec/scripts/build_chatbot_sb.py {인텐트번호}
+         python3 .claude/skills/feature-spec/scripts/build_chatbot_sb.py {인텐트번호} [--generic]
 ```
 
 `build_chatbot_sb.py`가 한 번에 수행:
@@ -232,7 +232,23 @@ Step 2   CHATBOT_XLSX="{워크북경로}" \
 - 일반 SB의 Step 2~4(PRD 분석·화면 분리·수기 screens.json)는 **건너뛴다**. 변환기가 워크북 단일 소스로 전 과정 수행.
 - 화면 = 인텐트의 단계(모듈). 봇 답변 = (선택) 텍스트 말풍선 + 리치 컴포넌트 (§13.2).
 - 새 시각 유형이 필요하면 `chatbot_components.py`에 아키타입 렌더러만 추가(§13.4) — 변환기·SKILL 수정 불필요.
-- 환경변수: `CHATBOT_XLSX`(워크북, 필수) · `CHATBOT_OUT`(출력 루트) · `CHATBOT_AUTHOR`(작성자 기본 'AX Pilot').
+- 환경변수: `CHATBOT_XLSX`(워크북, 필수) · `CHATBOT_OUT`(출력 루트) · `CHATBOT_AUTHOR`(작성자 기본 'AX Pilot') · `CHATBOT_GENERIC`(=1 시 제네릭 모드, `--generic`과 동일).
+
+### ★ 제네릭(공통가이드) 모드 — `--generic`
+
+화면설계서를 **브랜드·실데이터 없이 공통가이드로 재사용**할 때 사용. 기본은 실데이터 모드(미지정).
+출력은 별도 폴더 `IT{NNN}_GENERIC/`(컴포넌트 가이드는 `*-generic.html`)에 생성 — 실데이터 SB와 분리.
+
+변환 규칙(단일 출처 = `chatbot_components.genericize_roles`):
+- **와이어프레임**: 콘텐츠 역할 → 영문 타입 플레이스홀더. `title→Title` · `primaryText/text→Body` ·
+  `message→Message` · `amount→00,000원` · `kvRows→Label N=Value`(행 수 보존) ·
+  `buttons→Button N`(action 보존) · `quickOptions→Option N`.
+- **디스크립션**: 실값 대신 **변수명**. 동적 바인딩=`{{경로}}`, 정적=`{{슬롯명}}`.
+  단 제어/설정 역할(`cancelable`·`layout`·`mode`·`status`·`animation`)은 데이터 변수가 아니므로
+  실제 설정값(`false`·`spinner` 등) 그대로 표기.
+- **보존**(중립화 안 함): 렌더 분기 역할 `status`·`layout`·`mode`·`cancelable`, 필드 구조 `listItems`·`cardItems`
+  (렌더러가 이미 고정 플레이스홀더 출력), 앱바 브랜드명은 'AI 챗봇'으로 중립화.
+- 인텐트명/화면 제목/진입 발화는 **유지**(플로우 식별자라 중립화하면 의미 상실).
 
 ### ★ 모달/다이얼로그 처리 규칙 (절대 어기지 말 것)
 
@@ -296,8 +312,11 @@ Step 1   python3 .claude/skills/feature-spec/scripts/fetch_guide.py \
            --mode sb-mobile --author "{author}" --action view   # §13 카탈로그 포함(선택)
 Step 2   CHATBOT_XLSX="{워크북경로}" \
          python3 .claude/skills/feature-spec/scripts/build_component_guide.py \
-           [--intents 7,9,10,14] [--format web|sb|both]   # 기본 both
+           [--intents 7,9,10,14] [--format web|sb|both] [--generic]   # 기본 both
 ```
+
+`--generic`: 프리뷰를 실 바인딩값 대신 **역할 타입 플레이스홀더**로 렌더(공통가이드용, §4.2 제네릭 규칙과 동일).
+출력 파일은 `*-generic.html`로 분리.
 
 `build_component_guide.py` 동작:
 - ① 07 → 컴포넌트 메타(코드·명·분류·정의·사용 답변유형)
@@ -335,8 +354,9 @@ Step 2   CHATBOT_XLSX="{워크북경로}" \
 ```
 Step 0   작성자명 입력 요청 (★ 공통)
 Step 0.1 템플릿 선택 질문 (★ 필수) — "어떤 템플릿으로 만들까요?"
+           - 공통 어드민(권장 기본) → admin-common  (2560px 프레임 + 무채색/그린 포인트, §4.4.2)
            - 풀무원 디자인밀 → admin-pulmuone   (좌측 GNB + 상단 유틸바 + 그린)
-           - (향후) KRDS 기본 등
+           - KRDS 기본 → admin-krds
            사용자가 "풀무원 버전으로"처럼 미리 답하면 그 값 사용.
 Step 0.2 화면 지정 질문 — "어떤 화면을 만들까요?"
            - 등록된 화면(예: 주문상세) → 바로 생성
@@ -379,7 +399,77 @@ Step 2   python3 .claude/skills/feature-spec/scripts/build_admin_sb.py {화면�
 - 3→4 사이 컨펌 없이 SB로 넘어가지 말 것.
 - 워크북 없이 시안/기존 PRD로 바로 SB를 원하면 §4.4 기본 플로우로 진행(이때도 소스 확인 질문 필수).
 
-## 5. 통합 모드
+### 4.4.2 ★ 공통 어드민 템플릿 (admin-common) — 프레임·퍼블리싱 규격 (사용자 확정 2026-07-21)
+
+브랜드 무관 공통 어드민의 **권장 기본 템플릿**. 디자인 시스템 단일 출처 =
+워크스페이스 `90. 어드민/DesignSystem/admin-common-design-system.html` (컴포넌트 룩·토큰·상태 정의,
+저장소 사본: `reference/admin-common-design-system.html` — 워크스페이스본 수정 시 사본도 갱신).
+템플릿(`templates/admin-common.html`)은 이 시스템에서 추출한 것 — **룩 수정은 디자인 시스템 → 템플릿 순으로 반영**.
+
+**프레임 규격 (절대 어기지 말 것)**:
+
+| 항목 | 값 |
+|------|-----|
+| `.admin-canvas` | **W 2560px 고정** · min-height 1504px (헤더 64 + 바디 1440) |
+| 헤더 `.adm-topbar` | H 64px 풀폭 |
+| LNB `.adm-gnb` | W 260px |
+| 콘텐츠 `.adm-content` | **W 1440px 고정**, `.adm-main`(flex 중앙)이 자동 센터링 |
+| 수직 여백 | 콘텐츠 상단 48px / 하단 96px (`.adm-content` padding에 내장) |
+| 수직 리듬 | 카드 간 24px(`.adm-content` gap) · 섹션 간 40px(`.adm-sec-gap` 16px 추가) · 카드 패딩 24px |
+| 컨트롤 높이 | 기본 40 · 소형 32 · 대형 48 · 모달 풀버튼 52 |
+
+**본문 골격** (src 작성 시 이 구조 고정):
+```html
+<div class="wf-canvas admin-canvas">
+  <div class="adm-topbar">…</div>
+  <div class="adm-body">
+    <div class="adm-gnb">…</div>
+    <div class="adm-main"><div class="adm-content">
+      <div class="adm-pagebar">…</div>
+      <!-- 필터 카드 / 툴바 / 테이블 / 페이지네이션 … -->
+    </div></div>
+  </div>
+</div>
+```
+
+**디자인 규칙**: 무채색 기본(Primary 버튼 = g900 검정). 컬러는 상태 전용 —
+Green(태그·토글 ON), Red(공지·삭제·에러), Blue(텍스트 링크). 폰트 Pretendard
+(generate_sb.py 보일러플레이트가 CDN 로드, 템플릿 `--adm-font`로 강제).
+선택 컨트롤: **다중 선택 = 사각 체크박스(.adm-check) · 배타 선택 = 점 라디오(.adm-radio)** 각 1종만.
+
+**퍼블리싱 품질 (HTML-to-Figma + 개발 직행)**: 이 템플릿의 SB는 와이어프레임이자
+퍼블리싱 산출물이다 — ① 시맨틱 마크업(table은 `<table>`, 버튼은 button성 요소)
+② 레이아웃은 flex/grid로 실제 동작(absolute 좌표 배치 금지, .adm-num 배지 제외)
+③ 색·치수는 템플릿 CSS 변수만 사용(임의 hex/px 최소화) ④ Description desc-block 규칙(§4 ★) 동일 적용.
+
+**★ 넘버 배지 오버레이 (사용자 확정 2026-07-22)**: 배지는 와이어프레임 레이아웃에
+영향을 주면 안 된다 — 인라인(static) 배치 금지, `<br>`로 줄 분리 금지. 영역 배지·세부
+배지(.adm-num.sub) 모두 absolute 오버레이(th/td/.adm-field/.adm-kv>div는 템플릿이 relative 처리,
+기본 오프셋 -8~-10px). 버튼·셀렉트 등 단일 요소에는 `.adm-anchor` 래퍼로 감싸 부여.
+
+**★ 팝업 = 별도 SB 페이지 (사용자 확정 2026-07-22)**: admin-common에서는 §4의
+서브 캔버스 규칙 대신 **모달/팝업을 별도 SB 페이지로 분리**한다 (화면ID -00N 증분,
+예: ADM-MAIN-002 배너 등록/수정 팝업). 팝업 페이지 캔버스 = 회색 스테이지(#DFE2E6)
+중앙에 .adm-modal 배치, 부모 화면 desc에 «연결 SB» 상호 참조 표기.
+**알럿·토스트류 경량 오버레이만** 같은 장 우측 서브 캔버스 허용.
+
+**★ SB 시트 양식 (사용자 확정 2026-07-28 — 레퍼런스 화면설계서 기준)**
+
+시트 골격은 `generate_sb.py` + `sb-style-block.html`이 자동 처리한다 — src에서 재정의 금지:
+- 메타 테이블 2행: 1행 «화면/컴포넌트·값 | Local·KO | 화면ID·작성자·작성일(라벨)» /
+  2행 «화면경로·값 | Channel·값 | 화면ID값·작성자값·작성일값». th 배경 #E9E9E9 + 글자 #111.
+- 작성일 = YYYY-MM-DD 전체 날짜, 어드민은 Channel=Admin (`build_admin_sb.py`가 channel 전달).
+- 시트 가장자리 여백 40px(상단 28px) — 메타/본문이 가장자리에 붙지 않음. 시트 좌상단 타이틀 없음.
+- 좌측 와이어프레임 영역 = .wf-panel 1px 외곽선 박스.
+- 푸터: 시트 끝~끝 전폭 구분선 + 우측 하단 ETRIBE 로고만 (버전 표기 없음). 본문이 짧아도 시트 하단 고정.
+
+**Description 패널(src 작성 시) 규칙 — 섹션은 정확히 2개**:
+1. «화면 설명» — 화면 유형·경로·연결 SB·프론트 연동 등 개요 bullet만.
+   **화면ID·화면명 라인 넣지 않음** (메타 테이블과 중복).
+2. «Description» — 번호 항목(1~N, 배지와 1:1) 전체. 동작·예외 항목은 별도 섹션으로 만들지 말고
+   Description 하단에 `[동작 / 예외]` 라벨 li 이후 이어서 작성.
+섹션 헤더/본문 스타일(연회색 헤더, 본문 16px 통일)은 스타일 블록이 처리 — desc-block 규칙(§4 ★)만 준수.
+
 
 §3 PRD 전체 수행 → 사용자에게 SB 진행 의사 확인 → §4 SB 수행.
 PRD 작성 시 Step 0/2.5는 그대로 적용.

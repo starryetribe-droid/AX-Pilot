@@ -1,0 +1,95 @@
+<div class="wf-panel">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas admin-canvas" style="width:1000px;min-height:760px;background:#DFE2E6;display:flex;align-items:center;justify-content:center;padding:60px 0;">
+
+      <!-- 1. 콘텐츠 선택 팝업 -->
+      <div class="adm-modal wide" style="width:640px;">
+        <span class="adm-num" style="top:-9px;left:-9px;">1</span>
+        <div class="m-head">
+          <span class="m-ttl">콘텐츠 선택</span>
+          <span class="adm-anchor"><span class="adm-num sub">5</span><span class="m-x">✕</span></span>
+        </div>
+        <p class="m-desc">각 서브 화면 관리에 등록된 콘텐츠 리스트에서 선택합니다. (도입사례 예시)</p>
+
+        <!-- 2. 검색 -->
+        <div class="adm-anchor" style="display:flex;gap:8px;margin-bottom:16px;width:100%;">
+          <span class="adm-num sub">2</span>
+          <span class="adm-select" style="min-width:140px;">산업 태그 전체<span class="ar"></span></span>
+          <span class="adm-search" style="flex:1;min-width:0;"><span class="ph">제목을 입력해 주세요</span><span class="ic">⌕</span></span>
+        </div>
+
+        <!-- 3. 콘텐츠 리스트 / 3-1. 선택 -->
+        <div class="adm-table-wrap" style="border-radius:8px;">
+          <span class="adm-num sub" style="top:-8px;left:-8px;">3</span>
+          <table class="adm-table" style="font-size:12.5px;">
+            <thead><tr><th style="width:110px;">대표 이미지</th><th class="l">성과 인용구</th><th style="width:90px;">산업 태그</th><th style="width:90px;"><span class="adm-num sub">3-1</span>선택</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span style="display:inline-block;width:72px;height:40px;background:#EEF0F3;border-radius:4px;"></span></td>
+                <td class="l">"야간 관제 인력 50% 효율화" — D 공공기관</td>
+                <td><span class="adm-tag gray">공공</span></td>
+                <td><span class="adm-btn sm">선택</span></td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block;width:72px;height:40px;background:#EEF0F3;border-radius:4px;"></span></td>
+                <td class="l">"신규 가입 전환율 18%p 상승" — E 커머스</td>
+                <td><span class="adm-tag gray">유통</span></td>
+                <td><span class="adm-btn sm">선택</span></td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block;width:72px;height:40px;background:#EEF0F3;border-radius:4px;"></span></td>
+                <td class="l">"의료 문서 요약 자동화" — F 병원</td>
+                <td><span class="adm-tag gray">의료</span></td>
+                <td><span class="adm-btn sm">선택</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 4. 페이지네이션 -->
+        <div class="adm-paging" style="margin-top:16px;">
+          <span class="adm-num">4</span>
+          <span class="pg nav">‹</span><span class="pg cur">1</span><span class="pg">2</span><span class="pg nav">›</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="desc-panel">
+  <div class="desc-section">
+    <div class="desc-section-header">화면 정보</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">ADM-MAIN-003 · 콘텐츠 선택 팝업 (3개 섹션 공통 패턴)</span></p></li>
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: 모달 팝업 (W 640px)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 부모 화면: &lt;ADM-MAIN-001&gt; 메인 화면 관리 — ⑦⑨⑪ [콘텐츠 불러오기] 클릭 시</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 딤: 부모 캔버스 전체 rgba(25,27,31,.5)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 소스: ADM-MAIN PRD (KTAX 세부기능정의 워크북 20260721 기반)</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 와이어프레임은 도입사례 예시 — 섹션별 리스트 구성·검색 조건만 상이(아래 표기)</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">UI 요소</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">1. 팝업 컨테이너</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 타이틀 "콘텐츠 선택" — 콘텐츠 선택 팝업</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 호출 섹션별 콘텐츠 소스: 솔루션 → 상품 관리에 등록된 콘텐츠 리스트 출력 / 도입사례 → 도입사례 관리에 등록된 콘텐츠 리스트 출력 / 인사이트 → 인사이트 관리에 등록된 콘텐츠 리스트 출력</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">2. 검색</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 솔루션: 검색(솔루션명/카테고리 필터) 지원</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 도입사례: 검색(제목/산업 태그) 지원</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 인사이트: 검색(제목/카테고리 태그) 지원</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">3. 콘텐츠 리스트</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 섹션별 콘텐츠 정보 구성으로 출력 — 솔루션(아이콘+제목+설명+자세히 보기 url) / 도입사례(성과 인용구/산업 태그/대표 이미지) / 인사이트(썸네일 이미지/카테고리 태그/제목/요약)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 3-1. [선택] 클릭 시 콘텐츠 선택 시 메인 노출 리스트에 추가</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 추가 후 팝업 유지(연속 추가) 여부는 워크북 미정의 — (제안) 유지</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 이미 노출 중인 콘텐츠는 [선택] 비활성 — (제안)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">4. 페이지네이션</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 워크북 미정의 — (제안) 10건/페이지</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. 닫기</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• ✕ 클릭 시 팝업 종료, 부모 화면 리스트에 추가분 반영 상태 유지</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">동작 / 예외</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">검색 결과 0건</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 빈 상태 — "검색 결과가 없습니다."</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">등록된 콘텐츠 0건</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 빈 상태 — "등록된 콘텐츠가 없습니다. 서브 화면 관리에서 먼저 등록해주세요."</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">선택 추가 반영</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 메인 노출 리스트 말미에 추가, 노출 순서는 이후 부모 화면에서 조정</span></p></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -28,6 +28,9 @@ XLSX = os.environ.get('CHATBOT_XLSX',
                       '/Users/Starry/Downloads/풀무원_디자인밀_AI챗봇_인텐트정의_보완_20260602.xlsx')
 OUT_ROOT = os.path.expanduser(os.environ.get('CHATBOT_OUT', '~/Downloads/SB_챗봇'))
 
+# 제네릭(공통가이드) 모드: 프리뷰를 실데이터 대신 역할 타입 플레이스홀더로 렌더.
+GENERIC = str(os.environ.get('CHATBOT_GENERIC', '')).strip().lower() in ('1', 'true', 'yes')
+
 # 분류 표시 순서(없는 분류는 뒤에 등장순으로 append)
 CAT_ORDER = ['텍스트', '선택', '카드', '입력', '배너', '액션']
 CATEGORY_EN = {'텍스트': 'Text', '선택': 'Button', '카드': 'Card',
@@ -168,13 +171,13 @@ def preview_roles(comp, slots, role_of, usage, bindings):
             for (slot, value, _src) in bindings.get((best, comp), []):
                 roles[role_of.get((comp, slot), slot)] = value
             if roles:
-                return roles, ('binding', best)
+                return (cc.genericize_roles(roles) if GENERIC else roles), ('binding', best)
     # 합성: 09 기본값 → role. 렌더러 자체 폴백이 있어 빈 dict여도 시각화는 됨.
     roles = {}
     for s in slots.get(comp, []):
         if s.get('default') not in (None, ''):
             roles[s['role'] or s['slot']] = s['default']
-    return roles, ('synth', None)
+    return (cc.genericize_roles(roles) if GENERIC else roles), ('synth', None)
 
 
 # ===== HTML 조각 =====
@@ -244,6 +247,8 @@ DEFAULT_PROMPT = {
 
 def leading_prompt(rep_mod, bindings, role_of, archetype):
     """선행 텍스트 버블 문구 — 대표 모듈의 U-01(텍스트) 바인딩값 우선, 없으면 아키타입별 기본 안내."""
+    if GENERIC:
+        return cc.GENERIC_PROMPT
     if rep_mod:
         for (slot, value, _src) in bindings.get((rep_mod, 'U-01'), []):
             if role_of.get(('U-01', slot), slot) == 'primaryText' or slot == 'text':
@@ -446,7 +451,9 @@ def _case_cell(label, inner_html):
 def _component_block(c, archetype, slots, role_of, usage, bindings):
     comp, arch = c['code'], archetype.get(c['code'])
     if comp in CASES:   # 분기: 케이스 나란히 병치
-        cells = ''.join(_case_cell(lbl, _render_inner(arch, roles)) for lbl, roles in CASES[comp])
+        cells = ''.join(
+            _case_cell(lbl, _render_inner(arch, cc.genericize_roles(roles) if GENERIC else roles))
+            for lbl, roles in CASES[comp])
     else:
         roles, (src, rep_mod) = preview_roles(comp, slots, role_of, usage, bindings)
         lead = leading_prompt(rep_mod, bindings, role_of, arch) if arch in PROMPT_PAIRED else None
@@ -548,8 +555,16 @@ def main():
                     help='사용처 집계 인텐트 한정 (예: 7,9,10,14). 미지정 시 워크북 전체.')
     ap.add_argument('--format', choices=['web', 'sb', 'both'], default='both',
                     help='web=웹 카탈로그, sb=ETRIBE SB 양식, both=둘 다(기본)')
+    ap.add_argument('--generic', action='store_true',
+                    help='공통가이드 모드: 프리뷰를 실데이터 대신 역할 타입 플레이스홀더로 렌더')
     ap.add_argument('--output', default=None, help='출력 경로(단일 포맷일 때만)')
     args = ap.parse_args()
+
+    global GENERIC
+    GENERIC = GENERIC or args.generic
+    cc.GENERIC_MODE = GENERIC   # app_bar 등 공통 chrome 브랜드명 중립화
+    if GENERIC:
+        print('· 제네릭(공통가이드) 모드: 프리뷰=역할 타입 플레이스홀더')
 
     intents = None
     if args.intents:
@@ -557,9 +572,10 @@ def main():
 
     fmts = {'web': ['web'], 'sb': ['sb'], 'both': ['web', 'sb']}[args.format]
     single = len(fmts) == 1
+    sfx = '-generic' if GENERIC else ''   # 제네릭 출력은 별도 파일(실데이터 가이드와 분리)
     targets = {
-        'web': ('component-guide.html', build),
-        'sb': ('component-guide-sb.html', build_sb),
+        'web': (f'component-guide{sfx}.html', build),
+        'sb': (f'component-guide-sb{sfx}.html', build_sb),
     }
 
     gdir = os.path.join(OUT_ROOT, '_GUIDE')

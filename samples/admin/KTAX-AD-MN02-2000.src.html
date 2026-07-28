@@ -1,0 +1,129 @@
+<div class="wf-panel">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas admin-canvas" style="min-height:0;">
+
+      <!-- 1. 헤더 -->
+      <div class="adm-topbar">
+        <span class="adm-num">1</span>
+        <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">KT AX Admin</span></div>
+        <div class="adm-utils">
+          <span class="u"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
+          <span class="divider"></span>
+          <span class="adm-btn ghost sm">로그아웃</span>
+        </div>
+      </div>
+
+      <div class="adm-body">
+        <!-- 2. LNB -->
+        <div class="adm-gnb">
+          <span class="adm-num">2</span>
+          <div class="grp">대시보드</div>
+          <div class="grp active">메인 관리 <span class="cv">▴</span></div>
+          <div class="sub">
+            <a>메인 배너 관리</a>
+            <a>메인 콘텐츠 관리</a>
+            <a class="active">메인 팝업 관리</a>
+          </div>
+          <div class="grp">AX 솔루션 컨설턴트 <span class="cv">▾</span></div>
+          <div class="grp">AX 도입 관리 <span class="cv">▾</span></div>
+          <div class="grp">도입사례 관리 <span class="cv">▾</span></div>
+          <div class="grp">인사이트 관리 <span class="cv">▾</span></div>
+          <div class="grp">이벤트 관리 <span class="cv">▾</span></div>
+          <div class="grp">문의 관리 <span class="cv">▾</span></div>
+          <div class="grp">시스템 관리 <span class="cv">▾</span></div>
+        </div>
+
+        <div class="adm-main">
+          <div class="adm-content">
+
+            <!-- 3. 페이지 헤더 -->
+            <div class="adm-pagebar">
+              <span class="adm-num">3</span>
+              <div class="left">
+                <span class="ttl">팝업 상세/수정</span>
+                <span class="adm-crumb">Home <span class="sep">›</span> 메인 관리 <span class="sep">›</span> 메인 팝업 관리 <span class="sep">›</span> <span class="cur">상세/수정</span></span>
+              </div>
+            </div>
+
+            <!-- 4. 팝업 정보 폼 (기존 값 바인딩) -->
+            <div class="adm-card" style="max-width:760px;">
+              <span class="adm-num">4</span>
+              <div class="card-ttl">팝업 정보 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">*표시는 필수 입력 사항입니다 · 전 항목 (제안)</span></div>
+              <div style="display:flex;flex-direction:column;gap:20px;">
+                <div class="adm-field"><span class="adm-num sub">4-1</span><label>팝업명<span class="req">*</span></label><span class="adm-input">7월 세미나 안내 팝업</span></div>
+                <div class="adm-field"><span class="adm-num sub">4-2</span><label>팝업 이미지<span class="req">*</span></label>
+                  <div style="border:1px dashed #D3D7DD;border-radius:8px;padding:16px;display:flex;align-items:center;gap:12px;">
+                    <span style="display:inline-block;width:100px;height:100px;background:#EEF0F3;border-radius:6px;"></span>
+                    <span class="adm-btn line sm">파일 변경</span>
+                  </div>
+                  <span class="help">권장 사이즈·용량·포맷(JPG/PNG) 안내 — 정책 확정 필요</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">4-3</span><label>랜딩 URL</label><span class="adm-input">https://ktax.kt.com/event/seminar-07</span>
+                  <span style="display:inline-flex;gap:16px;margin-top:4px;">
+                    <span class="adm-opt"><span class="adm-radio on"></span>본창 이동</span>
+                    <span class="adm-opt"><span class="adm-radio"></span>새창 이동</span>
+                  </span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">4-4</span><label>노출 기간<span class="req">*</span></label>
+                  <span style="display:inline-flex;align-items:center;gap:8px;">
+                    <span class="adm-date">2026-07-01 00:00 <span class="ar">▾</span></span>
+                    <span style="color:#B0B6BF;">~</span>
+                    <span class="adm-date">2026-07-31 23:59 <span class="ar">▾</span></span>
+                  </span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">4-5</span><label>노출 여부<span class="req">*</span></label>
+                  <span style="display:inline-flex;gap:16px;">
+                    <span class="adm-opt"><span class="adm-radio on"></span>노출</span>
+                    <span class="adm-opt"><span class="adm-radio"></span>비노출</span>
+                  </span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">4-6</span><label>«오늘 하루 열지 않음» 옵션</label>
+                  <span class="adm-opt"><span class="adm-check on"></span>프론트 팝업 하단에 «오늘 하루 열지 않음» 노출</span>
+                </div>
+                <div class="adm-field"><label>등록일시 / 수정일시</label><span class="adm-input disabled">2026-06-28 15:30 / 2026-07-01 09:12</span></div>
+              </div>
+            </div>
+
+            <!-- 5. 하단 버튼 -->
+            <div style="display:flex;justify-content:space-between;max-width:760px;position:relative;">
+              <span class="adm-anchor">
+                <span class="adm-num sub">5-1</span>
+                <span class="adm-btn danger">삭제</span>
+              </span>
+              <span class="adm-anchor">
+                <span class="adm-num">5</span>
+                <span class="adm-btn line">취소</span>
+                <span class="adm-btn">저장</span>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="desc-panel">
+  <div class="desc-section">
+    <div class="desc-section-header">화면 설명</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page / 진입: 목록 &lt;KTAX-AD-MN02-0000&gt; 팝업명 클릭</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 등록 &lt;KTAX-AD-MN02-1000&gt;과 동일 폼 — 기존 값 바인딩 + [삭제] 추가</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 세부기능정의 미존재 — 전 항목 (제안)</span></p></li>
+      
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">Description</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">1~4. 헤더 · LNB · 페이지 헤더 · 폼</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 입력 항목·규칙(4-1~4-6)은 등록 &lt;KTAX-AD-MN02-1000&gt;과 동일 / 등록·수정일시 읽기 전용</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. [취소]/[저장] · 5-1. [삭제]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [저장]: 저장 후 목록 복귀 + 프론트 메인 팝업 반영</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-1. [삭제]: 확인 알럿(목록 SB ⑥) 후 삭제 → 목록 복귀</span></p></li>
+      
+      </ul>
+    </div>
+  </div>
+</div>

@@ -17,7 +17,7 @@
     samples/admin/<id>.src.html 로 저장 후 SCREENS에 등록하면 키로 호출 가능.
   - 환경변수: ADMIN_OUT(출력 루트, 기본 ~/Downloads/SB_어드민) · ADMIN_AUTHOR(작성자, 기본 'AX Pilot').
 """
-import argparse, json, os, subprocess, sys
+import argparse, datetime, json, os, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SKILL = os.path.dirname(HERE)
@@ -31,6 +31,37 @@ SCREENS = {
     '챗봇대화내역': dict(id='ADM-CHAT-001', title='챗봇 관리 > 챗봇 대화 내역',
                    path='Admin > 챗봇 관리 > 챗봇 대화 내역',
                    src='samples/admin/ADM-CHAT-001.src.html'),
+    # 동일 화면의 KRDS 기본 템플릿 버전 — --template krds 와 함께 사용
+    '챗봇대화내역KRDS': dict(id='ADM-CHAT-001', title='챗봇 관리 > 챗봇 대화 내역',
+                   path='Admin > 챗봇 관리 > 챗봇 대화 내역',
+                   src='samples/admin/ADM-CHAT-001-KRDS.src.html'),
+    # 동일 화면의 공통 어드민 템플릿 버전 (2560px 프레임) — --template common 과 함께 사용
+    '챗봇대화내역공통': dict(id='ADM-CHAT-001', title='챗봇 관리 > 챗봇 대화 내역',
+                   path='Admin > 챗봇 관리 > 챗봇 대화 내역',
+                   src='samples/admin/ADM-CHAT-001-COMMON.src.html'),
+    # KT AX 메인 관리 — IA v0.3 «TO-BE 관리자» 채번 (공통 템플릿, --template common)
+    # (구 ADM-MAIN-001~003 체계는 2026-07-22 IA 재구성으로 폐기)
+    '배너목록': dict(id='KTAX-AD-MN01-0000', title='메인 관리 > 메인 배너 관리 > 목록',
+                 path='Admin > 메인 관리 > 메인 배너 관리', src='samples/admin/KTAX-AD-MN01-0000.src.html'),
+    '배너등록': dict(id='KTAX-AD-MN01-1000', title='메인 관리 > 메인 배너 관리 > 등록',
+                 path='Admin > 메인 관리 > 메인 배너 관리 > 등록', src='samples/admin/KTAX-AD-MN01-1000.src.html'),
+    '배너수정': dict(id='KTAX-AD-MN01-1100', title='메인 관리 > 메인 배너 관리 > 상세/수정',
+                 path='Admin > 메인 관리 > 메인 배너 관리 > 상세/수정', src='samples/admin/KTAX-AD-MN01-1100.src.html'),
+    '메인도입사례': dict(id='KTAX-AD-MN01-2000', title='메인 관리 > 메인 콘텐츠 관리 > 도입사례 관리',
+                 path='Admin > 메인 관리 > 메인 콘텐츠 관리 > 도입사례 관리', src='samples/admin/KTAX-AD-MN01-2000.src.html'),
+    '메인인사이트': dict(id='KTAX-AD-MN01-2100', title='메인 관리 > 메인 콘텐츠 관리 > 인사이트 관리',
+                 path='Admin > 메인 관리 > 메인 콘텐츠 관리 > 인사이트 관리', src='samples/admin/KTAX-AD-MN01-2100.src.html'),
+    '신뢰지표': dict(id='KTAX-AD-MN01-2200', title='메인 관리 > 메인 콘텐츠 관리 > 신뢰 지표 관리',
+                 path='Admin > 메인 관리 > 메인 콘텐츠 관리 > 신뢰 지표 관리', src='samples/admin/KTAX-AD-MN01-2200.src.html'),
+    '메인팝업목록': dict(id='KTAX-AD-MN02-0000', title='메인 관리 > 메인 팝업 관리 > 목록',
+                 path='Admin > 메인 관리 > 메인 팝업 관리', src='samples/admin/KTAX-AD-MN02-0000.src.html'),
+    '메인팝업등록': dict(id='KTAX-AD-MN02-1000', title='메인 관리 > 메인 팝업 관리 > 등록',
+                 path='Admin > 메인 관리 > 메인 팝업 관리 > 등록', src='samples/admin/KTAX-AD-MN02-1000.src.html'),
+    '메인팝업수정': dict(id='KTAX-AD-MN02-2000', title='메인 관리 > 메인 팝업 관리 > 상세/수정',
+                 path='Admin > 메인 관리 > 메인 팝업 관리 > 상세/수정', src='samples/admin/KTAX-AD-MN02-2000.src.html'),
+    '챗봇대화로그팝업': dict(id='ADM-CHAT-002', title='챗봇 대화 내역 > 대화 로그 팝업',
+                   path='Admin > 챗봇 관리 > 챗봇 대화 내역 > 대화 로그 팝업',
+                   src='samples/admin/ADM-CHAT-002.src.html'),
 }
 
 
@@ -51,7 +82,9 @@ def build(*, sid, title, path_str, src, template, author, out_root):
 
     os.makedirs(BUILD_DIR, exist_ok=True)
     jp = os.path.join(BUILD_DIR, f'{sid}_screens.json')
-    data = dict(feature_id=sid, feature_name=title, author=author, ymd='2026-06',
+    data = dict(feature_id=sid, feature_name=title, author=author,
+                ymd=datetime.date.today().strftime('%Y-%m-%d'),
+                channel='Admin',
                 screens=[dict(id=sid, title=title, path=path_str, body=full)])
     json.dump(data, open(jp, 'w', encoding='utf-8'), ensure_ascii=False)
 

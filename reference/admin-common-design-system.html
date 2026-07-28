@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETRIBE 공통 어드민 디자인 시스템 v0.1</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+/* ============================================================
+   ETRIBE 공통 어드민 디자인 시스템 v0.1
+   - 프레임 2560px / 콘텐츠 1440px / Pretendard
+   - 컴포넌트 클래스 계약: .adm-*  (templates/admin-common.html로 추출 예정)
+   ============================================================ */
+:root{
+  /* --- Gray Scale --- */
+  --g0:#FFFFFF; --g25:#FAFBFC; --g50:#F5F6F8; --g100:#EEF0F3; --g200:#E4E7EB;
+  --g300:#D3D7DD; --g400:#B0B6BF; --g500:#8A919C; --g600:#6B7280; --g700:#4B515B;
+  --g800:#33363D; --g900:#191B1F;
+  /* --- Accent (상태 전용) --- */
+  --green-50:#E9F8F1; --green-500:#0FA36B; --green-600:#0C8E60; --green-700:#0A7A52;
+  --red-50:#FDEEEE; --red-500:#E5484D; --red-600:#D93D42;
+  --blue-500:#2E6FF2;
+  /* --- Semantic --- */
+  --text:#191B1F; --text-sub:#6B7280; --text-faint:#B0B6BF;
+  --line:#E4E7EB; --line-strong:#D3D7DD;
+  --bg-page:#FFFFFF; --bg-fill:#F5F6F8;
+  /* --- Shape --- */
+  --r-sm:6px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-full:999px;
+  --shadow-card:0 1px 3px rgba(25,27,31,.06);
+  --shadow-modal:0 12px 40px rgba(25,27,31,.18);
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,Roboto,"Helvetica Neue","Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);color:var(--text);background:#fff;font-size:14px;line-height:1.5;
+ -webkit-font-smoothing:antialiased;}
+
+/* ============ 문서(가이드) 스캐폴드 ============ */
+.ds-wrap{max-width:1640px;margin:0 auto;padding:72px 48px 160px;}
+.ds-cover{padding-bottom:40px;border-bottom:2px solid var(--g900);margin-bottom:64px;}
+.ds-cover h1{font-size:32px;font-weight:800;letter-spacing:-.02em;}
+.ds-cover .sub{margin-top:10px;color:var(--text-sub);font-size:15px;}
+.ds-cover .meta{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap;}
+.ds-cover .meta span{border:1px solid var(--line-strong);border-radius:var(--r-full);
+ padding:5px 14px;font-size:12.5px;color:var(--g700);background:var(--g25);}
+.ds-sec{margin-bottom:88px;}
+.ds-sec>h2{font-size:24px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:12px;}
+.ds-sec>h2 .no{font-size:13px;font-weight:700;color:var(--g0);background:var(--g900);
+ border-radius:var(--r-sm);padding:3px 9px;letter-spacing:0;}
+.ds-sec>.desc{margin-top:8px;color:var(--text-sub);font-size:14px;}
+.ds-blk{margin-top:40px;}
+.ds-blk>h3{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.ds-blk>h3 .chip{font-size:11px;font-weight:600;color:var(--g700);border:1px solid var(--line-strong);
+ border-radius:4px;padding:2px 8px;background:var(--g25);}
+.ds-blk>.desc{margin-top:6px;color:var(--text-sub);font-size:13.5px;}
+.ds-panel{margin-top:16px;background:var(--g25);border:1px solid var(--line);border-radius:var(--r-lg);padding:36px;}
+.ds-demo{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:28px;}
+.ds-demo + .ds-demo{margin-top:16px;}
+.ds-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.ds-row + .ds-row{margin-top:20px;}
+.ds-lbl{font-size:12px;font-weight:600;color:var(--text-faint);letter-spacing:.02em;
+ text-transform:uppercase;margin-bottom:12px;}
+.ds-cols{display:grid;gap:16px;}
+.ds-cols.c2{grid-template-columns:1fr 1fr;}
+.ds-cols.c3{grid-template-columns:1fr 1fr 1fr;}
+.ds-note{margin-top:12px;font-size:12.5px;color:var(--text-sub);}
+.ds-note b{color:var(--g800);}
+.ds-spec{margin-top:16px;width:100%;border-collapse:collapse;font-size:13px;background:#fff;
+ border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;}
+.ds-spec th{background:var(--g50);color:var(--g700);font-weight:600;text-align:left;
+ padding:10px 16px;border-bottom:1px solid var(--line);}
+.ds-spec td{padding:10px 16px;border-bottom:1px solid var(--g100);color:var(--g800);vertical-align:top;}
+.ds-spec tr:last-child td{border-bottom:none;}
+.ds-spec code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(--g50);
+ border:1px solid var(--g100);border-radius:4px;padding:1px 6px;color:var(--g800);}
+
+/* ============ Foundation 표현용 ============ */
+.sw-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+.sw{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:#fff;}
+.sw .c{height:56px;}
+.sw .i{padding:8px 10px;font-size:11.5px;color:var(--g700);line-height:1.45;}
+.sw .i b{display:block;color:var(--g900);font-size:12px;}
+.type-row{display:flex;align-items:baseline;gap:24px;padding:14px 4px;border-bottom:1px solid var(--g100);}
+.type-row:last-child{border-bottom:none;}
+.type-row .t-meta{width:250px;flex-shrink:0;font-size:12.5px;color:var(--text-sub);}
+.type-row .t-meta b{color:var(--g900);font-size:13px;display:block;}
+.sp-row{display:flex;align-items:flex-end;gap:14px;}
+.sp-item{text-align:center;font-size:11px;color:var(--text-sub);}
+.sp-item .bar{background:var(--green-50);border:1px dashed var(--green-500);margin-bottom:6px;}
+
+/* 레이아웃 다이어그램 */
+.frame-dg{position:relative;background:#fff;border:1px solid var(--line-strong);height:460px;overflow:hidden;font-size:11px;color:var(--g600);}
+.frame-dg .hd{position:absolute;top:0;left:0;right:0;height:34px;background:var(--g100);
+ border-bottom:1px solid var(--line-strong);display:flex;align-items:center;justify-content:center;font-weight:600;}
+.frame-dg .lnb{position:absolute;top:34px;left:0;bottom:0;width:132px;background:var(--g50);
+ border-right:1px solid var(--line-strong);display:flex;align-items:center;justify-content:center;font-weight:600;}
+.frame-dg .side{position:absolute;top:34px;bottom:0;width:218px;background:
+ repeating-linear-gradient(45deg,transparent,transparent 6px,var(--g100) 6px,var(--g100) 7px);
+ display:flex;align-items:center;justify-content:center;}
+.frame-dg .cont{position:absolute;top:34px;bottom:0;left:350px;right:218px;background:#fff;}
+.frame-dg .cont .pad-t{height:26px;border-bottom:1px dashed var(--green-500);background:var(--green-50);
+ display:flex;align-items:center;justify-content:center;color:var(--green-700);}
+.frame-dg .cont .body{padding:16px;display:flex;flex-direction:column;gap:10px;}
+.frame-dg .cont .body i{display:block;background:var(--g50);border:1px solid var(--g200);border-radius:4px;height:64px;}
+.frame-dg .cont .pad-b{position:absolute;left:0;right:0;bottom:0;height:40px;border-top:1px dashed var(--green-500);
+ background:var(--green-50);display:flex;align-items:center;justify-content:center;color:var(--green-700);}
+
+/* ============================================================
+   컴포넌트 (.adm-*) — 템플릿 추출 대상
+   ============================================================ */
+.adm-frame, .adm-frame *{box-sizing:border-box;font-family:var(--font);}
+
+/* --- 헤더 (Top Bar) --- */
+.adm-topbar{height:64px;background:#fff;border-bottom:1px solid var(--line);
+ display:flex;align-items:center;justify-content:space-between;padding:0 32px;}
+.adm-logo{display:flex;align-items:center;gap:12px;}
+.adm-logo .mark{display:inline-flex;align-items:center;justify-content:center;height:28px;
+ padding:0 10px;background:var(--g900);color:#fff;border-radius:6px;font-weight:800;font-size:13px;letter-spacing:.06em;}
+.adm-logo .svc{font-size:16px;font-weight:700;color:var(--g900);}
+.adm-logo .env{font-size:11px;font-weight:600;color:var(--g600);border:1px solid var(--line-strong);
+ border-radius:4px;padding:2px 7px;background:var(--g25);}
+.adm-utils{display:flex;align-items:center;gap:20px;font-size:13px;color:var(--g700);}
+.adm-utils .u{display:inline-flex;align-items:center;gap:8px;}
+.adm-utils .divider{width:1px;height:16px;background:var(--line-strong);}
+
+/* --- LNB --- */
+.adm-gnb{width:260px;background:#fff;border-right:1px solid var(--line);padding:16px 0;}
+.adm-gnb .grp{display:flex;align-items:center;justify-content:space-between;padding:13px 24px;
+ color:var(--g800);font-size:14px;font-weight:600;cursor:default;}
+.adm-gnb .grp .cv{font-size:10px;color:var(--g400);}
+.adm-gnb .grp.open{color:var(--g900);}
+.adm-gnb .sub{padding:2px 0 8px;}
+.adm-gnb .sub a{display:block;padding:10px 24px 10px 40px;color:var(--g600);text-decoration:none;font-size:13.5px;}
+.adm-gnb .sub a.active{color:var(--g900);font-weight:700;background:var(--g50);
+ border-left:3px solid var(--g900);padding-left:37px;}
+
+/* --- 브레드크럼 + 페이지 헤더 --- */
+.adm-pagebar{display:flex;align-items:center;justify-content:space-between;}
+.adm-pagebar .left{display:flex;align-items:baseline;gap:16px;}
+.adm-pagebar .ttl{font-size:24px;font-weight:700;letter-spacing:-.01em;color:var(--g900);}
+.adm-crumb{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--g500);}
+.adm-crumb .sep{color:var(--g300);}
+.adm-crumb .cur{color:var(--g700);}
+.adm-pagebar .acts{display:flex;gap:8px;align-items:center;}
+
+/* --- 버튼 --- */
+.adm-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;
+ padding:0 20px;border-radius:var(--r-md);border:1px solid transparent;background:var(--g900);
+ color:#fff;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;white-space:nowrap;}
+.adm-btn:hover{background:var(--g800);}
+.adm-btn.line{background:#fff;color:var(--g800);border-color:var(--line-strong);}
+.adm-btn.line:hover{background:var(--g25);}
+.adm-btn.ghost{background:transparent;color:var(--g700);border-color:transparent;}
+.adm-btn.ghost:hover{background:var(--g50);}
+.adm-btn.danger{background:var(--red-500);}
+.adm-btn.danger:hover{background:var(--red-600);}
+.adm-btn.sm{height:32px;padding:0 14px;font-size:13px;border-radius:var(--r-sm);}
+.adm-btn.lg{height:48px;padding:0 26px;font-size:15px;}
+.adm-btn.full{width:100%;height:52px;font-size:15px;}
+.adm-btn:disabled,.adm-btn.disabled{background:var(--g100);color:var(--g400);border-color:transparent;cursor:not-allowed;}
+.adm-btn.line:disabled,.adm-btn.line.disabled{background:var(--g25);color:var(--g400);border-color:var(--g200);}
+.adm-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+ border:1px solid var(--line-strong);border-radius:var(--r-md);background:#fff;color:var(--g700);cursor:pointer;}
+.adm-icon-btn:hover{background:var(--g25);}
+.adm-icon-btn.sm{width:32px;height:32px;border-radius:var(--r-sm);}
+
+/* --- 초이스 그룹 (선택형 버튼) --- */
+.adm-choice-group{display:flex;gap:8px;}
+.adm-choice{flex:1;height:44px;display:inline-flex;align-items:center;justify-content:center;
+ border:1px solid var(--line-strong);border-radius:var(--r-md);background:#fff;color:var(--g700);
+ font-size:14px;font-weight:500;font-family:var(--font);cursor:pointer;}
+.adm-choice.selected{border:1.5px solid var(--g900);color:var(--g900);font-weight:700;}
+.adm-choice:disabled{background:var(--g25);color:var(--g400);cursor:not-allowed;}
+
+/* --- 칩 필터 --- */
+.adm-chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;
+ border:1px solid var(--line-strong);border-radius:var(--r-full);background:#fff;color:var(--g700);
+ font-size:13px;font-weight:500;font-family:var(--font);cursor:pointer;}
+.adm-chip.active{background:var(--g900);border-color:var(--g900);color:#fff;font-weight:600;}
+.adm-chip.date{border-radius:var(--r-md);color:var(--g800);}
+
+/* --- 인풋 / 텍스트에어리어 --- */
+.adm-field{display:flex;flex-direction:column;gap:8px;}
+.adm-field>label{font-size:13px;font-weight:600;color:var(--g800);}
+.adm-field>label .req{color:var(--red-500);margin-left:2px;}
+.adm-field .help{font-size:12px;color:var(--text-sub);}
+.adm-field .help.error{color:var(--red-500);}
+.adm-input{height:40px;width:100%;border:1px solid var(--line-strong);border-radius:var(--r-md);
+ padding:0 12px;font-size:14px;font-family:var(--font);color:var(--g900);background:#fff;outline:none;}
+.adm-input::placeholder{color:var(--g400);}
+.adm-input:focus{border-color:var(--g900);}
+.adm-input.error{border-color:var(--red-500);}
+.adm-input:disabled{background:var(--g50);color:var(--g400);}
+.adm-textarea{width:100%;min-height:110px;border:1px solid var(--line-strong);border-radius:var(--r-md);
+ padding:12px;font-size:14px;font-family:var(--font);color:var(--g900);resize:vertical;outline:none;}
+.adm-textarea::placeholder{color:var(--g400);}
+.adm-textarea:focus{border-color:var(--g900);}
+.adm-count{align-self:flex-end;font-size:12px;color:var(--g400);}
+
+/* --- 셀렉트 --- */
+.adm-select{display:inline-flex;align-items:center;justify-content:space-between;gap:10px;
+ height:40px;min-width:160px;border:1px solid var(--line-strong);border-radius:var(--r-md);
+ padding:0 12px;background:#fff;color:var(--g800);font-size:14px;cursor:pointer;}
+.adm-select .ph{color:var(--g400);}
+.adm-select .ar{width:8px;height:8px;border-right:1.5px solid var(--g500);border-bottom:1.5px solid var(--g500);
+ transform:rotate(45deg) translateY(-2px);flex-shrink:0;}
+.adm-select.sm{height:32px;min-width:0;font-size:13px;border-radius:var(--r-sm);padding:0 10px;}
+.adm-select.bare{border:none;padding:0 4px;min-width:0;font-weight:600;color:var(--g800);height:auto;}
+.adm-select.disabled{background:var(--g50);color:var(--g400);cursor:not-allowed;}
+.adm-select.disabled .ar{border-color:var(--g300);}
+
+/* --- 서치 --- */
+.adm-search{display:inline-flex;align-items:center;gap:8px;height:40px;min-width:260px;
+ border:1px solid var(--line-strong);border-radius:var(--r-md);padding:0 12px;background:#fff;}
+.adm-search input{border:none;outline:none;flex:1;font-size:14px;font-family:var(--font);color:var(--g900);background:transparent;}
+.adm-search input::placeholder{color:var(--g400);}
+.adm-search .ic{flex-shrink:0;color:var(--g500);display:inline-flex;}
+
+/* --- 데이트피커 --- */
+.adm-date{display:inline-flex;align-items:center;gap:10px;height:40px;border:1px solid var(--line-strong);
+ border-radius:var(--r-md);padding:0 14px;background:#fff;font-size:13.5px;color:var(--g800);cursor:pointer;}
+.adm-date .ic{color:var(--g500);display:inline-flex;}
+.adm-date .tilde{color:var(--g400);}
+
+/* --- 체크박스(다중 선택) / 라디오(배타 선택) / 토글 --- */
+.adm-check{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
+ border:1.5px solid var(--g300);border-radius:5px;background:#fff;flex-shrink:0;cursor:pointer;}
+.adm-check.on{background:var(--g900);border-color:var(--g900);}
+.adm-check.on::after{content:"";width:9px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;
+ transform:rotate(-45deg) translateY(-1px);}
+.adm-check.disabled{background:var(--g50);border-color:var(--g200);cursor:not-allowed;}
+.adm-radio{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
+ border:1.5px solid var(--g300);border-radius:var(--r-full);background:#fff;flex-shrink:0;cursor:pointer;}
+.adm-radio.on{border-color:var(--g900);}
+.adm-radio.on::after{content:"";width:10px;height:10px;border-radius:var(--r-full);background:var(--g900);}
+.adm-radio.disabled{background:var(--g50);border-color:var(--g200);cursor:not-allowed;}
+.adm-opt{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--g800);cursor:pointer;}
+.adm-opt.disabled{color:var(--g400);}
+.adm-toggle{position:relative;width:40px;height:22px;border-radius:var(--r-full);background:var(--g300);
+ flex-shrink:0;cursor:pointer;transition:background .15s;}
+.adm-toggle::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:var(--r-full);
+ background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .15s;}
+.adm-toggle.on{background:var(--green-600);}
+.adm-toggle.on::after{left:20px;}
+.adm-toggle.disabled{background:var(--g100);cursor:not-allowed;}
+
+/* --- 태그 / 뱃지 --- */
+.adm-tag{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:var(--r-sm);
+ font-size:12px;font-weight:600;background:var(--green-50);color:var(--green-700);}
+.adm-tag.gray{background:var(--g100);color:var(--g600);}
+.adm-tag.red{background:var(--red-50);color:var(--red-500);}
+.adm-tag.line{background:#fff;border:1px solid var(--green-500);color:var(--green-700);}
+.adm-tag.line-gray{background:#fff;border:1px solid var(--g300);color:var(--g600);}
+.adm-badge-cnt{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;
+ padding:0 6px;border-radius:var(--r-full);background:var(--g100);color:var(--g600);font-size:11px;font-weight:600;}
+
+/* --- 아바타 / 링크 --- */
+.adm-avatar{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;
+ border-radius:var(--r-full);background:var(--g100);color:var(--g600);font-size:11px;font-weight:700;flex-shrink:0;}
+.adm-avatar.sm{width:22px;height:22px;font-size:9.5px;}
+.adm-user{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--g800);}
+.adm-link{color:var(--blue-500);text-decoration:underline;text-underline-offset:2px;font-size:13.5px;cursor:pointer;}
+.adm-link.disabled{color:var(--g400);}
+
+/* --- 탭 --- */
+.adm-tabs{display:flex;border-bottom:1px solid var(--line);}
+.adm-tabs.fixed .tab{flex:1;text-align:center;}
+.adm-tabs .tab{padding:12px 4px;margin-bottom:-1px;font-size:14.5px;color:var(--g500);cursor:pointer;
+ border-bottom:2px solid transparent;font-weight:500;}
+.adm-tabs .tab.active{color:var(--g900);font-weight:700;border-bottom-color:var(--g900);}
+.adm-tabs.fluid{gap:28px;}
+.adm-tabs2{display:flex;gap:24px;padding:10px 0;border-bottom:1px solid var(--g100);background:var(--g25);
+ padding-left:4px;font-size:13px;}
+.adm-tabs2 .t{color:var(--g500);cursor:pointer;}
+.adm-tabs2 .t.active{color:var(--g900);font-weight:700;text-decoration:underline;text-underline-offset:6px;}
+
+/* --- 테이블 --- */
+.adm-table-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;}
+.adm-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.adm-table th{height:48px;padding:0 14px;background:#fff;color:var(--g600);font-weight:600;font-size:13px;
+ border-bottom:1px solid var(--line-strong);text-align:center;white-space:nowrap;}
+.adm-table th.l, .adm-table td.l{text-align:left;}
+.adm-table td{height:52px;padding:8px 14px;border-bottom:1px solid var(--g100);color:var(--g800);
+ text-align:center;white-space:nowrap;}
+.adm-table tr:last-child td{border-bottom:none;}
+.adm-table tr.hover td{background:var(--g25);}
+.adm-table tr.selected td{background:var(--g50);}
+.adm-table tr.disabled td{color:var(--g400);}
+.adm-table .sort{display:inline-flex;flex-direction:column;gap:1px;margin-left:5px;vertical-align:middle;}
+.adm-table .sort i{width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent;display:block;}
+.adm-table .sort i.up{border-bottom:4px solid var(--g400);}
+.adm-table .sort i.dn{border-top:4px solid var(--g400);}
+.adm-table .sort i.on{border-bottom-color:var(--g800);border-top-color:var(--g800);}
+.adm-table td .notice{color:var(--red-500);font-weight:600;}
+.adm-table td .reply{color:var(--g600);}
+
+/* --- 트리 테이블 --- */
+.adm-tree-cell{display:inline-flex;align-items:center;gap:8px;color:var(--g800);}
+.adm-tree-cell .cv{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;
+ border-left:5.5px solid var(--g500);display:inline-block;flex-shrink:0;}
+.adm-tree-cell .cv.open{transform:rotate(90deg);}
+.adm-tree-cell.d2{padding-left:24px;}
+.adm-tree-cell.d3{padding-left:48px;}
+.adm-tree-cell.d4{padding-left:72px;color:var(--g600);}
+
+/* --- 페이지네이션 --- */
+.adm-paging{display:flex;justify-content:center;align-items:center;gap:4px;}
+.adm-paging .pg{min-width:32px;height:32px;padding:0 6px;border-radius:var(--r-sm);border:none;
+ background:transparent;color:var(--g600);font-size:13px;font-family:var(--font);cursor:pointer;
+ display:inline-flex;align-items:center;justify-content:center;}
+.adm-paging .pg:hover{background:var(--g50);}
+.adm-paging .pg.cur{background:var(--g900);color:#fff;font-weight:700;}
+.adm-paging .pg.nav{color:var(--g500);font-size:12px;}
+.adm-paging .pg.nav.disabled{color:var(--g300);cursor:not-allowed;}
+
+/* --- 툴바 --- */
+.adm-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.adm-toolbar .total{font-size:14px;color:var(--g800);}
+.adm-toolbar .total b{font-weight:700;}
+.adm-toolbar .total .cap{color:var(--g400);}
+.adm-toolbar .left,.adm-toolbar .right{display:flex;align-items:center;gap:10px;}
+
+/* --- 필터 카드 --- */
+.adm-filter-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;}
+/* 인라인 변형: 조건 1~3개 + 검색 인풋을 한 줄로 (라벨 좌측 배치) */
+.adm-filter-card.inline{display:flex;align-items:center;gap:28px;padding:16px 20px;}
+.adm-filter-card.inline .f{display:flex;align-items:center;gap:10px;}
+.adm-filter-card.inline .f>label{font-size:13px;font-weight:600;color:var(--g800);white-space:nowrap;}
+.adm-filter-card.inline .acts{margin-left:auto;display:flex;gap:8px;}
+.adm-filter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 20px;}
+.adm-filter-acts{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;padding-top:20px;
+ border-top:1px solid var(--g100);}
+
+/* --- 카드 --- */
+.adm-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;}
+.adm-card .card-ttl{font-size:17px;font-weight:700;margin-bottom:16px;}
+
+/* --- 모달 --- */
+.adm-dim-demo{background:var(--g200);border-radius:var(--r-md);padding:40px;display:flex;
+ justify-content:center;align-items:flex-start;gap:40px;flex-wrap:wrap;}
+.adm-modal{width:480px;background:#fff;border-radius:var(--r-xl);box-shadow:var(--shadow-modal);
+ padding:32px;position:relative;}
+.adm-modal.wide{width:720px;}
+.adm-modal .m-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
+.adm-modal .m-ttl{font-size:20px;font-weight:700;letter-spacing:-.01em;}
+.adm-modal .m-x{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+ color:var(--g500);font-size:18px;cursor:pointer;line-height:1;}
+.adm-modal .m-desc{font-size:13.5px;color:var(--text-sub);margin-bottom:24px;}
+.adm-modal .m-sec{font-size:15px;font-weight:700;margin:24px 0 14px;}
+.adm-modal .m-body>.adm-field + .adm-field{margin-top:16px;}
+.adm-modal .m-foot{margin-top:28px;}
+
+/* --- 토스트 --- */
+.adm-toast{display:inline-flex;align-items:center;gap:8px;background:rgba(25,27,31,.88);color:#fff;
+ font-size:13.5px;padding:12px 22px;border-radius:var(--r-full);}
+
+/* --- 빈 상태 --- */
+.adm-empty{padding:64px 0;text-align:center;color:var(--g500);font-size:14px;}
+.adm-empty .t{font-weight:600;color:var(--g700);margin-bottom:6px;font-size:15px;}
+
+/* ============ 조합 미리보기 (스케일 다운) ============ */
+/* 높이는 aspect-ratio(2560:1504 = 프레임 비율)로, 배율은 컨테이너 폭(cqw)으로 — CSS만으로 항상 폭에 맞음 */
+.pv-wrap{overflow:hidden;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--g50);
+ container-type:inline-size;aspect-ratio:2560/1504;}
+.pv-scale{transform:scale(.6);transform:scale(calc(100cqw / 2560px));transform-origin:top left;width:2560px;}
+.pv-frame{width:2560px;background:#fff;}
+.pv-body{display:flex;min-height:1440px;}
+.pv-main{flex:1;display:flex;justify-content:center;}
+.pv-content{width:1440px;padding:48px 0 96px;display:flex;flex-direction:column;gap:24px;}
+</style>
+</head>
+<body>
+<div class="ds-wrap">
+
+  <!-- ================= COVER ================= -->
+  <div class="ds-cover">
+    <h1>ETRIBE 공통 어드민 디자인 시스템 <span style="color:var(--g400);font-weight:600;">v0.1</span></h1>
+    <p class="sub">HTML 와이어프레임 → Figma → 퍼블리싱까지 하나의 소스로 쓰는 공통 어드민 UI 규격.<br>
+    모든 어드민 SB는 이 시스템의 <b>.adm-* 컴포넌트</b>만 사용해 조립한다.</p>
+    <div class="meta">
+      <span>프레임 2560px</span><span>콘텐츠 1440px</span><span>Pretendard</span>
+      <span>Base 14px</span><span>Grayscale + Green 포인트</span><span>HTML-to-Figma 호환</span>
+    </div>
+  </div>
+
+  <!-- ================= 1. FOUNDATION ================= -->
+  <div class="ds-sec">
+    <h2><span class="no">01</span>Foundation</h2>
+    <p class="desc">색상 · 타이포그래피 · 레이아웃 그리드 · 간격. 모든 컴포넌트는 여기 정의된 토큰만 사용한다.</p>
+
+    <!-- 1.1 색상 -->
+    <div class="ds-blk">
+      <h3>1.1 색상 <span class="chip">Token</span></h3>
+      <p class="desc">기본은 무채색(Grayscale). 컬러는 상태 표현에만 사용한다 — Green(긍정·활성), Red(부정·경고), Blue(링크 전용).</p>
+      <div class="ds-panel">
+        <div class="ds-lbl">Grayscale</div>
+        <div class="sw-grid">
+          <div class="sw"><div class="c" style="background:#FFFFFF;border-bottom:1px solid var(--g100);"></div><div class="i"><b>g0</b>#FFFFFF · 페이지/카드 배경</div></div>
+          <div class="sw"><div class="c" style="background:#F5F6F8;"></div><div class="i"><b>g50</b>#F5F6F8 · 필드 채움, 선택행</div></div>
+          <div class="sw"><div class="c" style="background:#E4E7EB;"></div><div class="i"><b>g200</b>#E4E7EB · 구분선(line)</div></div>
+          <div class="sw"><div class="c" style="background:#D3D7DD;"></div><div class="i"><b>g300</b>#D3D7DD · 인풋 테두리</div></div>
+          <div class="sw"><div class="c" style="background:#6B7280;"></div><div class="i"><b>g600</b>#6B7280 · 보조 텍스트</div></div>
+          <div class="sw"><div class="c" style="background:#191B1F;"></div><div class="i"><b>g900</b>#191B1F · 본문 텍스트, Primary 버튼</div></div>
+        </div>
+        <div class="ds-lbl" style="margin-top:24px;">Accent — 상태 전용</div>
+        <div class="sw-grid">
+          <div class="sw"><div class="c" style="background:#E9F8F1;"></div><div class="i"><b>green-50</b>#E9F8F1 · 태그 배경</div></div>
+          <div class="sw"><div class="c" style="background:#0C8E60;"></div><div class="i"><b>green-600</b>#0C8E60 · 토글 ON, 긍정</div></div>
+          <div class="sw"><div class="c" style="background:#0A7A52;"></div><div class="i"><b>green-700</b>#0A7A52 · 태그 텍스트</div></div>
+          <div class="sw"><div class="c" style="background:#FDEEEE;"></div><div class="i"><b>red-50</b>#FDEEEE · 경고 태그 배경</div></div>
+          <div class="sw"><div class="c" style="background:#E5484D;"></div><div class="i"><b>red-500</b>#E5484D · 공지·삭제·에러</div></div>
+          <div class="sw"><div class="c" style="background:#2E6FF2;"></div><div class="i"><b>blue-500</b>#2E6FF2 · 텍스트 링크 전용</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.2 타이포그래피 -->
+    <div class="ds-blk">
+      <h3>1.2 타이포그래피 <span class="chip">Pretendard</span></h3>
+      <p class="desc">Pretendard Variable 단일 서체. 행간 1.5 고정, 자간은 20px 이상 타이틀만 -1%.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="type-row"><div class="t-meta"><b>Display · 28 / Bold</b>대시보드 요약 수치 등 (제한적)</div><div style="font-size:28px;font-weight:700;letter-spacing:-.01em;">어드민 디자인 시스템</div></div>
+        <div class="type-row"><div class="t-meta"><b>Title 1 · 24 / Bold</b>페이지 타이틀</div><div style="font-size:24px;font-weight:700;letter-spacing:-.01em;">고객 관리</div></div>
+        <div class="type-row"><div class="t-meta"><b>Title 2 · 20 / Bold</b>모달 타이틀</div><div style="font-size:20px;font-weight:700;letter-spacing:-.01em;">전화상담 신청</div></div>
+        <div class="type-row"><div class="t-meta"><b>Title 3 · 17 / Bold</b>카드·섹션 타이틀</div><div style="font-size:17px;font-weight:700;">기본 정보</div></div>
+        <div class="type-row"><div class="t-meta"><b>Body · 14 / Regular·Medium</b>본문, 테이블 셀, 인풋</div><div style="font-size:14px;">고객명과 연락처를 입력해 주세요. 필수 항목은 *로 표기합니다.</div></div>
+        <div class="type-row"><div class="t-meta"><b>Caption · 13 / Regular</b>테이블 헤더(600), 보조 설명</div><div style="font-size:13px;color:var(--g600);">최근 30일 기준으로 집계된 데이터입니다.</div></div>
+        <div class="type-row"><div class="t-meta"><b>Small · 12 / Medium</b>태그, 헬퍼 텍스트, 카운터</div><div style="font-size:12px;color:var(--g500);">0/500 · 검증 완료</div></div>
+      </div></div>
+    </div>
+
+    <!-- 1.3 레이아웃 -->
+    <div class="ds-blk">
+      <h3>1.3 레이아웃 그리드 <span class="chip">Frame 2560</span></h3>
+      <p class="desc">모든 어드민 SB 캔버스의 고정 규격. 콘텐츠는 LNB를 제외한 영역의 중앙에 1440px로 고정한다.</p>
+      <div class="ds-panel">
+        <div class="frame-dg">
+          <div class="hd">헤더 · H 64px (풀폭 2560px)</div>
+          <div class="lnb">LNB<br>W 260px</div>
+          <div class="side" style="left:132px;">여백 430px</div>
+          <div class="side" style="right:0;">여백 430px</div>
+          <div class="cont">
+            <div class="pad-t">콘텐츠 상단 여백 48px</div>
+            <div class="body">
+              <div style="font-size:12px;font-weight:700;color:var(--g800);">콘텐츠 영역 · W 1440px 고정 (중앙 정렬)</div>
+              <i></i><i></i><i style="height:36px;"></i>
+            </div>
+            <div class="pad-b">콘텐츠 하단 여백 96px</div>
+          </div>
+        </div>
+        <table class="ds-spec">
+          <tr><th style="width:220px;">항목</th><th>규격</th></tr>
+          <tr><td>프레임</td><td><code>W 2560px</code> 고정 · 높이는 콘텐츠에 따라 가변 (<code>min-height 1440px</code>)</td></tr>
+          <tr><td>헤더</td><td><code>H 64px</code> 풀폭 · 하단 1px 라인</td></tr>
+          <tr><td>LNB</td><td><code>W 260px</code> 헤더 아래 전체 높이 · 우측 1px 라인</td></tr>
+          <tr><td>콘텐츠 영역</td><td><code>W 1440px</code> 고정 · LNB 제외 2300px의 중앙 (좌우 여백 각 430px)</td></tr>
+          <tr><td>수직 여백</td><td>상단 <code>48px</code> (헤더 → 페이지 타이틀) · 하단 <code>96px</code></td></tr>
+          <tr><td>수직 리듬</td><td>페이지 타이틀 → 콘텐츠 <code>32px</code> · 섹션 간 <code>40px</code> · 카드 간 <code>24px</code> · 카드 내부 패딩 <code>24px</code></td></tr>
+          <tr><td>간격 스케일</td><td><code>4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64 · 96</code></td></tr>
+          <tr><td>라운드</td><td>버튼·인풋 <code>8px</code> · 카드·테이블 <code>12px</code> · 모달 <code>16px</code> · 칩·토글 <code>full</code></td></tr>
+          <tr><td>컨트롤 높이</td><td>기본 <code>40px</code> · 소형 <code>32px</code> · 대형 <code>48px</code> · 모달 풀버튼 <code>52px</code></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 2. LAYOUT ================= -->
+  <div class="ds-sec">
+    <h2><span class="no">02</span>레이아웃 공통</h2>
+    <p class="desc">모든 어드민 화면에 공통으로 들어가는 헤더 · LNB · 페이지 헤더.</p>
+
+    <div class="ds-blk">
+      <h3>2.1 헤더 (Top Bar) <span class="chip">H 64</span></h3>
+      <p class="desc">좌: 로고 + 서비스명 + 환경 뱃지 / 우: 계정 · 로그아웃. 프로젝트별로 로고 영역만 교체한다.</p>
+      <div class="ds-panel"><div class="ds-demo" style="padding:0;overflow:hidden;">
+        <div class="adm-frame"><div class="adm-topbar">
+          <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">서비스명 Admin</span><span class="env">STG</span></div>
+          <div class="adm-utils">
+            <span class="u"><span class="adm-avatar sm">홍</span>홍길동님</span>
+            <span class="divider"></span>
+            <button class="adm-btn ghost sm">로그아웃</button>
+          </div>
+        </div></div>
+      </div></div>
+    </div>
+
+    <div class="ds-blk">
+      <h3>2.2 LNB <span class="chip">W 260</span></h3>
+      <p class="desc">1뎁스(그룹) + 2뎁스(메뉴). 활성 메뉴는 좌측 3px 바 + Bold + g50 배경.</p>
+      <div class="ds-panel"><div class="ds-demo" style="padding:0;display:flex;">
+        <div class="adm-frame" style="border-right:1px solid var(--line);">
+          <div class="adm-gnb" style="min-height:420px;">
+            <div class="grp open">챗봇 관리 <span class="cv">▲</span></div>
+            <div class="sub">
+              <a class="active">챗봇 대화 내역</a>
+              <a>인텐트 관리</a>
+              <a>답변 콘텐츠 관리</a>
+            </div>
+            <div class="grp">회원 관리 <span class="cv">▼</span></div>
+            <div class="grp">주문 관리 <span class="cv">▼</span></div>
+            <div class="grp">통계 <span class="cv">▼</span></div>
+          </div>
+        </div>
+        <div style="flex:1;padding:28px;color:var(--g400);font-size:13px;background:var(--g25);">콘텐츠 영역</div>
+      </div></div>
+    </div>
+
+    <div class="ds-blk">
+      <h3>2.3 페이지 헤더 <span class="chip">Title 24</span></h3>
+      <p class="desc">페이지 타이틀 + 브레드크럼(우측 병기). 페이지 단위 주요 액션 버튼은 우측 끝.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="adm-frame"><div class="adm-pagebar">
+          <div class="left">
+            <span class="ttl">고객 관리</span>
+            <span class="adm-crumb">Home <span class="sep">›</span> 회원 관리 <span class="sep">›</span> <span class="cur">고객 관리</span></span>
+          </div>
+          <div class="acts">
+            <button class="adm-btn line">선택 삭제</button>
+            <button class="adm-btn">+ 고객 추가</button>
+          </div>
+        </div></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- ================= 3. COMPONENTS ================= -->
+  <div class="ds-sec">
+    <h2><span class="no">03</span>컴포넌트</h2>
+    <p class="desc">어드민 화면을 조립하는 최소 단위. 상태(기본/선택/비활성)는 모든 컴포넌트가 동일 규칙을 따른다.</p>
+
+    <!-- 3.1 버튼 -->
+    <div class="ds-blk">
+      <h3>3.1 버튼</h3>
+      <p class="desc">Primary는 무채색(g900) 단일. 위계는 Primary → Line → Ghost 순. Danger는 삭제 등 파괴 동작 전용.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="ds-lbl">Variant</div>
+        <div class="ds-row">
+          <button class="adm-btn">Primary</button>
+          <button class="adm-btn line">Line</button>
+          <button class="adm-btn ghost">Ghost</button>
+          <button class="adm-btn danger">Danger</button>
+          <button class="adm-btn disabled">Disabled</button>
+          <button class="adm-btn line disabled">Disabled</button>
+        </div>
+        <div class="ds-lbl" style="margin-top:28px;">Size — 32 / 40(기본) / 48 / 52(모달 풀)</div>
+        <div class="ds-row">
+          <button class="adm-btn sm">Small 32</button>
+          <button class="adm-btn">Medium 40</button>
+          <button class="adm-btn lg">Large 48</button>
+          <span class="adm-icon-btn"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1.8a1.6 1.6 0 0 1 1.6 1.6l.02.5a4.9 4.9 0 0 1 1.3.75l.46-.18a1.6 1.6 0 0 1 1.96.7l.4.7a1.6 1.6 0 0 1-.36 2.03l-.4.33a5 5 0 0 1 0 1.5l.4.33c.6.5.76 1.36.36 2.04l-.4.69a1.6 1.6 0 0 1-1.96.7l-.47-.18a4.9 4.9 0 0 1-1.3.76l-.01.5A1.6 1.6 0 0 1 8 14.2a1.6 1.6 0 0 1-1.6-1.6l-.02-.5a4.9 4.9 0 0 1-1.3-.75l-.46.18a1.6 1.6 0 0 1-1.96-.7l-.4-.7a1.6 1.6 0 0 1 .36-2.03l.4-.33a5 5 0 0 1 0-1.5l-.4-.33a1.6 1.6 0 0 1-.36-2.04l.4-.69a1.6 1.6 0 0 1 1.96-.7l.47.18a4.9 4.9 0 0 1 1.3-.76l.01-.5A1.6 1.6 0 0 1 8 1.8Z" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/></svg></span>
+          <span class="adm-icon-btn sm"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3.2 초이스 그룹 -->
+    <div class="ds-blk">
+      <h3>3.2 초이스 그룹</h3>
+      <p class="desc">폼 안에서 배타 선택(라디오의 버튼형). 선택 항목은 1.5px 검정 테두리 + Bold.</p>
+      <div class="ds-panel"><div class="ds-demo" style="max-width:520px;">
+        <div class="adm-choice-group">
+          <button class="adm-choice selected">기기변경</button>
+          <button class="adm-choice">신규가입</button>
+          <button class="adm-choice">번호이동</button>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3.3 칩 필터 -->
+    <div class="ds-blk">
+      <h3>3.3 칩 필터 · 데이트피커</h3>
+      <p class="desc">기간 프리셋은 칩(pill), 직접 지정은 데이트피커. 활성 칩은 g900 채움.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="ds-row">
+          <button class="adm-chip active">3일</button>
+          <button class="adm-chip">15일</button>
+          <button class="adm-chip">30일</button>
+          <button class="adm-chip">60일</button>
+          <button class="adm-chip">90일</button>
+          <span class="adm-date"><span class="ic"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" stroke-width="1.3"/></svg></span>2025. 12. 24 ~ 2025. 12. 27 <span style="color:var(--g400);font-size:10px;">▾</span></span>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3.4 폼 컨트롤 -->
+    <div class="ds-blk">
+      <h3>3.4 인풋 · 텍스트에어리어</h3>
+      <p class="desc">라벨은 상단 13px/600, 필수는 빨간 * 표기. 포커스는 g900 테두리, 에러는 red-500 테두리 + 하단 메시지.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="ds-cols c3">
+          <div class="adm-field"><label>고객명<span class="req">*</span></label><input class="adm-input" placeholder="이름을 입력해주세요"></div>
+          <div class="adm-field"><label>연락처<span class="req">*</span></label><input class="adm-input error" value="010-1234"><span class="help error">연락처 형식이 올바르지 않습니다.</span></div>
+          <div class="adm-field"><label>고객 ID</label><input class="adm-input" value="etribe_01" disabled><span class="help">자동 발급 항목입니다.</span></div>
+        </div>
+        <div class="ds-cols c2" style="margin-top:24px;">
+          <div class="adm-field"><label>요청사항 입력</label><textarea class="adm-textarea" placeholder="요청사항을 입력해 주세요"></textarea><span class="adm-count">0/500</span></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3.5 셀렉트/서치 -->
+    <div class="ds-blk">
+      <h3>3.5 셀렉트 · 서치</h3>
+      <p class="desc">테이블 툴바용 소형(32px)과 폼용 기본(40px). 정렬·개수 선택은 bare 셀렉트 사용 가능.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="ds-row">
+          <span class="adm-select"><span class="ph">선택해주세요</span><span class="ar"></span></span>
+          <span class="adm-select">상담실 이관 Y<span class="ar"></span></span>
+          <span class="adm-select disabled">선택 불가<span class="ar"></span></span>
+          <span class="adm-select sm">최신순<span class="ar"></span></span>
+          <span class="adm-select bare">15개 <span class="ar"></span></span>
+        </div>
+        <div class="ds-row" style="margin-top:24px;">
+          <span class="adm-search"><input placeholder="검색어를 입력하세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span>
+          <span class="adm-select" style="min-width:130px;">검색어 전체<span class="ar"></span></span>
+          <span class="adm-search" style="min-width:220px;"><input placeholder="검색어를 입력해 주세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span>
+        </div>
+        <p class="ds-note"><b>검색 기준 + 검색어</b> 조합은 셀렉트(좌) + 서치(우)를 8px 간격으로 붙인다.</p>
+      </div></div>
+    </div>
+
+    <!-- 3.6 선택 컨트롤 -->
+    <div class="ds-blk">
+      <h3>3.6 체크박스 · 라디오 · 토글</h3>
+      <p class="desc">다중 선택은 항상 사각 체크박스, 배타 선택은 점 방식 라디오 — 각 한 가지 스타일만 쓴다. 테이블 행 선택도 체크박스. 폼 안의 배타 선택은 라디오 또는 초이스 그룹(3.2). 토글 ON은 green-600.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="ds-lbl">체크박스 — 다중 선택</div>
+        <div class="ds-row">
+          <span class="adm-opt"><span class="adm-check"></span>기본</span>
+          <span class="adm-opt"><span class="adm-check on"></span>선택</span>
+          <span class="adm-opt disabled"><span class="adm-check disabled"></span>비활성</span>
+        </div>
+        <div class="ds-lbl" style="margin-top:24px;">라디오 — 배타 선택</div>
+        <div class="ds-row">
+          <span class="adm-opt"><span class="adm-radio"></span>기본</span>
+          <span class="adm-opt"><span class="adm-radio on"></span>선택</span>
+          <span class="adm-opt disabled"><span class="adm-radio disabled"></span>비활성</span>
+        </div>
+        <div class="ds-lbl" style="margin-top:24px;">토글</div>
+        <div class="ds-row">
+          <span class="adm-opt"><span class="adm-toggle"></span>OFF</span>
+          <span class="adm-opt"><span class="adm-toggle on"></span>ON</span>
+          <span class="adm-opt disabled"><span class="adm-toggle disabled"></span>비활성</span>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3.7 태그 -->
+    <div class="ds-blk">
+      <h3>3.7 태그 · 뱃지 · 링크 · 아바타</h3>
+      <p class="desc">상태 태그는 채움형이 기본. 카운트 뱃지는 답글 수 등 수치 표기 전용.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="ds-row">
+          <span class="adm-tag">검증 완료</span>
+          <span class="adm-tag gray">대기</span>
+          <span class="adm-tag red">반려</span>
+          <span class="adm-tag line">진행중</span>
+          <span class="adm-tag line-gray">임시저장</span>
+          <span class="adm-badge-cnt">3</span>
+          <span class="adm-badge-cnt">22</span>
+        </div>
+        <div class="ds-row" style="margin-top:20px;">
+          <span class="adm-link">Link</span>
+          <span class="adm-link disabled">Link 비활성</span>
+          <span style="width:24px;"></span>
+          <span class="adm-user"><span class="adm-avatar">김</span>김케이</span>
+          <span class="adm-user"><span class="adm-avatar sm">박</span>박지후</span>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3.8 탭 -->
+    <div class="ds-blk">
+      <h3>3.8 탭</h3>
+      <p class="desc">5개 이하 고정 비중 = Fixed. 5개 초과 = Fluid(가변). 대분류 안에 중분류가 필요하면 2뎁스.</p>
+      <div class="ds-panel">
+        <div class="ds-demo">
+          <div class="ds-lbl">Fixed Tab — 균등 분할</div>
+          <div class="adm-tabs fixed" style="max-width:720px;">
+            <span class="tab active">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span>
+          </div>
+        </div>
+        <div class="ds-demo">
+          <div class="ds-lbl">Fluid Tab — 1 Depth</div>
+          <div class="adm-tabs fluid">
+            <span class="tab active">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span>
+          </div>
+        </div>
+        <div class="ds-demo">
+          <div class="ds-lbl">Fluid Tab — 2 Depth</div>
+          <div class="adm-tabs fluid">
+            <span class="tab active">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span><span class="tab">레이블</span>
+          </div>
+          <div class="adm-tabs2">
+            <span class="t active">레이블</span><span class="t">레이블</span><span class="t">레이블</span><span class="t">레이블</span><span class="t">레이블</span><span class="t">레이블</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.9 테이블 -->
+    <div class="ds-blk">
+      <h3>3.9 테이블</h3>
+      <p class="desc">헤더 48px / 행 52px. 정렬 가능한 컬럼만 ↕ 아이콘. 행 상태: 호버(g25) · 선택(g50) · 비활성(텍스트 g400).</p>
+      <div class="ds-panel">
+        <div class="adm-frame adm-table-wrap">
+          <table class="adm-table">
+            <thead><tr>
+              <th style="width:56px;"><span class="adm-check"></span></th>
+              <th class="l">성명</th><th>전화번호</th>
+              <th>주소 <span class="sort"><i class="up"></i><i class="dn"></i></span></th>
+              <th>고객정보 검증</th>
+              <th>금액(원) <span class="sort"><i class="up on"></i><i class="dn"></i></span></th>
+              <th>고객정보 표시</th><th>링크정보</th>
+            </tr></thead>
+            <tbody>
+              <tr><td><span class="adm-check"></span></td><td class="l">김케이</td><td>010-1234-56**</td><td class="l">충청남도 공주시 이인면 발양리 2길</td><td><span class="adm-tag">검증 완료</span></td><td>44,000</td><td><span class="adm-toggle on"></span></td><td><span class="adm-link">Link</span></td></tr>
+              <tr class="hover"><td><span class="adm-check"></span></td><td class="l">이승민 <span style="font-size:11px;color:var(--g400);">(호버)</span></td><td>010-2394-13**</td><td class="l">서울특별시 강남구 테헤란로 427</td><td><span class="adm-tag">검증 완료</span></td><td>157,000</td><td><span class="adm-toggle on"></span></td><td><span class="adm-link">Link</span></td></tr>
+              <tr class="selected"><td><span class="adm-check on"></span></td><td class="l">박지후 <span style="font-size:11px;color:var(--g400);">(선택)</span></td><td>010-5283-84**</td><td class="l">경기도 성남시 분당구 판교로 242</td><td><span class="adm-tag">검증 완료</span></td><td>234,000</td><td><span class="adm-toggle on"></span></td><td><span class="adm-link">Link</span></td></tr>
+              <tr class="disabled"><td><span class="adm-check disabled"></span></td><td class="l">고은비 <span style="font-size:11px;">(비활성)</span></td><td>010-9472-29**</td><td class="l">인천광역시 연수구 송도 미래로 30</td><td><span class="adm-tag gray">대기</span></td><td>89,000</td><td><span class="adm-toggle disabled"></span></td><td><span class="adm-link disabled">Link</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ds-demo" style="margin-top:16px;padding:0;overflow:hidden;">
+          <table class="adm-table">
+            <thead><tr><th style="width:56px;">No</th><th style="width:60px;">첨부</th><th class="l">제목</th><th>작성자</th><th>작성일</th><th>조회수 <span class="sort"><i class="up"></i><i class="dn"></i></span></th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>📎</td><td class="l"><span class="notice">★ 접속장애 발생시 해결방법</span></td><td>김케이</td><td>2026.1.1.</td><td>1,234</td></tr>
+              <tr><td>2</td><td></td><td class="l">발주요청 방법 문의</td><td>고은비</td><td>2026.1.1.</td><td>567</td></tr>
+              <tr><td>3</td><td></td><td class="l"><span class="reply">↳</span> 시스템 접속오류 문의 <span class="adm-badge-cnt">3</span></td><td>최서연</td><td>2026.1.1.</td><td>456</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ds-note">게시판형: 공지는 <b>red-500 + Bold</b>, 답글은 <b>↳ 들여쓰기</b>, 답글 수는 카운트 뱃지.<br>
+        컬럼 12개 이상 와이드 테이블은 <b>compact 변형</b>(좌우 패딩 14→7px) + 폰트 12px로 1440px 콘텐츠 폭 안에 수납.</p>
+      </div>
+    </div>
+
+    <!-- 3.10 트리 테이블 -->
+    <div class="ds-blk">
+      <h3>3.10 트리 테이블</h3>
+      <p class="desc">뎁스당 들여쓰기 24px. 접힘 ▸ / 펼침 ▾ 캐럿. 최하위 데이터 행은 캐럿 없이 보조 색.</p>
+      <div class="ds-panel"><div class="adm-frame adm-table-wrap">
+        <table class="adm-table">
+          <thead><tr><th style="width:56px;"><span class="adm-check"></span></th><th class="l">Tree Cell</th><th>헤더</th><th>헤더 <span class="sort"><i class="up"></i><i class="dn"></i></span></th></tr></thead>
+          <tbody>
+            <tr><td><span class="adm-check"></span></td><td class="l"><span class="adm-tree-cell"><span class="cv open"></span>1 Depth - Open</span></td><td>텍스트 중앙 정렬</td><td>텍스트 중앙 정렬</td></tr>
+            <tr><td><span class="adm-check"></span></td><td class="l"><span class="adm-tree-cell d2"><span class="cv open"></span>2 Depth - Open</span></td><td>텍스트 중앙 정렬</td><td>텍스트 중앙 정렬</td></tr>
+            <tr><td><span class="adm-check"></span></td><td class="l"><span class="adm-tree-cell d3"><span class="cv open"></span>3 Depth - Open</span></td><td>텍스트 중앙 정렬</td><td>텍스트 중앙 정렬</td></tr>
+            <tr><td><span class="adm-check"></span></td><td class="l"><span class="adm-tree-cell d4">4 Depth - Last Data</span></td><td>텍스트 중앙 정렬</td><td>텍스트 중앙 정렬</td></tr>
+            <tr><td><span class="adm-check"></span></td><td class="l"><span class="adm-tree-cell d2"><span class="cv"></span>2 Depth - Closed</span></td><td>텍스트 중앙 정렬</td><td>텍스트 중앙 정렬</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+    </div>
+
+    <!-- 3.11 페이지네이션 -->
+    <div class="ds-blk">
+      <h3>3.11 페이지네이션</h3>
+      <p class="desc">« ‹ 페이지 › » 구성, 현재 페이지는 g900 채움. 10페이지 단위 이동은 « » 사용.</p>
+      <div class="ds-panel"><div class="ds-demo">
+        <div class="adm-paging">
+          <button class="pg nav disabled">«</button><button class="pg nav disabled">‹</button>
+          <button class="pg cur">1</button><button class="pg">2</button><button class="pg">3</button>
+          <button class="pg">4</button><button class="pg">5</button><button class="pg">6</button>
+          <button class="pg">7</button><button class="pg">8</button><button class="pg">9</button><button class="pg">10</button>
+          <button class="pg nav">›</button><button class="pg nav">»</button>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3.12 툴바 + 필터 -->
+    <div class="ds-blk">
+      <h3>3.12 테이블 툴바 · 필터 카드</h3>
+      <p class="desc">필터 카드는 조건 개수로 변형 선택 — <b>1~3개 = 인라인 변형</b>(검색 인풋 포함 한 줄, 라벨 좌측) / <b>4개 이상 = 그리드 변형</b>(4열, 라벨 상단). 툴바: 좌측 «총 N건 + 정렬·개수», 우측 «검색·설정·주요 액션».</p>
+      <div class="ds-panel">
+        <div class="ds-demo">
+          <div class="ds-lbl">필터 카드 (인라인 변형) — 조건 1~3개 + 검색 인풋 한 줄 (조회 목록 상단)</div>
+          <div class="adm-frame adm-filter-card inline">
+            <div class="f">
+              <label>검색 필드</label>
+              <span class="adm-select" style="min-width:140px;"><span class="ph">선택</span><span class="ar"></span></span>
+              <span class="adm-search" style="min-width:240px;"><input placeholder="검색어를 입력하세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span>
+            </div>
+            <div class="f">
+              <label>권한</label>
+              <span class="adm-select" style="min-width:160px;">전체<span class="ar"></span></span>
+            </div>
+            <div class="acts">
+              <button class="adm-btn line">↺ 초기화</button>
+              <button class="adm-btn">검색</button>
+            </div>
+          </div>
+          <p class="ds-note">라벨은 컨트롤 <b>좌측 인라인</b>(13px/600), 컨트롤 간 28px 간격, 액션은 우측 끝 고정. 검색은 <b>Primary 텍스트 버튼</b>으로 통일 (아이콘 전용 돋보기 버튼 미사용 — 3.1 버튼 위계 준수).</p>
+        </div>
+        <div class="ds-demo">
+          <div class="ds-lbl">툴바</div>
+          <div class="adm-frame adm-toolbar">
+            <div class="left">
+              <span class="total"><b>총 32건</b></span>
+              <span class="adm-select bare">최신순 <span class="ar"></span></span>
+              <span class="adm-select bare">15개 <span class="ar"></span></span>
+            </div>
+            <div class="right">
+              <span class="adm-search" style="min-width:240px;"><input placeholder="검색어를 입력하세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span>
+              <span class="adm-icon-btn"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1.8a1.6 1.6 0 0 1 1.6 1.6l.02.5a4.9 4.9 0 0 1 1.3.75l.46-.18a1.6 1.6 0 0 1 1.96.7l.4.7a1.6 1.6 0 0 1-.36 2.03l-.4.33a5 5 0 0 1 0 1.5l.4.33c.6.5.76 1.36.36 2.04l-.4.69a1.6 1.6 0 0 1-1.96.7l-.47-.18a4.9 4.9 0 0 1-1.3.76l-.01.5A1.6 1.6 0 0 1 8 14.2a1.6 1.6 0 0 1-1.6-1.6l-.02-.5a4.9 4.9 0 0 1-1.3-.75l-.46.18a1.6 1.6 0 0 1-1.96-.7l-.4-.7a1.6 1.6 0 0 1 .36-2.03l.4-.33a5 5 0 0 1 0-1.5l-.4-.33a1.6 1.6 0 0 1-.36-2.04l.4-.69a1.6 1.6 0 0 1 1.96-.7l.47.18a4.9 4.9 0 0 1 1.3-.76l.01-.5A1.6 1.6 0 0 1 8 1.8Z" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/></svg></span>
+              <button class="adm-btn">✎ 게시글 작성</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-demo">
+          <div class="ds-lbl">필터 카드 — 4열 그리드</div>
+          <div class="adm-frame adm-filter-card">
+            <div class="adm-filter-grid">
+              <div class="adm-field"><label>기간</label><span class="adm-date" style="width:100%;justify-content:space-between;"><span style="display:inline-flex;align-items:center;gap:8px;"><span class="ic"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" stroke-width="1.3"/></svg></span>2026-06-29 ~ 2026-06-29</span><span style="color:var(--g400);font-size:10px;">▾</span></span></div>
+              <div class="adm-field"><label>검색 기준</label><span class="adm-select" style="width:100%;">검색어 전체<span class="ar"></span></span></div>
+              <div class="adm-field"><label>검색어</label><span class="adm-search" style="width:100%;min-width:0;"><input placeholder="검색어를 입력해 주세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span></div>
+              <div class="adm-field"><label>상담실 이관 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+              <div class="adm-field"><label>미응답 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+              <div class="adm-field"><label>구매 전환 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+              <div class="adm-field"><label>대화 상태</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+              <div class="adm-field"><label>답변 피드백</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+            </div>
+            <div class="adm-filter-acts">
+              <button class="adm-btn line">↺ 초기화</button>
+              <button class="adm-btn">검색</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.13 모달 -->
+    <div class="ds-blk">
+      <h3>3.13 모달</h3>
+      <p class="desc">폼 모달 W 480 / 테이블 모달 W 720. 딤은 rgba(25,27,31,.5)로 캔버스 전체를 덮는다. 하단 버튼은 52px 풀폭.</p>
+      <div class="ds-panel"><div class="adm-dim-demo adm-frame">
+        <div class="adm-modal">
+          <div class="m-head"><span class="m-ttl">전화상담 신청</span><span class="m-x">✕</span></div>
+          <p class="m-desc">주문하실 상품을 선택해주세요. (*표시는 필수 입력 사항입니다.)</p>
+          <div class="m-body">
+            <div class="adm-field"><label>고객명<span class="req">*</span></label><input class="adm-input" placeholder="이름을 입력해주세요"></div>
+            <div class="adm-field"><label>연락처<span class="req">*</span></label><input class="adm-input" placeholder="전화번호를 입력해주세요"></div>
+            <div class="adm-field"><label>가입유형<span class="req">*</span></label>
+              <div class="adm-choice-group">
+                <button class="adm-choice selected">기기변경</button>
+                <button class="adm-choice">신규가입</button>
+                <button class="adm-choice">번호이동</button>
+              </div>
+              <span class="help">이용중인 번호 그대로 핸드폰만 바꿀 수 있어요.</span>
+            </div>
+            <div class="adm-field"><label>요청사항 입력</label><textarea class="adm-textarea" placeholder="요청사항을 입력해 주세요" style="min-height:88px;"></textarea><span class="adm-count">0/500</span></div>
+          </div>
+          <div class="m-foot"><button class="adm-btn full">입력 완료</button></div>
+        </div>
+        <div class="adm-modal wide">
+          <div class="m-head"><span class="m-ttl">대상 해당 요금제 안내</span><span class="m-x">✕</span></div>
+          <p class="m-desc">만 34세 이하 고객 중 아래 요금제 가입 고객</p>
+          <div class="adm-table-wrap" style="border-radius:var(--r-md);">
+            <table class="adm-table">
+              <thead><tr><th class="l">요금제</th><th>월정액</th><th>기본 데이터</th><th>공유 한도</th></tr></thead>
+              <tbody>
+                <tr><td class="l">초이스 프리미엄</td><td>130,000원</td><td>완전 무제한</td><td>200GB</td></tr>
+                <tr><td class="l">초이스 스페셜</td><td>110,000원</td><td>완전무제한</td><td>140GB</td></tr>
+                <tr><td class="l">심플 110GB</td><td>69,000원</td><td>220GB+5Mbps</td><td>40GB</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="m-foot"><button class="adm-btn full">확인</button></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3.14 토스트/빈상태 -->
+    <div class="ds-blk">
+      <h3>3.14 토스트 · 빈 상태</h3>
+      <p class="desc">토스트는 캔버스 하단 중앙(bottom 40px), 자동 소멸. 빈 상태는 테이블 영역 안 중앙 정렬.</p>
+      <div class="ds-panel">
+        <div class="ds-demo" style="text-align:center;"><span class="adm-toast">텍스트가 복사되었습니다.</span></div>
+        <div class="ds-demo">
+          <div class="adm-empty"><div class="t">조회 결과가 없습니다</div>검색 조건을 변경하거나 초기화 후 다시 시도해 주세요.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 4. 조합 미리보기 ================= -->
+  <div class="ds-sec">
+    <h2><span class="no">04</span>레이아웃 조합 미리보기</h2>
+    <p class="desc">위 컴포넌트만으로 조립한 목록형 화면 예시 — 실제 SB 캔버스 규격(2560px)을 화면 폭에 맞춰 자동 축소 표시.</p>
+    <div class="ds-panel" style="padding:16px;">
+      <div class="pv-wrap"><div class="pv-scale"><div class="pv-frame adm-frame">
+        <div class="adm-topbar">
+          <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">디자인밀 챗봇 Admin</span><span class="env">STG</span></div>
+          <div class="adm-utils"><span class="u"><span class="adm-avatar sm">홍</span>홍길동님</span><span class="divider"></span><button class="adm-btn ghost sm">로그아웃</button></div>
+        </div>
+        <div class="pv-body">
+          <div class="adm-gnb">
+            <div class="grp open">챗봇 관리 <span class="cv">▲</span></div>
+            <div class="sub"><a class="active">챗봇 대화 내역</a><a>인텐트 관리</a><a>답변 콘텐츠 관리</a></div>
+            <div class="grp">회원 관리 <span class="cv">▼</span></div>
+            <div class="grp">통계 <span class="cv">▼</span></div>
+          </div>
+          <div class="pv-main"><div class="pv-content">
+            <div class="adm-pagebar">
+              <div class="left"><span class="ttl">챗봇 대화 내역</span>
+                <span class="adm-crumb">Home <span class="sep">›</span> 챗봇 관리 <span class="sep">›</span> <span class="cur">챗봇 대화 내역</span></span></div>
+              <div class="acts"><button class="adm-btn line">엑셀 다운로드</button></div>
+            </div>
+            <div class="adm-filter-card" style="margin-top:8px;">
+              <div class="adm-filter-grid">
+                <div class="adm-field"><label>기간</label><span class="adm-date" style="width:100%;justify-content:space-between;"><span style="display:inline-flex;align-items:center;gap:8px;"><span class="ic"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" stroke-width="1.3"/></svg></span>2026-06-29 ~ 2026-06-29</span><span style="color:var(--g400);font-size:10px;">▾</span></span></div>
+                <div class="adm-field"><label>검색 기준</label><span class="adm-select" style="width:100%;">검색어 전체<span class="ar"></span></span></div>
+                <div class="adm-field" style="grid-column:span 2;"><label>검색어</label><span class="adm-search" style="width:100%;min-width:0;"><input placeholder="검색어를 입력해 주세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span></div>
+                <div class="adm-field"><label>상담실 이관 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+                <div class="adm-field"><label>미응답 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+                <div class="adm-field"><label>대화 상태</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+                <div class="adm-field"><label>답변 피드백</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+              </div>
+              <div class="adm-filter-acts"><button class="adm-btn line">↺ 초기화</button><button class="adm-btn">검색</button></div>
+            </div>
+            <div class="adm-toolbar">
+              <div class="left"><span class="total"><b>총 128건</b></span><span class="adm-select bare">최신순 <span class="ar"></span></span><span class="adm-select bare">15개 <span class="ar"></span></span></div>
+              <div class="right"></div>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead><tr><th>No</th><th>대화 식별 ID</th><th>시작일시 <span class="sort"><i class="up on"></i><i class="dn"></i></span></th><th>고객 ID</th><th>대화 상태</th><th>메시지 수</th><th>사용 인텐트</th><th>상담실 이관</th><th>미응답</th><th>확인 결과</th><th>답변 피드백</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>260304-095502-lyg701</td><td>26-03-04 09:55:02</td><td>lyg701</td><td><span class="adm-tag line">대화 진행중</span></td><td>8</td><td>NDP문의</td><td>N</td><td>N</td><td><span class="adm-tag gray">미확인</span></td><td>긍정</td></tr>
+                  <tr><td>2</td><td>260304-101211-kim802</td><td>26-03-04 10:12:11</td><td>kim802</td><td><span class="adm-tag">사용자 완료</span></td><td>12</td><td>주문조회</td><td>Y</td><td>N</td><td><span class="adm-tag">정답</span></td><td>긍정</td></tr>
+                  <tr><td>3</td><td>260304-113045-par113</td><td>26-03-04 11:30:45</td><td>par113</td><td><span class="adm-tag gray">시스템 완료</span></td><td>3</td><td>-</td><td>N</td><td>Y(1)</td><td><span class="adm-tag red">오답</span></td><td>부정</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="adm-paging">
+              <button class="pg nav disabled">«</button><button class="pg nav disabled">‹</button>
+              <button class="pg cur">1</button><button class="pg">2</button><button class="pg">3</button><button class="pg">4</button><button class="pg">5</button>
+              <button class="pg nav">›</button><button class="pg nav">»</button>
+            </div>
+          </div></div>
+        </div>
+      </div></div></div>
+      <p class="ds-note">콘텐츠 1440px 고정 · LNB 제외 영역 중앙 정렬 · 상단 48px / 하단 96px 여백이 적용된 상태.</p>
+    </div>
+  </div>
+
+</div>
+<script>
+/* 조합 미리보기 폴백: 배율·높이는 기본적으로 CSS(aspect-ratio + 100cqw/2560px)가 처리.
+   cqw 나눗셈 calc()을 지원하지 않는 구형 브라우저에서만 JS로 배율을 재계산한다. */
+(function(){
+  if (window.CSS && CSS.supports && CSS.supports('transform','scale(calc(100cqw / 2560px))')) return;
+  function fit(){
+    document.querySelectorAll('.pv-wrap').forEach(function(w){
+      var sc = w.querySelector('.pv-scale');
+      if(!sc) return;
+      sc.style.transform = 'scale(' + (w.clientWidth / 2560) + ')';
+    });
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(fit);
+    document.querySelectorAll('.pv-wrap').forEach(function(w){ ro.observe(w); });
+  }
+})();
+</script>
+</body>
+</html>

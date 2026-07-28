@@ -340,6 +340,9 @@ base64 -i "00. Assets/etribe-logo.png" | tr -d '\n' > templates/sb-logo-data-url
 | 2026-06-28 | 어드민 SB 분기 추가 (SKILL §4.4 + `build_admin_sb.py` + `templates/admin-pulmuone.html`) — PC 고정, 템플릿 선택 → 화면 본문 → PC SB. 첫 화면 주문상세(`samples/admin/`) |
 | 2026-06-29 | 어드민 세부기능정의 워크북 분기 추가 (SKILL §5.1 + `parse_admin_spec.py`) — 워크북 → 체크리스트 → PRD(§3) → SB(§4.4), 라벨·규칙·예외 커버리지 기계 검증(--verify) |
 | 2026-06-29 | §5.1 간소화 — 산출물 PRD만(SB 별도 요청), 프로세스 입력·Mermaid 프리뷰·체크리스트 질문 등 검토 절차 생략, 미정의 항목은 «(제안)» 표기로 자동 보완 |
+| 2026-07-20 | KRDS 기본 어드민 템플릿 추가 (`templates/admin-krds.html`, 레지스트리 `챗봇대화내역KRDS`) — .adm-* 계약 동일, 룩만 KRDS 토큰 |
+| 2026-07-21 | ★ 공통 어드민 템플릿 추가 (SKILL §4.4.2 + `templates/admin-common.html`) — 프레임 2560px·콘텐츠 1440px 중앙·상 48/하 96, Pretendard, 무채색+상태 컬러. 디자인 시스템 단일 출처 = 워크스페이스 `90. 어드민/DesignSystem/admin-common-design-system.html` (사용자 검토 확정: 체크박스=사각·라디오=점·와이드 테이블 compact). 첫 적용: ADM-CHAT PRD 재생성 + SB(`챗봇대화내역공통`, --template common) — 라벨 30 전수 검증 통과 |
+| 2026-07-22 | ADM-MAIN(KT AX 메인 화면 관리) PRD+SB — 라벨 41 전수 통과. ★ 사용자 확정 규칙 3종 반영(SKILL §4.4.2): ① 넘버 배지 오버레이(absolute, .adm-anchor 래퍼, 인라인/`<br>` 금지) ② 팝업=별도 SB 페이지(-00N 증분, 알럿·토스트만 서브 캔버스) ③ 메타 헤더 풀폭(`sb-style-block` .sb-page max-content + .etribe-meta width:0/min-width:100% — fixed 테이블 인트린식 폭주 방지). 산출: ADM-MAIN-001~003 + ADM-CHAT-001/002 분리 재생성 |
 
 ---
 
