@@ -349,6 +349,13 @@ body{font-family:var(--font);color:var(--text);background:#fff;font-size:14px;li
 .adm-modal .m-body>.adm-field + .adm-field{margin-top:16px;}
 .adm-modal .m-foot{margin-top:28px;}
 
+/* --- 알럿 (경량 확인 다이얼로그) --- */
+.adm-alert{width:400px;background:#fff;border-radius:var(--r-xl);box-shadow:var(--shadow-modal);padding:28px;}
+.adm-alert .a-msg{font-size:15px;font-weight:600;color:var(--g900);line-height:1.5;}
+.adm-alert .a-sub{font-size:13px;color:var(--g600);margin-top:6px;}
+.adm-alert .a-acts{display:flex;gap:8px;margin-top:20px;}
+.adm-alert .a-acts .adm-btn{flex:1;height:44px;}
+
 /* --- 토스트 --- */
 .adm-toast{display:inline-flex;align-items:center;gap:8px;background:rgba(25,27,31,.88);color:#fff;
  font-size:13.5px;padding:12px 22px;border-radius:var(--r-full);}
@@ -831,8 +838,8 @@ body{font-family:var(--font);color:var(--text);background:#fff;font-size:14px;li
 
     <!-- 3.13 모달 -->
     <div class="ds-blk">
-      <h3>3.13 모달</h3>
-      <p class="desc">폼 모달 W 480 / 테이블 모달 W 720. 딤은 rgba(25,27,31,.5)로 캔버스 전체를 덮는다. 하단 버튼은 52px 풀폭.</p>
+      <h3>3.13 모달 · 알럿</h3>
+      <p class="desc">폼 모달 W 480 / 테이블 모달 W 720 / 알럿 W 400. 딤은 rgba(25,27,31,.5)로 캔버스 전체를 덮는다. 모달 하단 버튼은 52px 풀폭, 알럿 버튼은 44px 균등 분할. 파괴 동작(삭제 등)은 Danger 버튼.</p>
       <div class="ds-panel"><div class="adm-dim-demo adm-frame">
         <div class="adm-modal">
           <div class="m-head"><span class="m-ttl">전화상담 신청</span><span class="m-x">✕</span></div>
@@ -866,6 +873,21 @@ body{font-family:var(--font);color:var(--text);background:#fff;font-size:14px;li
             </table>
           </div>
           <div class="m-foot"><button class="adm-btn full">확인</button></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div class="adm-alert">
+            <div class="a-msg">메인 배너는 최대 5개까지 노출 가능합니다.</div>
+            <div class="a-acts"><button class="adm-btn">확인</button></div>
+          </div>
+          <div class="adm-alert">
+            <div class="a-msg">저장하지 않은 변경사항이 있습니다.</div>
+            <div class="a-sub">페이지를 나가면 입력한 내용이 사라집니다.</div>
+            <div class="a-acts"><button class="adm-btn line">취소</button><button class="adm-btn">나가기</button></div>
+          </div>
+          <div class="adm-alert">
+            <div class="a-msg">배너를 삭제하시겠습니까?</div>
+            <div class="a-acts"><button class="adm-btn line">취소</button><button class="adm-btn danger">삭제</button></div>
+          </div>
         </div>
       </div></div>
     </div>
