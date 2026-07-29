@@ -30,11 +30,12 @@
 /* 배지 앵커: 버튼·셀렉트 등 단일 요소에 배지를 얹을 때 감싸는 래퍼 */
 .adm-anchor{position:relative;display:inline-flex;align-items:center;gap:8px;}
 .adm-anchor>.adm-num{top:-10px;left:-10px;}
-/* ★ 배지 겹침 방지 (사용자 확정 2026-07-29): 영역 배지는 컨테이너 좌상단 바깥(-9,-9) 고정이므로
-   같은 모서리에 오는 세부 배지는 위치를 분리한다 —
-   ① 테이블 th 세부 배지 = 컬럼 상단 중앙  ② 앵커 세부 배지 = 요소 시작점 위(left:0) */
+/* ★ 배지 겹침 방지 (사용자 확정 2026-07-29): 영역 배지와 세부 배지 위치 분리 —
+   ① 테이블 th 세부 배지 = 컬럼 시작점 위(left:0)
+   ② 테이블 영역 배지 = 좌측 바깥(-30px)으로 이동 (첫 컬럼 배지와 충돌 방지)
+   ③ 앵커 세부 배지 = 요소 시작점 위(left:0) */
 .adm-anchor>.adm-num.sub{top:-8px;left:0;}
-.adm-table th>.adm-num.sub{top:-8px;left:50%;transform:translateX(-50%);}
+.adm-table th>.adm-num.sub{top:-8px;left:0;}
 
 /* ============ 레이아웃 골격 ============ */
 /* 헤더 (Top Bar) H64 */
@@ -204,7 +205,7 @@
 
 /* 테이블 */
 .adm-table-wrap{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:visible;}
-.adm-table-wrap>.adm-num{top:-9px;left:-9px;}
+.adm-table-wrap>.adm-num{top:-9px;left:-30px;} /* 첫 컬럼 세부 배지(left:0)와 겹치지 않게 좌측 바깥 */
 .adm-table{width:100%;border-collapse:collapse;font-size:13.5px;}
 .adm-table th{height:48px;padding:0 14px;background:#fff;color:var(--g600);font-weight:600;font-size:13px;
  border-bottom:1px solid var(--line-strong);text-align:center;white-space:nowrap;}
