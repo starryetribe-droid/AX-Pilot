@@ -30,7 +30,11 @@
 /* 배지 앵커: 버튼·셀렉트 등 단일 요소에 배지를 얹을 때 감싸는 래퍼 */
 .adm-anchor{position:relative;display:inline-flex;align-items:center;gap:8px;}
 .adm-anchor>.adm-num{top:-10px;left:-10px;}
-.adm-anchor>.adm-num.sub{top:-8px;left:-8px;}
+/* ★ 배지 겹침 방지 (사용자 확정 2026-07-29): 영역 배지는 컨테이너 좌상단 바깥(-9,-9) 고정이므로
+   같은 모서리에 오는 세부 배지는 위치를 분리한다 —
+   ① 테이블 th 세부 배지 = 컬럼 상단 중앙  ② 앵커 세부 배지 = 요소 시작점 위(left:0) */
+.adm-anchor>.adm-num.sub{top:-8px;left:0;}
+.adm-table th>.adm-num.sub{top:-8px;left:50%;transform:translateX(-50%);}
 
 /* ============ 레이아웃 골격 ============ */
 /* 헤더 (Top Bar) H64 */
