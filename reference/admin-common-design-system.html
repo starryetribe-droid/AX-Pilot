@@ -778,19 +778,19 @@ body{font-family:var(--font);color:var(--text);background:#fff;font-size:14px;li
     <!-- 3.12 툴바 + 필터 -->
     <div class="ds-blk">
       <h3>3.12 테이블 툴바 · 필터 카드</h3>
-      <p class="desc">필터 카드는 조건 개수로 변형 선택 — <b>1~3개 = 인라인 변형</b>(검색 인풋 포함 한 줄, 라벨 좌측) / <b>4개 이상 = 그리드 변형</b>(4열, 라벨 상단). 툴바: 좌측 «총 N건 + 정렬·개수», 우측 «검색·설정·주요 액션».</p>
+      <p class="desc">필터 카드는 조건 개수로 변형 선택 — <b>1~3개 = 인라인 변형</b>(검색 인풋 포함 한 줄, 라벨 좌측) / <b>4개 이상 = 그리드 변형</b>(4열, 라벨 상단). <b>키워드 검색 조합(기준 셀렉트 + 검색어 인풋)은 항상 맨 아래(인라인은 맨 뒤) 배치</b>. 툴바: 좌측 «총 N건 + 정렬·개수», 우측 «검색·설정·주요 액션».</p>
       <div class="ds-panel">
         <div class="ds-demo">
           <div class="ds-lbl">필터 카드 (인라인 변형) — 조건 1~3개 + 검색 인풋 한 줄 (조회 목록 상단)</div>
           <div class="adm-frame adm-filter-card inline">
             <div class="f">
+              <label>권한</label>
+              <span class="adm-select" style="min-width:160px;">전체<span class="ar"></span></span>
+            </div>
+            <div class="f">
               <label>검색 필드</label>
               <span class="adm-select" style="min-width:140px;"><span class="ph">선택</span><span class="ar"></span></span>
               <span class="adm-search" style="min-width:240px;"><input placeholder="검색어를 입력하세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span>
-            </div>
-            <div class="f">
-              <label>권한</label>
-              <span class="adm-select" style="min-width:160px;">전체<span class="ar"></span></span>
             </div>
             <div class="acts">
               <button class="adm-btn line">↺ 초기화</button>
@@ -819,13 +819,13 @@ body{font-family:var(--font);color:var(--text);background:#fff;font-size:14px;li
           <div class="adm-frame adm-filter-card">
             <div class="adm-filter-grid">
               <div class="adm-field"><label>기간</label><span class="adm-date" style="width:100%;justify-content:space-between;"><span style="display:inline-flex;align-items:center;gap:8px;"><span class="ic"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" stroke-width="1.3"/></svg></span>2026-06-29 ~ 2026-06-29</span><span style="color:var(--g400);font-size:10px;">▾</span></span></div>
-              <div class="adm-field"><label>검색 기준</label><span class="adm-select" style="width:100%;">검색어 전체<span class="ar"></span></span></div>
-              <div class="adm-field"><label>검색어</label><span class="adm-search" style="width:100%;min-width:0;"><input placeholder="검색어를 입력해 주세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span></div>
               <div class="adm-field"><label>상담실 이관 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
               <div class="adm-field"><label>미응답 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
               <div class="adm-field"><label>구매 전환 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
               <div class="adm-field"><label>대화 상태</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
               <div class="adm-field"><label>답변 피드백</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+              <div class="adm-field"><label>검색 기준</label><span class="adm-select" style="width:100%;">검색어 전체<span class="ar"></span></span></div>
+              <div class="adm-field"><label>검색어</label><span class="adm-search" style="width:100%;min-width:0;"><input placeholder="검색어를 입력해 주세요"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></span></div>
             </div>
             <div class="adm-filter-acts">
               <button class="adm-btn line">↺ 초기화</button>

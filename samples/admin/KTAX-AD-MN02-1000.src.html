@@ -49,7 +49,7 @@
             <!-- 4. 팝업 정보 입력 폼 -->
             <div class="adm-card" style="max-width:760px;">
               <span class="adm-num">4</span>
-              <div class="card-ttl">팝업 정보 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">*표시는 필수 입력 사항입니다 · 전 항목 (제안)</span></div>
+              <div class="card-ttl">팝업 정보 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">*표시는 필수 입력 사항입니다</span></div>
               <div style="display:flex;flex-direction:column;gap:20px;">
                 <div class="adm-field"><span class="adm-num sub">4-1</span><label>팝업명<span class="req">*</span></label><span class="adm-input ph">관리용 명칭을 입력해주세요 (프론트 미노출)</span></div>
                 <div class="adm-field"><span class="adm-num sub">4-2</span><label>팝업 이미지<span class="req">*</span></label>
@@ -57,20 +57,16 @@
                     <span style="display:inline-block;width:100px;height:100px;background:#EEF0F3;border-radius:6px;"></span>
                     <span class="adm-btn line sm">파일 첨부</span>
                   </div>
-                  <span class="help">권장 사이즈·용량·포맷(JPG/PNG) 안내 — 정책 확정 필요</span>
+                  <span class="help">권장 사이즈·용량·포맷(JPG/PNG) 안내 — 사이즈 정책 확정 필요</span>
                 </div>
-                <div class="adm-field"><span class="adm-num sub">4-3</span><label>랜딩 URL</label><span class="adm-input ph">https:// (미입력 시 클릭 이동 없음)</span>
-                  <span style="display:inline-flex;gap:16px;margin-top:4px;">
-                    <span class="adm-opt"><span class="adm-radio on"></span>본창 이동</span>
-                    <span class="adm-opt"><span class="adm-radio"></span>새창 이동</span>
-                  </span>
-                </div>
+                <div class="adm-field"><span class="adm-num sub">4-3</span><label>랜딩 URL</label><span class="adm-input ph">https:// (미입력 시 이미지 클릭 이동 없음)</span></div>
                 <div class="adm-field"><span class="adm-num sub">4-4</span><label>노출 기간<span class="req">*</span></label>
                   <span style="display:inline-flex;align-items:center;gap:8px;">
                     <span class="adm-date">2026-07-01 00:00 <span class="ar">▾</span></span>
                     <span style="color:#B0B6BF;">~</span>
                     <span class="adm-date">2026-07-31 23:59 <span class="ar">▾</span></span>
                   </span>
+                  <span class="help">기간 내에만 프론트 노출, 종료일시 경과 시 자동 비노출 처리 (기간 설정 정책 확정 필요)</span>
                 </div>
                 <div class="adm-field"><span class="adm-num sub">4-5</span><label>노출 여부<span class="req">*</span></label>
                   <span style="display:inline-flex;gap:16px;">
@@ -78,8 +74,8 @@
                     <span class="adm-opt"><span class="adm-radio"></span>비노출</span>
                   </span>
                 </div>
-                <div class="adm-field"><span class="adm-num sub">4-6</span><label>«오늘 하루 열지 않음» 옵션</label>
-                  <span class="adm-opt"><span class="adm-check on"></span>프론트 팝업 하단에 «오늘 하루 열지 않음» 노출</span>
+                <div class="adm-field"><span class="adm-num sub">4-6</span><label>노출 순서</label><span class="adm-input" style="width:120px;">1</span>
+                  <span class="help">노출 중 팝업 내 순서 지정</span>
                 </div>
               </div>
             </div>
@@ -105,8 +101,7 @@
     <div class="desc-section-header">화면 설명</div>
     <div class="desc-section-body">
       <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
-        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page / 진입: 목록 &lt;KTAX-AD-MN02-0000&gt; [팝업 등록] 클릭 / 상세·수정 페어 = &lt;KTAX-AD-MN02-2000&gt;</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 세부기능정의 미존재 — 전 항목 (제안), 통상 패턴 설계</span></p></li>
-      
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page (IA v0.3 — 팝업 등록/수정 팝업의 페이지 전환) / 관리자 등급: 최고·일반</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 경로: Admin &gt; 메인 관리 &gt; 메인 팝업 관리 &gt; 등록</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 진입: 목록 &lt;KTAX-AD-MN02-0000&gt; [팝업 등록] 클릭 / 상세·수정 페어 = &lt;KTAX-AD-MN02-2000&gt;</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 소스: ADM-MAIN PRD (정의서 «메인 팝업 관리» 시트, 2026-07-29 확정)</span></p></li>
       </ul>
     </div>
   </div>
@@ -115,14 +110,14 @@
     <div class="desc-section-header">Description</div>
     <div class="desc-section-body">
       <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
-        <li><p class="desc-block"><span class="lvl1">1~3. 헤더 · LNB · 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 목록 화면과 동일 (타이틀 "팝업 등록")</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">4. 팝업 정보 입력 폼 «(제안)»</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-1. 팝업명 (필수) — 관리용 명칭 (프론트 미노출)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-2. 팝업 이미지 업로드 (필수) — 파일 첨부, 미리보기 출력, 권장 사이즈·포맷(JPG/PNG) 안내 (정책 확정 필요)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-3. 랜딩 URL — 미입력 시 클릭 이동 없음 / 새창·본창 이동 선택(라디오)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-4. 노출 기간 (필수): 시작일시 ~ 종료일시 데이트피커</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-5. 노출 여부 (필수): 노출 / 비노출 (라디오)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-6. «오늘 하루 열지 않음» 옵션 (체크박스): 프론트 팝업 하단 노출 여부 설정</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">5. [취소] / [저장]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [저장]: 필수값 검증 → 저장 후 목록 복귀, 프론트 메인 팝업(KTAX-FO-MN01-1000) 반영</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [취소]: 미저장 종료 → 목록 복귀</span></p></li>
-      
+        <li><p class="desc-block"><span class="lvl1">1~3. 헤더 · LNB · 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 목록 화면과 동일 (타이틀 "팝업 등록", 활성: 메인 관리 › 메인 팝업 관리)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">4. 팝업 정보 입력 폼 (팝업 등록/수정)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-1. 팝업명 입력 인풋필드 (필수) — 관리용 명칭 (프론트 미노출)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-2. 팝업 이미지 업로드 (필수) — 파일 첨부 방식, 업로드 후 미리보기 출력 / 권장 사이즈·용량·포맷(JPG/PNG) 안내 문구 노출 (사이즈 정책 확정 필요)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-3. 랜딩 URL 입력 인풋필드 — 프론트에서 팝업 이미지 클릭 시 해당 URL로 이동 / 미입력 시 이미지 클릭 이동 없음</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-4. 노출 기간 설정 (필수): 시작일시 ~ 종료일시 데이트피커 선택 — 기간 내에만 프론트 노출, 종료일시 경과 시 자동 비노출 처리 (기간 설정 정책 확정 필요)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-5. 노출 여부 설정 (필수): 노출 / 비노출 선택(라디오)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-6. 노출 순서 설정: 노출 중 팝업 내 순서 지정 (순서값 입력)</span><br><span class="note">&nbsp;&nbsp;&nbsp;* «하루 동안 보지 않기»(24시간)는 프론트 고정 기능 — 어드민 설정 항목 아님</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. [취소] / [저장]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [저장]: 필수값 검증 → 노출(Y) 5건 검사 → 초과 시 등록 불가 처리, 알럿 "메인 팝업은 최대 5개까지 노출 가능합니다." (목록 SB ⑥-1) → 통과 시 저장 후 목록 복귀, 프론트 메인 팝업(KTAX-FO-MN01-1000) 반영</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [취소]: 미저장 종료 → 목록 복귀</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 입력 중 이탈 확인 알럿 여부는 정의 미존재 — (제안) 즉시 이동</span></p></li>
+
         <li><p class="desc-block"><span class="lvl1">[동작 / 예외]</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">필수값 미입력 저장 시도</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 해당 필드 에러 표시 — "필수 입력 항목입니다."</span></p></li>
         <li><p class="desc-block"><span class="lvl1">노출 기간 역전 입력</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 종료일시 &lt; 시작일시 시 에러 — "종료일시는 시작일시 이후여야 합니다."</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">이미지 업로드 실패</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 실패 토스트 — "이미지 업로드에 실패했습니다. 다시 시도해주세요."</span></p></li>
-      
+        <li><p class="desc-block"><span class="lvl1">이미지 업로드 실패</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 실패 토스트 — "이미지 업로드에 실패했습니다. 다시 시도해주세요." / 입력 상태 유지</span></p></li>
       </ul>
     </div>
   </div>
