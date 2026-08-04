@@ -5,11 +5,8 @@ Feature Spec 가이드를 ETRIBE 서버에서 fetch.
 가이드 내용은 stdout으로만 출력되며 디스크에 저장하지 않음.
 Claude는 이 출력을 읽어 메모리에서 사용한다.
 
-Config: ~/.etribe/config.json
-{
-  "server_url": "https://your-server.vercel.app",
-  "token": "your-team-token"
-}
+서버 URL은 내장되어 있어 별도 설정이 필요 없다 (2026-08-04 범용화: 토큰 인증 제거).
+다른 서버를 쓰려면 ~/.etribe/config.json 의 server_url 로 오버라이드 가능 (선택).
 
 사용 예:
   python3 fetch_guide.py --mode prd --author "김기획"
@@ -27,34 +24,24 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 
+DEFAULT_SERVER_URL = "https://etribe-feature-spec-server.vercel.app"
 DEFAULT_CONFIG_PATH = Path.home() / ".etribe" / "config.json"
 
 
-def load_config() -> dict:
-    """~/.etribe/config.json 로드, 없으면 안내."""
+def resolve_server_url() -> str:
+    """내장 URL 사용. ~/.etribe/config.json 이 있고 server_url이 있으면 그 값으로 오버라이드."""
     path = DEFAULT_CONFIG_PATH
-    if not path.exists():
-        sys.exit(
-            f"[ERROR] 설정 파일이 없습니다: {path}\n\n"
-            "다음 형식으로 만드세요:\n"
-            '{\n'
-            '  "server_url": "https://your-server.vercel.app",\n'
-            '  "token": "your-team-token"\n'
-            '}\n\n'
-            "토큰은 팀 관리자에게 요청하세요."
-        )
-    try:
-        cfg = json.loads(path.read_text())
-    except json.JSONDecodeError as e:
-        sys.exit(f"[ERROR] {path} JSON 파싱 실패: {e}")
-
-    for key in ("server_url", "token"):
-        if not cfg.get(key):
-            sys.exit(f"[ERROR] {path} 에 {key} 값이 비었습니다.")
-    return cfg
+    if path.exists():
+        try:
+            cfg = json.loads(path.read_text())
+            if cfg.get("server_url"):
+                return cfg["server_url"]
+        except (json.JSONDecodeError, OSError):
+            pass  # 설정 파일이 깨져 있어도 내장 URL로 동작
+    return DEFAULT_SERVER_URL
 
 
-def fetch_guides(server_url: str, token: str, mode: str,
+def fetch_guides(server_url: str, mode: str,
                  author: str = "", feature_id: str = "",
                  action: str = "", project_path: str = "") -> dict:
     """서버에 POST 요청해서 가이드 dict 받기. 사용 로그 메타 동시 전송.
@@ -77,7 +64,6 @@ def fetch_guides(server_url: str, token: str, mode: str,
         url,
         data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
         headers={
-            "Authorization": f"Bearer {token}",
             "Content-Type": "application/json; charset=utf-8",
             "Cache-Control": "no-cache",
             "Pragma": "no-cache",
@@ -114,9 +100,8 @@ def main():
                     help="출력 포맷 (기본: text)")
     args = ap.parse_args()
 
-    cfg = load_config()
     payload = fetch_guides(
-        cfg["server_url"], cfg["token"], args.mode,
+        resolve_server_url(), args.mode,
         author=args.author,
         feature_id=args.feature_id,
         action=args.action,

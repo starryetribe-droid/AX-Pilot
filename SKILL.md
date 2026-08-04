@@ -12,8 +12,7 @@ description: |
   트리거: "A-02 PRD 만들어줘", "회원가입 기획해줘", "PRD에서 SB",
         "A-01-003 화면 추가", "Description 수정" 등.
 
-  가이드는 ETRIBE 사내 서버에서 fetch (로컬 저장 X).
-  사전 설정: ~/.etribe/config.json (ONBOARDING.md 참고).
+  가이드는 ETRIBE 사내 서버에서 fetch (로컬 저장 X, 토큰·설정 파일 불필요).
 ---
 
 # Feature Spec 스킬
