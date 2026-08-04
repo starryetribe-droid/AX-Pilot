@@ -1,11 +1,12 @@
 <style>
 :root {
-  --krds-primary-5: #ecf2fe;
-  --krds-primary-10: #d8e5fd;
-  --krds-primary-40: #4c87f6;
-  --krds-primary-50: #256ef4;
-  --krds-primary-60: #0b50d0;
-  --krds-primary-80: #052561;
+  /* 모노톤 적용 (2026-08-04): KRDS 블루 → 무채색. 단계 위계는 KRDS Primary와 동일하게 유지 */
+  --krds-primary-5: #f4f5f6;
+  --krds-primary-10: #e6e8ea;
+  --krds-primary-40: #8a949e;
+  --krds-primary-50: #33363d;
+  --krds-primary-60: #1e2124;
+  --krds-primary-80: #000000;
   --krds-gray-0: #ffffff;
   --krds-gray-5: #f4f5f6;
   --krds-gray-10: #e6e8ea;
@@ -167,7 +168,7 @@ body {
 .pagination .page-btn.active { background:var(--krds-primary-50); color:var(--krds-gray-0); border-color:var(--krds-primary-50); font-weight:700; }
 .pagination .page-btn.nav { font-size:11px; color:var(--krds-gray-40); }
 
-.fab { position:absolute; bottom:24px; right:16px; width:52px; height:52px; border-radius:50%; background:var(--krds-primary-50); color:var(--krds-gray-0); border:none; font-size:24px; font-weight:400; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(37,110,244,.3); cursor:pointer; }
+.fab { position:absolute; bottom:24px; right:16px; width:52px; height:52px; border-radius:50%; background:var(--krds-primary-50); color:var(--krds-gray-0); border:none; font-size:24px; font-weight:400; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.25); cursor:pointer; }
 
 /* ===== Sub-canvas (모달/다이얼로그 우측 배치) ===== */
 .wf-sub-connector { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:0 10px; }

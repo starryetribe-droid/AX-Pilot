@@ -297,7 +297,7 @@ def component_card(c, archetype, slots, role_of, usage, bindings):
 
 CSS = """
 :root{
-  --krds-primary-5:#ecf2fe;--krds-primary-50:#256ef4;--krds-primary-60:#0b50d0;
+  --krds-primary-5:#f4f5f6;--krds-primary-50:#33363d;--krds-primary-60:#1e2124;
   --krds-gray-0:#fff;--krds-gray-5:#f4f5f6;--krds-gray-10:#e6e8ea;--krds-gray-20:#cdd1d5;
   --krds-gray-30:#b1b8be;--krds-gray-40:#8a949e;--krds-gray-50:#6d7882;--krds-gray-60:#58616a;
   --krds-gray-70:#464c53;--krds-gray-80:#33363d;--krds-gray-90:#1e2124;
