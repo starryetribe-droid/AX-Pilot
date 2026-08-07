@@ -1,0 +1,252 @@
+<div class="wf-panel">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas admin-canvas" style="min-height:0;">
+
+      <!-- 1. 헤더 -->
+      <div class="adm-topbar">
+        <span class="adm-num">1</span>
+        <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">KT AX Admin</span></div>
+        <div class="adm-utils">
+          <span class="u"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
+          <span class="divider"></span>
+          <span class="adm-btn ghost sm">로그아웃</span>
+        </div>
+      </div>
+
+      <div class="adm-body">
+        <!-- 2. LNB -->
+        <div class="adm-gnb">
+          <span class="adm-num">2</span>
+          <div class="grp">대시보드</div>
+          <div class="grp">메인 관리 <span class="cv"></span></div>
+          <div class="grp">AX 솔루션 컨설턴트 <span class="cv"></span></div>
+          <div class="grp">AX 도입 관리 <span class="cv"></span></div>
+          <div class="grp">도입사례 관리 <span class="cv"></span></div>
+          <div class="grp active">인사이트 관리 <span class="cv"></span></div>
+          <div class="sub"><a class="active">인사이트</a></div>
+          <div class="grp">이벤트 관리 <span class="cv"></span></div>
+          <div class="grp">문의 관리 <span class="cv"></span></div>
+          <div class="grp">약관 관리 <span class="cv"></span></div>
+          <div class="grp">시스템 관리 <span class="cv"></span></div>
+        </div>
+
+        <div class="adm-main">
+          <div class="adm-content">
+
+            <!-- 3. 페이지 헤더 -->
+            <div class="adm-pagebar">
+              <span class="adm-num">3</span>
+              <div class="left">
+                <span class="ttl">인사이트 등록</span>
+                <span class="adm-crumb">Home <span class="sep">›</span> 인사이트 관리 <span class="sep">›</span> 인사이트 <span class="sep">›</span> <span class="cur">등록</span></span>
+              </div>
+            </div>
+
+            <!-- 4. 카테고리 선택 -->
+            <div class="adm-card" style="max-width:900px;">
+              <span class="adm-num">4</span>
+              <div class="card-ttl">카테고리 선택<span class="req" style="color:#E5484D;">*</span></div>
+              <div class="adm-choice-group" style="max-width:420px;">
+                <span class="adm-choice selected">보도자료</span>
+                <span class="adm-choice">리포트</span>
+                <span class="adm-choice">미디어</span>
+              </div>
+              <span class="help" style="display:block;margin-top:10px;">선택한 카테고리에 따라 본문 콘텐츠 입력 구성(⑥)이 분기 · 프론트 카드·상세 헤더 태그 및 카테고리 Chip 조회 기준값 · 저장 후 변경 불가</span>
+            </div>
+
+            <!-- 5. 콘텐츠 헤더 정보 -->
+            <div class="adm-card" style="max-width:900px;">
+              <span class="adm-num">5</span>
+              <div class="card-ttl">콘텐츠 헤더 정보 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">*표시는 필수 입력 사항입니다</span></div>
+              <div style="display:flex;flex-direction:column;gap:20px;">
+                <div class="adm-field"><span class="adm-num sub">5-1</span><label>제목<span class="req">*</span></label><span class="adm-input ph">제목을 입력해주세요</span>
+                  <span class="help">프론트 카드 제목 및 상세 화면 타이틀 · 카드 최대 한 줄 후 말줄임 — 권장 글자수 안내 (글자수 제한 정책 확정 필요)</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">5-2</span><label>요약 내용<span class="req">*</span></label><span class="adm-input ph">요약 내용을 입력해주세요</span>
+                  <span class="help">프론트 목록 카드의 요약 문구로 노출 (상세 화면에는 미노출) · 카드 최대 한 줄 후 말줄임</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">5-3</span><label>게시일<span class="req">*</span></label><span class="adm-date">2026-08-03 <span class="ar">▾</span></span>
+                  <span class="help">프론트 YYYY.MM.DD 노출 · 목록 정렬(게시일 최신순) 기준값 · Default : 등록일</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">5-4</span><label>썸네일 이미지<span class="req">*</span></label>
+                  <div style="border:1px dashed #D3D7DD;border-radius:8px;padding:16px;display:flex;align-items:center;gap:12px;">
+                    <span style="display:inline-block;width:120px;height:68px;background:#EEF0F3;border-radius:6px;"></span>
+                    <span class="adm-btn line sm">파일 첨부</span>
+                  </div>
+                  <span class="help">프론트 목록 카드 썸네일 및 메인 화면 인사이트 카드 대표 이미지 · 권장 사이즈·용량·포맷(JPG/PNG) 안내</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. 본문 콘텐츠 입력 (카테고리별 분기) -->
+            <div class="adm-card" style="max-width:900px;">
+              <span class="adm-num">6</span>
+              <div class="card-ttl">본문 콘텐츠 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">카테고리별 입력 구성 분기 · CSS 스타일 기반 HTML 에디터</span></div>
+
+              <div style="border:1.5px solid #191B1F;border-radius:8px;padding:18px;position:relative;margin-bottom:14px;">
+                <span class="adm-num sub">6-1</span>
+                <div style="font-size:13px;font-weight:700;margin-bottom:14px;">보도자료 <span class="adm-tag" style="margin-left:6px;">선택됨</span></div>
+                <div style="display:flex;flex-direction:column;gap:16px;">
+                  <div class="adm-field"><label>대표 이미지</label>
+                    <div style="border:1px dashed #D3D7DD;border-radius:8px;padding:14px;display:flex;align-items:center;gap:12px;">
+                      <span style="display:inline-block;width:120px;height:68px;background:#EEF0F3;border-radius:6px;"></span>
+                      <span class="adm-btn line sm">파일 첨부</span>
+                    </div>
+                    <span class="help">상세 화면 본문 상단 노출, 업로드 후 미리보기 출력</span>
+                  </div>
+                  <div class="adm-field"><label>캡션 <span style="font-weight:400;color:#8A919C;">(선택)</span></label><span class="adm-input ph">예: KT AX Total Service 출시 기념 기자간담회 현장</span>
+                    <span class="help">프론트 대표 이미지 하단 캡션 전용 스타일 노출 · ▲ 기호는 시스템 자동 표기 · 미입력 시 캡션 영역 미노출</span>
+                  </div>
+                  <div class="adm-field"><label>본문<span class="req">*</span></label><span class="adm-textarea ph" style="display:block;min-height:80px;">본문을 입력해주세요</span></div>
+                </div>
+              </div>
+
+              <div style="border:1px solid #E4E7EB;border-radius:8px;padding:18px;position:relative;margin-bottom:14px;background:#FAFBFC;">
+                <span class="adm-num sub">6-2</span>
+                <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:#8A919C;">리포트 <span class="adm-tag gray" style="margin-left:6px;">미선택 — 카테고리 선택 시 활성</span></div>
+                <div style="display:flex;flex-direction:column;gap:12px;font-size:12.5px;color:#6B7280;">
+                  <div>• 대표 이미지 업로드 + 캡션(선택)</div>
+                  <div>• 본문 입력 텍스트에어리어 (필수)</div>
+                  <div>• 첨부파일(PDF) 업로드 — 첨부 필수 아님, 미등록 시 프론트 [리포트 다운로드(PDF)] 버튼 미노출 / 허용 포맷·용량 제한 안내 (정책 확정 필요)</div>
+                </div>
+              </div>
+
+              <div style="border:1px solid #E4E7EB;border-radius:8px;padding:18px;position:relative;background:#FAFBFC;">
+                <span class="adm-num sub">6-3</span>
+                <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:#8A919C;">미디어 <span class="adm-tag gray" style="margin-left:6px;">미선택 — 카테고리 선택 시 활성</span></div>
+                <div style="display:flex;flex-direction:column;gap:12px;font-size:12.5px;color:#6B7280;">
+                  <div>• YouTube 영상 URL 입력 (필수) — URL 유효성 검증, 입력 시 임베드 미리보기 출력</div>
+                  <div>• 캡션 입력 (선택) — 영상 하단 캡션 노출</div>
+                  <div>• 본문 입력 텍스트에어리어 (필수)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. 추천 상품·서비스 -->
+            <div class="adm-card" style="max-width:900px;">
+              <span class="adm-num">7</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                <span style="font-size:17px;font-weight:700;">추천 상품·서비스 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">최대 3건 · 0건 시 프론트 영역 전체 미노출</span></span>
+                <span class="adm-anchor">
+                  <span class="adm-num sub">7-1</span>
+                  <span class="adm-btn line">상품 불러오기</span>
+                </span>
+              </div>
+              <div class="adm-table-wrap" style="border-radius:8px;">
+                <span class="adm-num sub">7-3</span>
+                <table class="adm-table" style="font-size:12.5px;">
+                  <thead>
+                    <tr><th style="width:100px;">노출 순서</th><th style="width:160px;">카테고리 태그</th><th class="l" style="width:220px;">상품명</th><th class="l">설명 문구</th><th style="width:110px;">연결 해제</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span style="color:#B0B6BF;">⠿</span> <span class="adm-input" style="width:44px;height:30px;display:inline-flex;justify-content:center;">1</span></td>
+                      <td><span class="adm-tag gray">L4 AI Agent</span></td>
+                      <td class="l">AICC 상담 어시스턴트</td>
+                      <td class="l">상담사 업무를 보조하는 AI 컨택센터 솔루션</td>
+                      <td><span class="adm-btn line sm">해제</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <span class="help" style="display:block;margin-top:10px;">상품 정보(카테고리 태그/상품명/설명 문구)는 PD04 등록 데이터 그대로 출력 — 본 화면에서 상품 내용 수정 불가</span>
+            </div>
+
+            <!-- 8. 노출 여부 / 9. SEO -->
+            <div style="display:flex;gap:16px;max-width:900px;">
+              <div class="adm-card" style="flex:0 0 300px;">
+                <span class="adm-num">8</span>
+                <div class="card-ttl">노출 여부</div>
+                <span style="display:inline-flex;gap:16px;">
+                  <span class="adm-opt"><span class="adm-radio"></span>노출</span>
+                  <span class="adm-opt"><span class="adm-radio on"></span>비노출</span>
+                </span>
+                <span class="help" style="display:block;margin-top:10px;">Default : 비노출 · 비노출 시 프론트 목록·상세 및 메인 노출 대상에서 제외</span>
+              </div>
+              <div class="adm-card" style="flex:1;">
+                <span class="adm-num">9</span>
+                <div class="card-ttl">검색 최적화(SEO)</div>
+                <div style="display:flex;flex-direction:column;gap:16px;">
+                  <div class="adm-field"><span class="adm-num sub">9-1</span><label>URL 슬러그<span class="req">*</span></label><span class="adm-input">kt-ax-total-service-launch</span></div>
+                  <div class="adm-field"><span class="adm-num sub">9-2</span><label>이미지 대체 텍스트(alt)</label><span class="adm-input ph">미입력 시 제목 자동 적용</span></div>
+                  <div class="adm-field"><span class="adm-num sub">9-3</span><label>메타 타이틀 / 메타 디스크립션</label><span class="adm-input ph">미입력 시 제목·요약 문구 자동 적용 (선택)</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 10. 하단 버튼 -->
+            <div style="display:flex;justify-content:flex-end;gap:8px;max-width:900px;position:relative;">
+              <span class="adm-anchor">
+                <span class="adm-num">10</span>
+                <span class="adm-btn line">취소</span>
+                <span class="adm-btn">저장</span>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wf-sub-connector" style="padding-top:340px;">
+      <div class="wf-sub-connector-line"></div>
+      <div class="wf-sub-connector-label">3건 초과 / 취소 클릭 시</div>
+    </div>
+
+    <!-- 11. 알럿 2종 -->
+    <div class="wf-sub-canvas admin-canvas" style="width:400px;min-height:0;margin-top:240px;border-radius:16px;">
+      <div style="padding:28px;position:relative;">
+        <span class="adm-num" style="top:-9px;left:-9px;">11</span>
+        <div style="position:relative;padding-bottom:20px;border-bottom:1px solid #EEF0F3;margin-bottom:20px;">
+          <span class="adm-num sub">11-1</span>
+          <div style="font-size:12px;color:#8A919C;margin-bottom:8px;">추천 상품 최대치 알럿</div>
+          <div style="font-size:14.5px;font-weight:600;margin-bottom:16px;">추천 상품·서비스는 최대 3개까지 노출 가능합니다.</div>
+          <span class="adm-btn full" style="height:44px;">확인</span>
+        </div>
+        <div style="position:relative;">
+          <span class="adm-num sub">11-2</span>
+          <div style="font-size:12px;color:#8A919C;margin-bottom:8px;">취소 확인 알럿</div>
+          <div style="font-size:14.5px;font-weight:600;margin-bottom:16px;">작성 중인 내용이 저장되지 않습니다.</div>
+          <div style="display:flex;gap:8px;">
+            <span class="adm-btn line" style="flex:1;">취소</span>
+            <span class="adm-btn" style="flex:1;">확인</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="desc-panel">
+  <div class="desc-section">
+    <div class="desc-section-header">화면 설명</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page (IA v0.3) / 진입: 목록 &lt;KTAX-AD-IS01-0000&gt; [인사이트 등록] 클릭</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 연결 SB: 상품 선택 팝업 = KTAX-AD-IS01-1100 · 상세/수정 = KTAX-AD-IS01-2000</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트 연동: 인사이트 상세(KTAX-FO-IS01-1000) — 카테고리(콘텐츠 유형)에 따라 상세 템플릿 분기 / 공통 헤더(카테고리 태그 + 제목 + 게시일) / 보도자료 = 대표 이미지 + 본문 / 리포트 = 대표 이미지 + 본문 + [리포트 다운로드(PDF)] / 미디어 = YouTube 임베드 + 본문 / 추천 상품·서비스 Card List(PC 3열, 최대 3건, 0건 시 미노출)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 대표 이미지·영상 하단 캡션: 캡션 인풋필드 방식 (2026-08-03 확정) — figcaption 전용 스타일, ▲ 기호 시스템 자동 표기, 미입력 시 영역 미노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 소스: 정의서 «인사이트 관리» 시트 (2026-08-03 화면설계서 반영분 포함)</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">Description</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">1~3. 헤더 · LNB · 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 목록 화면과 동일 (타이틀 "인사이트 등록", 활성: 인사이트 관리 › 인사이트)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">4. 카테고리 선택 (필수)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 보도자료 / 리포트 / 미디어 중 1개 선택</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 선택한 카테고리에 따라 본문 콘텐츠 입력 구성(⑥ 영역)이 분기됨</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트 카드·상세 화면 헤더의 카테고리 태그 및 카테고리 Chip 조회 기준값</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. 콘텐츠 헤더 정보 입력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-1. 제목 입력 인풋필드 (필수) — 프론트 카드 제목 및 상세 화면 타이틀로 노출, 카드에서 최대 한 줄 노출 후 말줄임 처리되므로 권장 글자수 안내 문구 노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-2. 요약 내용 입력 인풋필드 (필수) — 프론트 목록 카드의 요약 문구로 노출 (상세 화면에는 미노출), 카드에서 최대 한 줄 노출 후 말줄임</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-3. 게시일 설정 데이트피커 (필수) — 프론트 YYYY.MM.DD 노출, 목록 정렬(게시일 최신순) 기준값, Default : 등록일</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-4. 썸네일 이미지 업로드 (필수) — 파일 첨부 방식, 업로드 후 미리보기 출력 / 프론트 목록 카드 썸네일 및 메인 화면 인사이트 카드 대표 이미지로 노출</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">6. 본문 콘텐츠 입력 (카테고리별 분기)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 본문 서식 : CSS 스타일 기반 HTML 에디터로 제공 (2026-07-29 확정)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 6-1. 보도자료 : 대표 이미지 + 본문</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 대표 이미지 업로드 : 상세 화면 본문 상단 노출, 업로드 후 미리보기 출력</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 캡션 입력 인풋필드 (선택, 2026-08-03 확정) — 이미지 하단 캡션 전용 스타일 노출, ▲ 기호 자동 표기, 미입력 시 미노출</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) 본문 입력 텍스트에어리어 (필수)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 6-2. 리포트 : 대표 이미지 + 본문 + 첨부파일(PDF)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 첨부파일(PDF) 업로드 : 프론트 상세 화면 [리포트 다운로드(PDF)] 버튼으로 제공</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 첨부 필수 아님 (2026-07-29 확정) — 미등록 시 프론트 [다운로드] 버튼 미노출 / 허용 포맷·용량 제한 안내 문구 노출 (정책 확정 필요)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 6-3. 미디어 : YouTube 영상 + 본문</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) YouTube 영상 URL 입력 인풋필드 (필수) — URL 유효성 검증, 입력 시 임베드 미리보기 출력, 프론트 상세 본문 상단 임베드 노출</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 캡션 입력 인풋필드 (선택) / 본문 입력 텍스트에어리어 (필수)</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 본문 에디터 내 삽입 이미지는 에디터에서 자체 처리 (캡션 인풋필드 대상 아님)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">7. 추천 상품·서비스 설정</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트 상세 화면 하단 '추천 상품·서비스' 영역에 노출할 상품 선택</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 7-1. [상품 불러오기] 버튼 클릭 시 상품 선택 팝업 출력 → 별도 SB &lt;KTAX-AD-IS01-1100&gt;</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 7-2. 상품 선택 팝업 — 상품·서비스 관리(PD04)에 등록된 노출(Y) 상품 리스트 출력 · 검색(상품명) 및 노출 탭(솔루션 레이어) 필터 지원, 체크박스 다중 선택 후 [적용] · 최대 3건까지 선택 가능, 초과 선택 시 알럿 출력(11-1)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 7-3. 선택 상품 리스트 — 상품 정보(카테고리 태그/상품명/설명 문구)는 PD04 등록 데이터 그대로 출력, 본 화면에서 수정 불가 / 노출 순서 조정, 연결 해제(본 인사이트에서만 제외, 원본 상품 유지) / 0건 시 프론트 영역 전체 미노출</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">8. 노출 여부 설정</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출 / 비노출 선택 (Default : 비노출) · 비노출 시 프론트 목록·상세 및 메인 노출 대상에서 제외</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">9. 검색 최적화(SEO) [2026-07-29 반영]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 9-1. URL 슬러그 — 인사이트 상세 페이지 URI 관리, 제목 기반 자동 생성 + 수정 가능, 영문 소문자·숫자·하이픈만, 전체 콘텐츠 내 중복 불가</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 9-2. 이미지 업로드 필드 공통(썸네일·대표 이미지·본문 이미지) 대체 텍스트(alt) — 미입력 시 제목 자동 적용</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 9-3. 검색 메타 정보 (선택) : 메타 타이틀 / 메타 디스크립션 — 미입력 시 제목·요약 자동 적용</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 슬러그 변경 시 기존 URL 접근 처리(301 리다이렉트 vs 404) 정책 확정 필요</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">10. [저장] / [취소] 버튼</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [저장] 클릭 시 필수값 검증 후 저장, 완료 토스트 출력 후 목록 화면으로 이동 — 필수값 미입력 시 해당 필드 하단 에러 문구 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [취소] 클릭 시 확인 알럿(11-2) 출력 : '작성 중인 내용이 저장되지 않습니다.'</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">11. 알럿</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 11-1. 추천 상품 최대치 / 11-2. 취소 확인</span></p></li>
+
+        <li><p class="desc-block"><span class="lvl1">[동작 / 예외]</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">등록 즉시 노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 등록 즉시 노출(Y) 설정 시 프론트 목록(게시일 최신순)에 반영</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">YouTube URL 형식 오류</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• URL 유효성 검증 실패 시 에러 문구 출력 «(제안)» — "올바른 YouTube URL을 입력해주세요."</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">PD01 패키지 안내 배너 연결</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 카테고리별 콘텐츠 관리(PD01 산업)의 패키지 안내 배너는 게시글 선택 팝업에서 본 메뉴의 노출(Y) 게시글을 호출하여 연결</span></p></li>
+      </ul>
+    </div>
+  </div>
+</div>

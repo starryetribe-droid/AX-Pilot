@@ -1,0 +1,194 @@
+<div class="wf-panel">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas admin-canvas" style="min-height:0;">
+
+      <!-- 1. 헤더 -->
+      <div class="adm-topbar">
+        <span class="adm-num">1</span>
+        <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">KT AX Admin</span></div>
+        <div class="adm-utils">
+          <span class="u"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
+          <span class="divider"></span>
+          <span class="adm-btn ghost sm">로그아웃</span>
+        </div>
+      </div>
+
+      <div class="adm-body">
+        <!-- 2. LNB -->
+        <div class="adm-gnb">
+          <span class="adm-num">2</span>
+          <div class="grp">대시보드</div>
+          <div class="grp">메인 관리 <span class="cv"></span></div>
+          <div class="grp">AX 솔루션 컨설턴트 <span class="cv"></span></div>
+          <div class="grp">AX 도입 관리 <span class="cv"></span></div>
+          <div class="grp">도입사례 관리 <span class="cv"></span></div>
+          <div class="grp">인사이트 관리 <span class="cv"></span></div>
+          <div class="grp active">이벤트 관리 <span class="cv"></span></div>
+          <div class="sub"><a class="active">이벤트</a><a>사전등록 신청</a></div>
+          <div class="grp">문의 관리 <span class="cv"></span></div>
+          <div class="grp">약관 관리 <span class="cv"></span></div>
+          <div class="grp">시스템 관리 <span class="cv"></span></div>
+        </div>
+
+        <div class="adm-main">
+          <div class="adm-content">
+
+            <!-- 3. 페이지 헤더 / 6. 이벤트 등록 -->
+            <div class="adm-pagebar">
+              <span class="adm-num">3</span>
+              <div class="left">
+                <span class="ttl">이벤트</span>
+                <span class="adm-crumb">Home <span class="sep">›</span> 이벤트 관리 <span class="sep">›</span> <span class="cur">이벤트</span></span>
+              </div>
+              <div class="acts">
+                <span class="adm-anchor">
+                  <span class="adm-num">6</span>
+                  <span class="adm-btn">+ 이벤트 등록</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- 4. 이벤트 리스트 조회 영역 (조건 5개 → 4열 그리드) -->
+            <div class="adm-filter-card">
+              <span class="adm-num">4</span>
+              <div class="adm-filter-grid">
+                <div class="adm-field"><span class="adm-num sub">4-2</span><label>진행 상태</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+                <div class="adm-field"><span class="adm-num sub">4-3</span><label>이벤트 유형</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+                <div class="adm-field"><span class="adm-num sub">4-4</span><label>노출 여부</label><span class="adm-select" style="width:100%;">전체<span class="ar"></span></span></div>
+                <div class="adm-field"><span class="adm-num sub">4-5</span><label>행사 기간</label>
+                  <span class="adm-date" style="width:100%;justify-content:space-between;">YYYY-MM-DD ~ YYYY-MM-DD <span class="ar">▾</span></span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">4-1</span><label>검색 기준</label><span class="adm-select" style="width:100%;">제목<span class="ar"></span></span></div>
+                <div class="adm-field" style="grid-column:span 2;"><label>검색어</label><span class="adm-search" style="width:100%;min-width:0;"><span class="ph">검색어를 입력해 주세요</span><span class="ic"><span class="adm-icon ic-search sz-15"></span></span></span></div>
+              </div>
+              <div class="adm-filter-acts">
+                <span class="adm-anchor"><span class="adm-num sub">4-7</span><span class="adm-btn line"><span class="adm-icon ic-refresh sz-14"></span> 초기화</span></span>
+                <span class="adm-anchor"><span class="adm-num sub">4-6</span><span class="adm-btn">검색</span></span>
+              </div>
+            </div>
+
+            <!-- 5. 이벤트 리스트 테이블 -->
+            <div class="adm-toolbar">
+              <div class="left"><span class="total"><b>총 6건</b> <span style="color:#8A919C;">· 행사 시작일 최신순</span></span></div>
+              <div class="right"></div>
+            </div>
+            <div class="adm-table-wrap">
+              <span class="adm-num">5</span>
+              <table class="adm-table compact" style="font-size:12px;">
+                <thead>
+                  <tr>
+                    <th style="width:96px;"><span class="adm-num sub">5-1</span>썸네일</th>
+                    <th class="l"><span class="adm-num sub">5-2</span>제목</th>
+                    <th style="width:200px;"><span class="adm-num sub">5-3</span>행사 기간</th>
+                    <th style="width:90px;"><span class="adm-num sub">5-4</span>진행 상태</th>
+                    <th style="width:96px;"><span class="adm-num sub">5-5</span>이벤트 유형</th>
+                    <th style="width:110px;"><span class="adm-num sub">5-6</span>사전등록 신청</th>
+                    <th style="width:90px;"><span class="adm-num sub">5-7</span>노출 여부</th>
+                    <th style="width:176px;"><span class="adm-num sub">5-8</span>등록일시 / 수정일시</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="display:inline-block;width:68px;height:38px;background:#EEF0F3;border-radius:4px;"></span></td>
+                    <td class="l"><span class="adm-link">KT AX 도입 전략 세미나</span></td>
+                    <td>2026-08-20 ~ 2026-08-21</td>
+                    <td><span class="adm-tag line">진행 중</span></td>
+                    <td><span class="adm-tag gray">사전등록</span></td>
+                    <td><span class="adm-link">128건</span></td>
+                    <td><span class="adm-toggle on"></span></td>
+                    <td>2026-07-25 14:00 / 2026-08-01 09:30</td>
+                  </tr>
+                  <tr>
+                    <td><span style="display:inline-block;width:68px;height:38px;background:#EEF0F3;border-radius:4px;"></span></td>
+                    <td class="l"><span class="adm-link">AI Agent 실무 워크숍 (당일)</span></td>
+                    <td>2026-08-14</td>
+                    <td><span class="adm-tag line">진행 중</span></td>
+                    <td><span class="adm-tag gray">사전등록</span></td>
+                    <td><span class="adm-link">54건</span></td>
+                    <td><span class="adm-toggle on"></span></td>
+                    <td>2026-07-20 11:20 / 2026-07-30 16:10</td>
+                  </tr>
+                  <tr>
+                    <td><span style="display:inline-block;width:68px;height:38px;background:#EEF0F3;border-radius:4px;"></span></td>
+                    <td class="l"><span class="adm-link">상반기 AX 트렌드 리포트 발간 안내</span></td>
+                    <td>2026-06-01 ~ 2026-06-30</td>
+                    <td><span class="adm-tag gray">종료</span></td>
+                    <td><span class="adm-tag gray">일반</span></td>
+                    <td><span style="color:#B0B6BF;">-</span></td>
+                    <td><span class="adm-toggle"></span></td>
+                    <td>2026-05-28 09:00 / 2026-07-01 10:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 7. 페이지네이션 -->
+            <div style="display:flex;align-items:center;">
+              <div style="flex:1;"></div>
+              <div class="adm-paging" style="flex:0 0 auto;">
+                <span class="adm-num">7</span>
+                <span class="pg nav"><span class="adm-icon ic-arrow-double-left sz-12"></span></span><span class="pg nav"><span class="adm-icon ic-arrow-left sz-12"></span></span>
+                <span class="pg cur">1</span><span class="pg">2</span>
+                <span class="pg nav"><span class="adm-icon ic-arrow-right sz-12"></span></span><span class="pg nav"><span class="adm-icon ic-arrow-double-right sz-12"></span></span>
+              </div>
+              <div style="flex:1;display:flex;justify-content:flex-end;">
+                <span class="adm-anchor">
+                  <span class="adm-num sub">7-1</span>
+                  <span class="adm-select sm">10건<span class="ar"></span></span>
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wf-sub-connector" style="padding-top:340px;">
+      <div class="wf-sub-connector-line"></div>
+      <div class="wf-sub-connector-label">노출 토글 변경 시</div>
+    </div>
+
+    <!-- 8. 알럿 -->
+    <div class="wf-sub-canvas admin-canvas" style="width:400px;min-height:0;margin-top:240px;border-radius:16px;">
+      <div class="adm-alert" style="box-shadow:none;width:100%;">
+        <span class="adm-num" style="top:-9px;left:-9px;">8</span>
+        <div class="a-msg">노출 상태를 변경하시겠습니까?</div>
+        <div class="a-sub">비노출 시 프론트 목록(진행 중·종료 탭)에서 제외됩니다.</div>
+        <div class="a-acts"><span class="adm-btn line">취소</span><span class="adm-btn">확인</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="desc-panel">
+  <div class="desc-section">
+    <div class="desc-section-header">화면 설명</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page (IA v0.3 «TO-BE 관리자») / 관리자 등급: 최고·일반</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 경로: Admin &gt; 이벤트 관리 &gt; 이벤트</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 연결 SB: 등록 = KTAX-AD-EV01-1000 · 상세/수정 = KTAX-AD-EV01-2000 · 사전등록 신청 목록 = KTAX-AD-EV02-0000</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트 연동: 이벤트 목록(KTAX-FO-EV01-0000) — 이벤트 Tab(진행 중인 이벤트 Default / 종료된 이벤트), 진행 중 탭 = 시작일 최신순 / 종료 탭 = 종료일 최신순, PC 3×N, 최초 9건 + 9건씩 무한 스크롤(Skeleton Card), 카드 = 썸네일 + 제목 + 요약 내용 + 행사 기간(각 1줄 말줄임), 종료 카드 Dim + '종료' 표시</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 카드 행사 기간 노출 분기: 시작일=종료일이면 YYYY.MM.DD 단독 / 상이하면 YYYY.MM.DD ~ YYYY.MM.DD</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 진행 중 카드에 [사전 등록 진행 중] 플래그 노출 (Ver.1.1) — 관리자 설정 + 사전등록 기간 내에만 노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 빈 상태: 아이콘 + '이벤트를 준비 중이에요' (진행 중·종료 탭 공통)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 소스: 정의서 «이벤트 관리» 시트 (2026-08-03 화면설계서 반영분 포함)</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">Description</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">1. 헤더 (Top Bar · H 64px)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 좌: 로고 + "KT AX Admin" / 우: 관리자 계정 · 로그아웃</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">2. LNB (W 260px · IA 1depth)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 활성: 이벤트 관리 › 이벤트 (하위: 이벤트 / 사전등록 신청)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">3. 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 타이틀 "이벤트" + 브레드크럼 / 총 건수·정렬 기준 표기</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">4. 이벤트 리스트 조회 영역</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 상세 조건 조회 및 검색/초기화 — 조회 조건 선택/입력 후 [검색] 버튼 클릭 또는 ENTER 시 조회 실행</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-1. 검색 기준 선택 + 검색어 입력 인풋필드</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 검색 기준 선택 셀렉박스 — Default : 제목 / 제목 / 요약 내용(서브 타이틀) / 본문</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 검색어 입력 인풋필드 — 플레이스 홀더 : 검색어를 입력해 주세요</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-2. 진행 상태 선택 셀렉박스 — Default : 전체 / 전체 / 진행 중 / 종료</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 진행 상태는 행사 기간 기준 시스템 자동 판별 — 수동 조기 종료는 노출 여부(비노출)로 처리, 사전등록 조기 마감은 별도 마감 설정으로 처리 (2026-07-29 확정)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-3. 이벤트 유형 선택 셀렉박스 — Default : 전체 / 전체 / 일반 / 사전등록</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-4. 노출 여부 선택 셀렉박스 — Default : 전체 / 전체 / 노출 / 비노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-5. 행사 기간 선택 — YYYY-MM-DD ~ YYYY-MM-DD 데이트피커 클릭 시 기간선택 달력 출력, Default : 전체 기간</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-6. [검색] 버튼 클릭 또는 ENTER 시 조회 실행</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-7. [초기화] 버튼 클릭 시 선택/입력된 조회 조건값 초기화 — 모든 조건 Default 복원, 재조회 없음 (초기화 후 자동 재조회 여부 정책 확정 필요)</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 조건 5개 → 필터 카드 4열 그리드 변형 / 키워드 검색 조합은 맨 아래 배치(공통 규칙)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. 이벤트 리스트 테이블</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 등록된 이벤트를 행사 시작일 최신순으로 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-1. 썸네일 이미지 — 등록된 썸네일 이미지 미리보기 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-2. 제목 출력 — 클릭 시 이벤트 상세/수정 화면(KTAX-AD-EV01-2000)으로 이동</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-3. 행사 기간 출력 (YYYY-MM-DD ~ YYYY-MM-DD)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 시작일과 종료일이 동일한 이벤트는 시작일만 출력(YYYY-MM-DD) — 화면설계서 기간 노출 분기 대응 (2026-08-03)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-4. 진행 상태 출력 (진행 중 / 종료 태그) — 행사 종료일 경과 시 자동 종료 전환, 프론트 종료 탭·카드 Dim 처리에 반영</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-5. 이벤트 유형 출력 (일반 / 사전등록)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-6. 사전등록 신청 수 출력 — 해당 이벤트의 신청 완료 건수 기준 (신청 취소 기능 삭제, 2026-08-03 확정)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 클릭 시 사전등록 신청 목록(KTAX-AD-EV02-0000)으로 이동 (해당 이벤트 필터 적용), 일반 이벤트는 '-' 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-7. 노출 여부 — 노출 / 비노출 값 출력, 리스트에서 토글 변경 가능 / 변경 시 확인 알럿(⑧) 출력 후 처리, 비노출 시 프론트 목록(진행 중·종료 탭)에서 제외</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-8. 등록일시 / 수정일시 출력 (YYYY-MM-DD HH:MM)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">6. [이벤트 등록] 버튼</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 클릭 시 이벤트 등록 화면(KTAX-AD-EV01-1000)으로 이동</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">7. 페이지네이션</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 7-1. 페이지당 노출 건수 선택 (10 / 30 / 50건)</span><br><span class="note">&nbsp;&nbsp;&nbsp;* Default 건수는 정의 미존재 — (제안) 10건</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">8. 알럿 — 노출 상태 변경 확인</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 토글 변경 시 확인 알럿 출력 후 처리</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 알럿 문구는 정의 미존재 — (제안) '노출 상태를 변경하시겠습니까?'</span></p></li>
+
+        <li><p class="desc-block"><span class="lvl1">[동작 / 예외]</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">조회 결과 0건</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 조회 결과 0건 시 빈 상태 표시 : '조회 결과가 없습니다.'</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">프론트 노출 조건</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출(Y) 이벤트만 프론트 목록에 노출, 진행/종료 구분은 행사 기간 기준 자동 처리</span></p></li>
+      </ul>
+    </div>
+  </div>
+</div>

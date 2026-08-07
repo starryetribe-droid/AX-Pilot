@@ -1,0 +1,241 @@
+<div class="wf-panel">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas admin-canvas" style="min-height:0;">
+
+      <!-- 1. 헤더 -->
+      <div class="adm-topbar">
+        <span class="adm-num">1</span>
+        <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">KT AX Admin</span></div>
+        <div class="adm-utils">
+          <span class="u"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
+          <span class="divider"></span>
+          <span class="adm-btn ghost sm">로그아웃</span>
+        </div>
+      </div>
+
+      <div class="adm-body">
+        <!-- 2. LNB -->
+        <div class="adm-gnb">
+          <span class="adm-num">2</span>
+          <div class="grp">대시보드</div>
+          <div class="grp">메인 관리 <span class="cv"></span></div>
+          <div class="grp">AX 솔루션 컨설턴트 <span class="cv"></span></div>
+          <div class="grp">AX 도입 관리 <span class="cv"></span></div>
+          <div class="grp">도입사례 관리 <span class="cv"></span></div>
+          <div class="grp">인사이트 관리 <span class="cv"></span></div>
+          <div class="grp active">이벤트 관리 <span class="cv"></span></div>
+          <div class="sub"><a class="active">이벤트</a><a>사전등록 신청</a></div>
+          <div class="grp">문의 관리 <span class="cv"></span></div>
+          <div class="grp">약관 관리 <span class="cv"></span></div>
+          <div class="grp">시스템 관리 <span class="cv"></span></div>
+        </div>
+
+        <div class="adm-main">
+          <div class="adm-content">
+
+            <!-- 3. 페이지 헤더 -->
+            <div class="adm-pagebar">
+              <span class="adm-num">3</span>
+              <div class="left">
+                <span class="ttl">이벤트 등록</span>
+                <span class="adm-crumb">Home <span class="sep">›</span> 이벤트 관리 <span class="sep">›</span> 이벤트 <span class="sep">›</span> <span class="cur">등록</span></span>
+              </div>
+            </div>
+
+            <!-- 4. 콘텐츠 헤더 정보 -->
+            <div class="adm-card" style="max-width:900px;">
+              <span class="adm-num">4</span>
+              <div class="card-ttl">콘텐츠 헤더 정보 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">*표시는 필수 입력 사항입니다</span></div>
+              <div style="display:flex;flex-direction:column;gap:20px;">
+                <div class="adm-field"><span class="adm-num sub">4-1</span><label>제목(메인 타이틀)<span class="req">*</span></label><span class="adm-input ph">제목을 입력해주세요</span>
+                  <span class="help">프론트 카드 제목 및 상세 화면 메인 타이틀 · 카드 최대 한 줄 후 말줄임 — 권장 글자수 안내 (글자수 제한 정책 확정 필요)</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">4-2</span><label>서브 타이틀(요약 내용)<span class="req">*</span></label><span class="adm-input ph">요약 내용을 입력해주세요</span>
+                  <span class="help">프론트 카드 요약 내용 및 상세 화면 서브 타이틀 (카드 최대 한 줄 말줄임)</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">4-3</span><label>행사 기간<span class="req">*</span></label>
+                  <span style="display:inline-flex;align-items:center;gap:8px;">
+                    <span class="adm-date">2026-08-20 <span class="ar">▾</span></span>
+                    <span style="color:#B0B6BF;">~</span>
+                    <span class="adm-date">2026-08-21 <span class="ar">▾</span></span>
+                  </span>
+                  <span class="help">시작일·종료일 모두 필수 — 종료일 미입력 시 저장 불가 · 진행 상태(진행 중/종료) 자동 판별 및 목록 정렬 기준값 · 시작일=종료일이면 프론트 카드에 시작일만 노출</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">4-4</span><label>썸네일 이미지<span class="req">*</span></label>
+                  <div style="border:1px dashed #D3D7DD;border-radius:8px;padding:16px;display:flex;align-items:center;gap:12px;">
+                    <span style="display:inline-block;width:120px;height:68px;background:#EEF0F3;border-radius:6px;"></span>
+                    <span class="adm-btn line sm">파일 첨부</span>
+                  </div>
+                  <span class="help">권장 사이즈·용량·포맷(JPG/PNG) 안내 문구 노출 (사이즈 정책 확정 필요)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. 본문 콘텐츠 -->
+            <div class="adm-card" style="max-width:900px;">
+              <span class="adm-num">5</span>
+              <div class="card-ttl">본문 콘텐츠 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">표·이미지 등 CSS 스타일 기반 HTML 에디터</span></div>
+              <div style="display:flex;flex-direction:column;gap:18px;">
+                <div class="adm-field"><span class="adm-num sub">5-1</span><label>상세 콘텐츠<span class="req">*</span></label>
+                  <span class="adm-textarea ph" style="display:block;min-height:110px;">본문 텍스트 / 이미지 / 표 / 버튼 등을 입력해주세요<br>예 : 행사 소개 / 주요 프로그램 / 행사 정보 표(행사명·일시·장소·대상·참가비)</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">5-2</span><label>본문 내 버튼 요소</label>
+                  <div style="border:1px solid #E4E7EB;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:12px;">
+                    <div style="display:flex;gap:10px;align-items:center;">
+                      <span class="adm-input ph" style="flex:1;">버튼 텍스트</span>
+                      <span class="adm-input ph" style="flex:2;">연결 대상 (내부 화면 또는 외부 URL)</span>
+                      <span class="adm-select" style="min-width:120px;">본 창<span class="ar"></span></span>
+                      <span class="adm-btn line sm">삭제</span>
+                    </div>
+                    <span class="adm-btn line sm" style="align-self:flex-start;">+ 버튼 추가</span>
+                  </div>
+                  <span class="help">프론트에서 버튼 클릭 시 관리자 설정에 따른 화면 또는 URL로 이동 (새 창/본 창 선택)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. 이벤트 유형 / 사전등록 설정 -->
+            <div class="adm-card" style="max-width:900px;">
+              <span class="adm-num">6</span>
+              <div class="card-ttl">이벤트 유형 / 사전등록 설정</div>
+              <div style="display:flex;flex-direction:column;gap:20px;">
+                <div class="adm-field"><span class="adm-num sub">6-1</span><label>이벤트 유형<span class="req">*</span></label>
+                  <div class="adm-choice-group" style="max-width:320px;">
+                    <span class="adm-choice">일반</span>
+                    <span class="adm-choice selected">사전등록</span>
+                  </div>
+                  <span class="help">Default : 일반 · [사전등록] 선택 시 프론트 상세에 [사전등록 하기]/[등록조회] 버튼·기능 활성화, 신청 내역은 EV02에 이벤트별 적재 · [일반] 선택 시 사전등록 관련 버튼·기능 전체 미노출</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">6-2</span><label>사전등록 기간 (마감일시)</label>
+                  <span style="display:inline-flex;align-items:center;gap:8px;">
+                    <span class="adm-date">2026-08-01 00:00 <span class="ar">▾</span></span>
+                    <span style="color:#B0B6BF;">~</span>
+                    <span class="adm-date">2026-08-18 23:59 <span class="ar">▾</span></span>
+                  </span>
+                  <span class="help">설정 기간 종료 시 프론트 [사전등록 하기] → [사전등록 마감] 자동 변경 + 비활성화 (조기 마감 대응) · 사전등록 기간은 행사 기간 내에서만 설정 가능 — 벗어난 일시 선택 불가, 저장 시 검증</span>
+                </div>
+                <div class="adm-field"><span class="adm-num sub">6-3</span><label>[사전 등록 진행 중] 플래그 노출</label>
+                  <span style="display:inline-flex;gap:16px;">
+                    <span class="adm-opt"><span class="adm-radio on"></span>노출</span>
+                    <span class="adm-opt"><span class="adm-radio"></span>비노출</span>
+                  </span>
+                  <span class="help">Default : 노출 · 사전등록 유형 이벤트에서만 설정 가능 · 노출 시 사전등록 기간 내에만 프론트 진행 중 카드 썸네일에 플래그 노출(기간 종료 시 자동 미노출) · 행사 기간 경과 이벤트는 노출 '여' 설정 불가</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. 유의사항 -->
+            <div class="adm-card" style="max-width:900px;">
+              <span class="adm-num">7</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                <span style="font-size:17px;font-weight:700;">유의사항 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">프론트 상세 하단 아코디언(Default 펼침) 리스트형 텍스트</span></span>
+                <span class="adm-btn line sm">+ 항목 추가</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;gap:10px;align-items:center;">
+                  <span style="color:#B0B6BF;">⠿</span><span class="adm-input" style="flex:1;">사전등록 인원 초과 시 조기 마감될 수 있습니다.</span><span class="adm-btn line sm">삭제</span>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;">
+                  <span style="color:#B0B6BF;">⠿</span><span class="adm-input ph" style="flex:1;">유의사항을 입력해주세요</span><span class="adm-btn line sm">삭제</span>
+                </div>
+                <span class="help">항목 추가/삭제/순서 조정 가능</span>
+              </div>
+            </div>
+
+            <!-- 8. 노출 여부 / 9. SEO -->
+            <div style="display:flex;gap:16px;max-width:900px;">
+              <div class="adm-card" style="flex:0 0 300px;">
+                <span class="adm-num">8</span>
+                <div class="card-ttl">노출 여부</div>
+                <span style="display:inline-flex;gap:16px;">
+                  <span class="adm-opt"><span class="adm-radio"></span>노출</span>
+                  <span class="adm-opt"><span class="adm-radio on"></span>비노출</span>
+                </span>
+                <span class="help" style="display:block;margin-top:10px;">Default : 비노출</span>
+              </div>
+              <div class="adm-card" style="flex:1;">
+                <span class="adm-num">9</span>
+                <div class="card-ttl">검색 최적화(SEO)</div>
+                <div style="display:flex;flex-direction:column;gap:16px;">
+                  <div class="adm-field"><span class="adm-num sub">9-1</span><label>URL 슬러그<span class="req">*</span></label><span class="adm-input">ax-strategy-seminar-2608</span></div>
+                  <div class="adm-field"><span class="adm-num sub">9-2</span><label>이미지 대체 텍스트(alt)</label><span class="adm-input ph">미입력 시 제목 자동 적용</span></div>
+                  <div class="adm-field"><span class="adm-num sub">9-3</span><label>메타 타이틀 / 메타 디스크립션</label><span class="adm-input ph">미입력 시 제목·요약 문구 자동 적용 (선택)</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 10. 하단 버튼 -->
+            <div style="display:flex;justify-content:flex-end;gap:8px;max-width:900px;position:relative;">
+              <span class="adm-anchor">
+                <span class="adm-num">10</span>
+                <span class="adm-btn line">취소</span>
+                <span class="adm-btn">저장</span>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wf-sub-connector" style="padding-top:340px;">
+      <div class="wf-sub-connector-line"></div>
+      <div class="wf-sub-connector-label">기간 오류 / 취소 클릭 시</div>
+    </div>
+
+    <!-- 11. 알럿 2종 -->
+    <div class="wf-sub-canvas admin-canvas" style="width:400px;min-height:0;margin-top:240px;border-radius:16px;">
+      <div style="padding:28px;position:relative;">
+        <span class="adm-num" style="top:-9px;left:-9px;">11</span>
+        <div style="position:relative;padding-bottom:20px;border-bottom:1px solid #EEF0F3;margin-bottom:20px;">
+          <span class="adm-num sub">11-1</span>
+          <div style="font-size:12px;color:#8A919C;margin-bottom:8px;">사전등록 기간 범위 오류</div>
+          <div style="font-size:14.5px;font-weight:600;margin-bottom:16px;">사전등록 기간은 행사 기간 내에서만 설정할 수 있습니다.</div>
+          <span class="adm-btn full" style="height:44px;">확인</span>
+        </div>
+        <div style="position:relative;">
+          <span class="adm-num sub">11-2</span>
+          <div style="font-size:12px;color:#8A919C;margin-bottom:8px;">취소 확인 알럿</div>
+          <div style="font-size:14.5px;font-weight:600;margin-bottom:16px;">작성 중인 내용이 저장되지 않습니다.</div>
+          <div style="display:flex;gap:8px;">
+            <span class="adm-btn line" style="flex:1;">취소</span>
+            <span class="adm-btn" style="flex:1;">확인</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="desc-panel">
+  <div class="desc-section">
+    <div class="desc-section-header">화면 설명</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page (IA v0.3) / 진입: 목록 &lt;KTAX-AD-EV01-0000&gt; [이벤트 등록] 클릭</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 연결 SB: 상세/수정 = KTAX-AD-EV01-2000 · 사전등록 신청 목록 = KTAX-AD-EV02-0000</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트 연동: 이벤트 상세(KTAX-FO-EV01-1000) — 헤더(상태 Chip 진행중/종료 + 메인 타이틀 / 서브 타이틀 + 행사 기간) / 본문(에디터 등록 콘텐츠·이미지·버튼) / 사전등록 적용 시 [사전등록 하기] → KTAX-FO-EV01-1100, [등록조회] → KTAX-FO-EV01-1200 / 유의사항 아코디언(Default 펼침) / [목록으로]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 마감 설정 또는 행사 종료 시 [사전등록 하기] → [사전 등록 마감] 버튼명 자동 변경 + 비활성화 (2026-08-03 구체화)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 소스: 정의서 «이벤트 관리» 시트 (2026-08-03 화면설계서·사전등록 플래그 반영분 포함)</span></p></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="desc-section-header">Description</div>
+    <div class="desc-section-body">
+      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
+        <li><p class="desc-block"><span class="lvl1">1~3. 헤더 · LNB · 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 목록 화면과 동일 (타이틀 "이벤트 등록", 활성: 이벤트 관리 › 이벤트)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">4. 콘텐츠 헤더 정보 입력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-1. 제목(메인 타이틀) 입력 인풋필드 (필수) — 프론트 카드 제목 및 상세 화면 메인 타이틀로 노출, 카드에서 최대 한 줄 노출 후 말줄임 처리되므로 권장 글자수 안내 문구 노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-2. 서브 타이틀(요약 내용) 입력 인풋필드 (필수) — 프론트 카드 요약 내용 및 상세 화면 서브 타이틀로 노출 (카드 최대 한 줄 말줄임)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-3. 행사 기간 설정 데이트피커 (필수) — 시작일 ~ 종료일 선택, 프론트 카드·상세 화면에 YYYY.MM.DD ~ YYYY.MM.DD 형태로 노출</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 진행 상태(진행 중/종료) 자동 판별 및 목록 정렬(진행 중 : 시작일 최신순 / 종료 : 종료일 최신순) 기준값</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 종료일 경과 시 자동 종료 처리 : 프론트 종료 탭 이동, 카드 Dim + 종료 표시, 상세 상태 Chip 종료 전환</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) 시작일·종료일 모두 필수 입력 — 종료일 미입력 시 저장(등록) 불가, [저장] 클릭 시 필수값 검증 후 해당 필드 하단 에러 문구 출력 (2026-08-03)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4) 시작일과 종료일이 동일한 경우(당일 행사) 프론트 카드에 시작일만 노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-4. 썸네일 이미지 업로드 (필수) — 파일 첨부 방식, 업로드 후 미리보기 출력 / 권장 사이즈·용량·포맷(JPG/PNG) 안내 문구 노출</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">5. 본문 콘텐츠 입력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-1. 상세 콘텐츠 입력 (필수) — 프론트 상세 화면 본문 영역에 노출되는 콘텐츠(본문 텍스트 / 이미지 / 표 / 버튼 등) 입력</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 예 : 행사 소개 / 주요 프로그램 / 행사 정보 표(행사명·일시·장소·대상·참가비)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 표·이미지 등 CSS 스타일 기반 HTML 에디터로 편집 제공 (2026-07-29 확정)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-2. 본문 내 버튼 요소 설정 — 버튼 텍스트 + 연결 대상(내부 화면 또는 외부 URL, 새 창/본 창) 설정, 프론트에서 버튼 클릭 시 관리자 설정에 따른 화면 또는 URL로 이동</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">6. 이벤트 유형 설정 / 사전등록 마감 설정</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 6-1. 이벤트 유형 (필수) — 일반 / 사전등록 선택 (Default : 일반), 이벤트 유형 분리 제공 (2026-07-29 확정)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) [사전등록] 유형 선택 시 : 프론트 이벤트 상세에 [사전등록 하기] / [등록조회] 버튼 노출, 사전등록 폼(KTAX-FO-EV01-1100)·등록 조회(1200) 기능 활성화, 신청 내역은 사전등록 신청 관리(KTAX-AD-EV02)에 이벤트별로 적재</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) [일반] 유형 선택 시 : 프론트 상세에 사전등록 관련 버튼·기능 전체 미노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 6-2. 사전등록 마감 설정 (2026-07-29 확정) — 사전등록 기간(마감일시) 설정 방식, 설정 기간 종료 시 프론트 [사전등록 하기] 버튼명 [사전등록 마감]으로 자동 변경 + 신청 불가 처리 (조기 마감 대응)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 사전등록 기간은 행사 기간 내에서만 설정 가능 — 행사 기간을 벗어난 일시 선택 불가, 저장 시 검증 후 에러 문구·알럿(11-1) 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 6-3. [사전 등록 진행 중] 플래그 노출 여부 설정 (노출/비노출, Default : 노출) — 2026-08-03 추가</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 사전등록 유형 이벤트에서만 설정 가능</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 노출 '여' 설정 시 사전 등록 기간 설정에 따라 프론트 진행 중인 이벤트 카드 썸네일에 플래그 노출 (사전등록 기간 종료 시 자동 미노출)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) 행사 기간이 경과한 이벤트는 노출 '여' 설정 불가 — 행사 기간(종료일) 연장 후 그 범위 내에서 설정 가능</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">7. 유의사항 입력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트 상세 하단 유의사항 아코디언(Default 펼침) 영역에 노출되는 리스트형 텍스트 입력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 항목 추가/삭제/순서 조정 가능</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">8. 노출 여부 설정</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출 / 비노출 선택 (Default : 비노출)</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">9. 검색 최적화(SEO) [2026-07-29 반영]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 9-1. URL 슬러그 — 이벤트 상세 페이지 URI 관리, 제목 기반 자동 생성 + 수정 가능, 영문 소문자·숫자·하이픈만, 전체 콘텐츠 내 중복 불가</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 9-2. 이미지 업로드 필드 공통(썸네일·본문 이미지) 대체 텍스트(alt) — 미입력 시 제목 자동 적용</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 9-3. 검색 메타 정보 (선택) : 메타 타이틀 / 메타 디스크립션</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 슬러그 변경 시 기존 URL 접근 처리(301 리다이렉트 vs 404) 정책 확정 필요</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">10. [저장] / [취소] 버튼</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [저장] 클릭 시 필수값 검증 후 저장, 완료 토스트 출력 후 목록 화면으로 이동 — 필수값 미입력 시 해당 필드 하단 에러 문구 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [취소] 클릭 시 확인 알럿(11-2) 출력 : '작성 중인 내용이 저장되지 않습니다.'</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">11. 알럿</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 11-1. 사전등록 기간 범위 오류 «(제안)» / 11-2. 취소 확인</span></p></li>
+
+        <li><p class="desc-block"><span class="lvl1">[동작 / 예외]</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">사전등록 완료 안내 메일</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 사전등록 완료 템플릿(KTAX-FO-ET-05-1000) 화면설계서 삭제 (2026-08-03 확정) — 완료 안내 메일 템플릿 미제공, 가변 정보 입력 필드 검토 제외</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 인증번호 안내 메일(KTAX-FO-ET-05-0000)은 시스템 고정 등록 — 어드민 템플릿 관리 화면 없음, 행사명 자동 치환·인증번호 자동 생성</span></p></li>
+        <li><p class="desc-block"><span class="lvl1">이벤트 페이지 디자인</span><br><span class="note">&nbsp;&nbsp;&nbsp;* PC 전체 레이아웃 일정(7/31)에서 제외 (2026-07-27 미팅)</span></p></li>
+      </ul>
+    </div>
+  </div>
+</div>
