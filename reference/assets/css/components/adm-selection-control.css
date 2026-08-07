@@ -1,0 +1,149 @@
+/* 체크박스 / 라디오 / 토글 — 문서: docs/components/selection-control.md
+   .adm-opt는 실제 <input type="checkbox|radio">를 <label>로 감싸고, 인접 span(.adm-check/.adm-radio/.adm-toggle)에
+   커스텀 비주얼을 그린다. 상태는 :checked/:disabled 네이티브 의사 클래스로 구동되며 JS가 필요 없다.
+   input은 opacity:0으로 시각적으로만 숨기며(display:none 아님) 클릭·키보드·스크린리더는 정상 동작한다. */
+.adm-opt {
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   font-size: 14px;
+   color: var(--g800);
+   cursor: pointer;
+}
+
+.adm-opt.disabled {
+   color: var(--g400);
+   cursor: not-allowed;
+}
+
+.adm-opt input[type="checkbox"],
+.adm-opt input[type="radio"] {
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 20px;
+   height: 20px;
+   margin: 0;
+   opacity: 0;
+   cursor: pointer;
+}
+
+.adm-opt.toggle input[type="checkbox"] {
+   width: 40px;
+   height: 22px;
+}
+
+.adm-opt input:disabled {
+   cursor: not-allowed;
+}
+
+.adm-check {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 20px;
+   height: 20px;
+   border: 1.5px solid var(--g300);
+   border-radius: 5px;
+   background: #fff;
+   flex-shrink: 0;
+}
+
+.adm-opt input:checked+.adm-check {
+   background: var(--g900);
+   border-color: var(--g900);
+}
+
+.adm-opt input:checked+.adm-check::after {
+   content: "";
+   width: 9px;
+   height: 5px;
+   border-left: 2px solid #fff;
+   border-bottom: 2px solid #fff;
+   transform: rotate(-45deg) translateY(-1px);
+}
+
+.adm-opt input:disabled+.adm-check {
+   background: var(--g50);
+   border-color: var(--g200);
+}
+
+.adm-opt input:focus-visible+.adm-check {
+   outline: 2px solid var(--blue-500);
+   outline-offset: 2px;
+}
+
+.adm-radio {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 20px;
+   height: 20px;
+   border: 1.5px solid var(--g300);
+   border-radius: var(--r-full);
+   background: #fff;
+   flex-shrink: 0;
+}
+
+.adm-opt input:checked+.adm-radio {
+   border-color: var(--g900);
+}
+
+.adm-opt input:checked+.adm-radio::after {
+   content: "";
+   width: 10px;
+   height: 10px;
+   border-radius: var(--r-full);
+   background: var(--g900);
+}
+
+.adm-opt input:disabled+.adm-radio {
+   background: var(--g50);
+   border-color: var(--g200);
+}
+
+.adm-opt input:focus-visible+.adm-radio {
+   outline: 2px solid var(--blue-500);
+   outline-offset: 2px;
+}
+
+.adm-toggle {
+   position: relative;
+   width: 40px;
+   height: 22px;
+   border-radius: var(--r-full);
+   background: var(--g300);
+   flex-shrink: 0;
+   transition: background .15s;
+}
+
+.adm-toggle::after {
+   content: "";
+   position: absolute;
+   top: 2px;
+   left: 2px;
+   width: 18px;
+   height: 18px;
+   border-radius: var(--r-full);
+   background: #fff;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+   transition: left .15s;
+}
+
+.adm-opt input:checked+.adm-toggle {
+   background: var(--green-600);
+}
+
+.adm-opt input:checked+.adm-toggle::after {
+   left: 20px;
+}
+
+.adm-opt input:disabled+.adm-toggle {
+   background: var(--g100);
+}
+
+.adm-opt input:focus-visible+.adm-toggle {
+   outline: 2px solid var(--blue-500);
+   outline-offset: 2px;
+}

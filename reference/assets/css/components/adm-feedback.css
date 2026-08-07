@@ -1,0 +1,25 @@
+/* 토스트 / 빈 상태 — 문서: docs/components/feedback.md */
+.adm-toast {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(25, 27, 31, .88);
+    color: #fff;
+    font-size: 13.5px;
+    padding: 12px 22px;
+    border-radius: var(--r-full);
+}
+
+.adm-empty {
+    padding: 64px 0;
+    text-align: center;
+    color: var(--g500);
+    font-size: 14px;
+}
+
+.adm-empty .t {
+    font-weight: 600;
+    color: var(--g700);
+    margin-bottom: 6px;
+    font-size: 15px;
+}

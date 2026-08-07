@@ -1,0 +1,155 @@
+/* LNB — 문서: docs/components/layout-gnb.md
+   .grp는 실제 <button type="button" aria-expanded>에 적용 — appearance/font/width를 리셋한다.
+   펼침/접힘은 assets/js/adm-interactions.js가 aria-expanded + .open + 인접 .sub의 hidden 속성을 토글한다. */
+.adm-gnb {
+   width: 260px;
+   background: #fff;
+   border-right: 1px solid var(--line);
+   padding: 16px 0;
+}
+
+/* .brand는 서비스 로고/서비스명 헤더 블록 — 프로젝트별로 텍스트만 교체(v0.3부터 topbar의 로고 영역을 대체) */
+.adm-gnb .brand {
+   padding: 24px 24px 20px;
+}
+
+.adm-gnb .brand .tit {
+   display: block;
+   font-size: 19px;
+   font-weight: 800;
+   color: var(--g900);
+   letter-spacing: -0.01em;
+}
+
+.adm-gnb .brand .desc {
+   display: block;
+   margin-top: 4px;
+   font-size: 13px;
+   color: var(--g600);
+}
+
+.adm-gnb .grp {
+   appearance: none;
+   -webkit-appearance: none;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 13px 24px;
+   background: none;
+   border: none;
+   font: inherit;
+   color: var(--g800);
+   font-size: 14px;
+   font-weight: 600;
+   cursor: pointer;
+}
+
+/* .cv는 CSS만으로 그린 셰브런 — .grp.open 여부로 회전만 바꾸므로 JS가 텍스트를 갱신할 필요가 없다 */
+.adm-gnb .grp .cv {
+   width: 7px;
+   height: 7px;
+   flex-shrink: 0;
+   border-right: 1.5px solid var(--g400);
+   border-bottom: 1.5px solid var(--g400);
+   transform: rotate(45deg);
+   transition: transform .15s;
+}
+
+.adm-gnb .grp.open {
+   color: var(--g900);
+}
+
+.adm-gnb .grp.open .cv {
+   border-color: var(--g700);
+   transform: rotate(-135deg);
+}
+
+.adm-gnb .sub {
+   padding: 2px 0 8px;
+}
+
+.adm-gnb .sub a {
+   display: block;
+   padding: 10px 24px 10px 40px;
+   color: var(--g600);
+   text-decoration: none;
+   font-size: 13.5px;
+}
+
+.adm-gnb .sub a.active {
+   color: var(--g900);
+   font-weight: 700;
+   background: var(--g50);
+   border-left: 3px solid var(--g900);
+   padding-left: 37px;
+}
+
+/* ---- .dark 변형: 다크 서페이스 LNB. 구조·펼침/접힘 동작은 기본과 동일, 색상/캐럿 모양만 다르다 ---- */
+.adm-gnb.dark {
+   background: var(--dark-bg);
+   border-right: none;
+}
+
+.adm-gnb.dark .brand {
+   margin: -16px 0 0;
+   background: var(--dark-bg-strong);
+}
+
+.adm-gnb.dark .brand .tit {
+   color: var(--dark-text);
+}
+
+.adm-gnb.dark .brand .desc {
+   color: var(--dark-text-sub);
+}
+
+.adm-gnb.dark .grp {
+   color: var(--dark-text);
+}
+
+.adm-gnb.dark .grp.open {
+   color: var(--dark-text);
+}
+
+/* 다크 변형은 코너 셰브런 대신 삼각형 캐럿(▼/▲)을 쓴다 — border-top만 채워 아래쪽 삼각형을 그리고, 펼치면 180도 회전시켜 위를 향하게 한다 */
+.adm-gnb.dark .grp .cv {
+   width: 0;
+   height: 0;
+   border: 4px solid transparent;
+   border-top: 5px solid var(--dark-text);
+   border-bottom: 0;
+   transform: rotate(0deg);
+   transition: transform .15s, border-top-color .15s;
+}
+
+.adm-gnb.dark .grp.open .cv {
+   border-top-color: var(--dark-text);
+   transform: rotate(180deg);
+}
+
+.adm-gnb.dark .sub a {
+   color: var(--dark-text-sub);
+}
+
+/* 대시 마커는 장식용이라 content:''인 빈 의사요소 + 배경선으로 그린다(literal "-" 텍스트는 스크린리더가 그대로 읽는다) */
+.adm-gnb.dark .sub a::before {
+   content: "";
+   display: inline-block;
+   width: 6px;
+   height: 1px;
+   background: currentColor;
+   margin-right: 8px;
+   vertical-align: middle;
+}
+
+/* margin(12px)만큼 padding-left/right를 줄여 텍스트 시작 위치(40px)는 비활성 항목과 동일하게 유지한다 */
+.adm-gnb.dark .sub a.active {
+   color: var(--dark-text);
+   font-weight: 700;
+   background: var(--dark-active-bg);
+   border-left: none;
+   border-radius: var(--r-sm);
+   margin: 0 12px;
+   padding: 10px 12px 10px 28px;
+}

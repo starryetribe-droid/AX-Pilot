@@ -1,0 +1,443 @@
+/* ============================================================
+   ETRIBE 공통 어드민 디자인 시스템 v0.2 — 카탈로그 문서 전용 스타일
+   원본: admin-common-design-system_v02.html (<style> 인라인 블록에서 분리)
+   - 여기 있는 건 문서 스캐폴드(.ds-*), 조합 미리보기(.pv-*), .adm-dim-demo(문서 전용 예외) 뿐이다.
+   - 실제 관리자 페이지에서는 이 파일을 사용하지 않는다 — CONVENTIONS.md §4 참고.
+     실제 페이지의 컴포넌트 CSS는 tokens.css/base.css/components/*.css만 사용한다.
+   ============================================================ */
+/* ============ 문서(가이드) 스캐폴드 ============ */
+.ds-wrap {
+  max-width: 1640px;
+  min-width: 1440px;
+  margin: 0 auto;
+  padding: 72px 48px 160px;
+}
+
+.ds-cover {
+  padding-bottom: 40px;
+  border-bottom: 2px solid var(--g900);
+  margin-bottom: 64px;
+}
+
+.ds-cover h1 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.ds-cover .sub {
+  margin-top: 10px;
+  color: var(--text-sub);
+  font-size: 15px;
+}
+
+.ds-cover .meta {
+  margin-top: 20px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ds-cover .meta span {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-full);
+  padding: 5px 14px;
+  font-size: 12.5px;
+  color: var(--g700);
+  background: var(--g25);
+}
+
+.ds-sec {
+  margin-bottom: 88px;
+}
+
+.ds-sec>h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ds-sec>h2 .no {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--g0);
+  background: var(--g900);
+  border-radius: var(--r-sm);
+  padding: 3px 9px;
+  letter-spacing: 0;
+}
+
+.ds-sec>.desc {
+  margin-top: 8px;
+  color: var(--text-sub);
+  font-size: 14px;
+}
+
+.ds-blk {
+  margin-top: 40px;
+}
+
+.ds-blk>h3 {
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ds-blk>h3 .chip {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--g700);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 2px 8px;
+  background: var(--g25);
+}
+
+.ds-blk>.desc {
+  margin-top: 6px;
+  color: var(--text-sub);
+  font-size: 13.5px;
+}
+
+.ds-panel {
+  margin-top: 16px;
+  background: var(--g25);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 36px;
+}
+
+.ds-demo {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 28px;
+}
+
+.ds-demo+.ds-demo {
+  margin-top: 16px;
+}
+
+.ds-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ds-row+.ds-row {
+  margin-top: 20px;
+}
+
+.ds-lbl {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-faint);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.ds-cols {
+  display: grid;
+  gap: 16px;
+}
+
+.ds-cols.c2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.ds-cols.c3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.ds-note {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--text-sub);
+}
+
+.ds-note b {
+  color: var(--g800);
+}
+
+.ds-spec {
+  margin-top: 16px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.ds-spec th {
+  background: var(--g50);
+  color: var(--g700);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.ds-spec td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--g100);
+  color: var(--g800);
+  vertical-align: top;
+}
+
+.ds-spec tr:last-child td {
+  border-bottom: none;
+}
+
+.ds-spec code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 12px;
+  background: var(--g50);
+  border: 1px solid var(--g100);
+  border-radius: 4px;
+  padding: 1px 6px;
+  color: var(--g800);
+}
+
+/* ============ Foundation 표현용 ============ */
+.sw-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.sw {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: #fff;
+}
+
+.sw .c {
+  height: 56px;
+}
+
+.sw .i {
+  padding: 8px 10px;
+  font-size: 11.5px;
+  color: var(--g700);
+  line-height: 1.45;
+}
+
+.sw .i b {
+  display: block;
+  color: var(--g900);
+  font-size: 12px;
+}
+
+.type-row {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--g100);
+}
+
+.type-row:last-child {
+  border-bottom: none;
+}
+
+.type-row .t-meta {
+  width: 250px;
+  flex-shrink: 0;
+  font-size: 12.5px;
+  color: var(--text-sub);
+}
+
+.type-row .t-meta b {
+  color: var(--g900);
+  font-size: 13px;
+  display: block;
+}
+
+.sp-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.sp-item {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-sub);
+}
+
+.sp-item .bar {
+  background: var(--green-50);
+  border: 1px dashed var(--green-500);
+  margin-bottom: 6px;
+}
+
+/* 레이아웃 다이어그램 */
+.frame-dg {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  height: 460px;
+  overflow: hidden;
+  font-size: 11px;
+  color: var(--g600);
+}
+
+.frame-dg .hd {
+  position: absolute;
+  top: 0;
+  left: 132px;
+  right: 0;
+  height: 34px;
+  background: var(--g100);
+  border-bottom: 1px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.frame-dg .lnb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 132px;
+  background: var(--g50);
+  border-right: 1px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.frame-dg .side {
+  position: absolute;
+  top: 34px;
+  bottom: 0;
+  width: 218px;
+  background:
+    repeating-linear-gradient(45deg, transparent, transparent 6px, var(--g100) 6px, var(--g100) 7px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame-dg .cont {
+  position: absolute;
+  top: 34px;
+  bottom: 0;
+  left: 180px;
+  right: 389px;
+  background: #fff;
+}
+
+.frame-dg .cont .pad-t {
+  height: 26px;
+  border-bottom: 1px dashed var(--green-500);
+  background: var(--green-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-700);
+}
+
+.frame-dg .cont .body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.frame-dg .cont .body i {
+  display: block;
+  background: var(--g50);
+  border: 1px solid var(--g200);
+  border-radius: 4px;
+  height: 64px;
+}
+
+.frame-dg .cont .pad-b {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  border-top: 1px dashed var(--green-500);
+  background: var(--green-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-700);
+}
+
+/* .adm-dim-demo는 이 문서(카탈로그) 안에서 모달 데모를 나란히 배치하기 위한 문서 전용 클래스다
+   (CONVENTIONS.md §4 예외 — adm- 접두사를 갖지만 실제 페이지에는 쓰지 않는다).
+   실제 페이지의 딤은 assets/css/components/adm-modal.css의 .adm-modal-overlay가 담당한다. */
+.adm-dim-demo {
+  background: var(--g200);
+  border-radius: var(--r-md);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* ============ 조합 미리보기 (스케일 다운) ============ */
+/* 높이는 aspect-ratio(2560:1504 = 프레임 비율)로, 배율은 컨테이너 폭(cqw)으로 — CSS만으로 항상 폭에 맞음 */
+.pv-wrap {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--g50);
+  container-type: inline-size;
+  aspect-ratio: 2560/1504;
+}
+
+.pv-scale {
+  transform: scale(.6);
+  transform: scale(calc(100cqw / 2560px));
+  transform-origin: top left;
+  width: 2560px;
+}
+
+.pv-frame {
+  width: 2560px;
+  background: #fff;
+  display: flex;
+  /* LNB가 맨 왼쪽에서 풀 높이로 서고, 그 오른쪽 컬럼(.pv-col) 안에 헤더 + 콘텐츠가 세로로 쌓인다 */
+  min-height: 1440px;
+}
+
+.pv-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pv-main {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 95px;
+}
+
+.pv-content {
+  width: 1440px;
+  padding: 48px 0 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

@@ -1,0 +1,49 @@
+/* 필터 카드 — 문서: docs/components/filter-card.md */
+.adm-filter-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 24px;
+}
+
+/* 인라인 변형: 조건 1~3개 + 검색 인풋을 한 줄로 (라벨 좌측 배치) */
+.adm-filter-card.inline {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 16px 20px;
+}
+
+.adm-filter-card.inline .f {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.adm-filter-card.inline .f>label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--g800);
+    white-space: nowrap;
+}
+
+.adm-filter-card.inline .acts {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.adm-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px 20px;
+}
+
+.adm-filter-acts {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--g100);
+}

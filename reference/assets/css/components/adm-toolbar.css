@@ -1,0 +1,27 @@
+/* 툴바 — 문서: docs/components/toolbar.md */
+.adm-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.adm-toolbar .total {
+    font-size: 14px;
+    color: var(--g800);
+}
+
+.adm-toolbar .total b {
+    font-weight: 700;
+}
+
+.adm-toolbar .total .cap {
+    color: var(--g400);
+}
+
+.adm-toolbar .left,
+.adm-toolbar .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

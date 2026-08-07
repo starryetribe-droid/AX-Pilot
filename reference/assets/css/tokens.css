@@ -1,0 +1,26 @@
+/* ============================================================
+   ETRIBE 공통 어드민 디자인 시스템 v0.1 — Foundation Tokens
+   원본: admin-common-design-system_v02.html :root
+   ============================================================ */
+:root{
+  /* --- Gray Scale --- */
+  --g0:#FFFFFF; --g25:#FAFBFC; --g50:#F5F6F8; --g100:#EEF0F3; --g200:#E4E7EB;
+  --g300:#D3D7DD; --g400:#B0B6BF; --g500:#8A919C; --g600:#6B7280; --g700:#4B515B;
+  --g800:#33363D; --g900:#191B1F;
+  /* --- Accent (상태 전용) --- */
+  --green-50:#E9F8F1; --green-500:#0FA36B; --green-600:#0C8E60; --green-700:#0A7A52;
+  --red-50:#FDEEEE; --red-500:#E5484D; --red-600:#D93D42;
+  --blue-500:#2E6FF2;
+  /* --- Dark Surface (다크 배경 전용 — 예: LNB .adm-gnb.dark) --- */
+  --dark-bg:#2b2e3a; --dark-bg-strong:#1e2028; --dark-active-bg:rgba(255,255,255,.08);
+  --dark-text:#ffffff; --dark-text-sub:#9aa0ac;
+  /* --- Semantic --- */
+  --text:#222222; --text-sub:#666666; --text-mute:#888888; --text-faint:#bbbbbb;
+  --line:#E4E7EB; --line-strong:#D3D7DD;
+  --bg-page:#FFFFFF; --bg-fill:#F5F6F8;
+  /* --- Shape --- */
+  --r-sm:6px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-full:999px;
+  --shadow-card:0 1px 3px rgba(25,27,31,.06);
+  --shadow-modal:0 12px 40px rgba(25,27,31,.18);
+  --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,Roboto,"Helvetica Neue","Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+}

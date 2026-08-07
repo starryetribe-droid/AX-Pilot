@@ -1,0 +1,43 @@
+/* 페이지네이션 — 문서: docs/components/pagination.md */
+.adm-paging {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.adm-paging .pg {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    border-radius: var(--r-sm);
+    border: none;
+    background: transparent;
+    color: var(--g600);
+    font-size: 13px;
+    font-family: var(--font);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adm-paging .pg:hover {
+    background: var(--g50);
+}
+
+.adm-paging .pg.cur {
+    background: var(--g900);
+    color: #fff;
+    font-weight: 700;
+}
+
+.adm-paging .pg.nav {
+    color: var(--g900);
+    font-size: 12px;
+}
+
+.adm-paging .pg.nav.disabled {
+    color: var(--g900);
+    cursor: not-allowed;
+}

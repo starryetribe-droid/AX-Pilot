@@ -1,0 +1,37 @@
+/* 캔버스 스코프 래퍼 + 프레임 셸 — 문서: docs/foundation/layout.md
+   .adm-frame: 2560px 고정 프레임(LNB + 우측 컬럼 flex 배치) · 하위 전체에 box-sizing/font 강제.
+   .adm-col: LNB 제외 우측 컬럼(헤더+콘텐츠 세로 배치). .adm-main: 헤더 하단 영역, LNB 우측 95px 여백 후 콘텐츠 시작.
+   .adm-content: 콘텐츠 영역(W 1440px 고정, 상단 48px/하단 96px 여백). */
+.adm-frame,
+.adm-frame * {
+   box-sizing: border-box;
+   font-family: var(--font);
+}
+
+.adm-frame {
+   max-width: 2560px;
+   display: flex;
+   background: #fff;
+}
+
+.adm-col {
+   flex: 1;
+   min-width: 0;
+   display: flex;
+   flex-direction: column;
+}
+
+.adm-main {
+   flex: 1;
+   display: flex;
+   justify-content: flex-start;
+   padding-left: 95px;
+}
+
+.adm-content {
+   width: 1440px;
+   padding: 48px 0 96px;
+   display: flex;
+   flex-direction: column;
+   gap: 24px;
+}

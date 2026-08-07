@@ -1,0 +1,90 @@
+/* 태그 / 뱃지 / 아바타 / 링크 — 문서: docs/components/tag-badge.md */
+.adm-tag {
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 10px;
+    border-radius: var(--r-sm);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--green-50);
+    color: var(--green-700);
+}
+
+.adm-tag.gray {
+    background: var(--g100);
+    color: var(--g600);
+}
+
+.adm-tag.red {
+    background: var(--red-50);
+    color: var(--red-500);
+}
+
+.adm-tag.line {
+    background: #fff;
+    border: 1px solid var(--green-500);
+    color: var(--green-700);
+}
+
+.adm-tag.line-gray {
+    background: #fff;
+    border: 1px solid var(--g300);
+    color: var(--g600);
+}
+
+.adm-badge-cnt {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: var(--r-full);
+    background: var(--g100);
+    color: var(--g600);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.adm-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--r-full);
+    background: var(--g100);
+    color: var(--blue-500);
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.adm-avatar.sm {
+    width: 22px;
+    height: 22px;
+    font-size: 9.5px;
+}
+
+.adm-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--g800);
+}
+
+.adm-link {
+    color: var(--blue-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-size: 13.5px;
+    cursor: pointer;
+}
+
+/* 활성 링크는 실제 <a href>, 비활성은 <span aria-disabled="true">(진짜 링크가 아니므로 클릭 자체가 불가) */
+.adm-link.disabled {
+    color: var(--g400);
+    pointer-events: none;
+}

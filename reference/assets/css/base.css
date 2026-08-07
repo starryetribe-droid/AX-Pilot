@@ -1,0 +1,20 @@
+/* ============================================================
+   ETRIBE 공통 어드민 디자인 시스템 v0.1 — Base Reset
+   원본: admin-common-design-system_v02.html (reset + body)
+   의존성: tokens.css (--font, --text 필요, 반드시 먼저 로드)
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);color:var(--text);background:#fff;font-size:14px;line-height:1.5;
+ -webkit-font-smoothing:antialiased;}
+
+/* 타이포그래피 스케일 — 문서: docs/foundation/typography.md
+   20px 이상 타이틀(Display/Title 1/Title 2)만 자간 -1%를 갖는다. */
+.adm-type-display{font-size:28px;font-weight:700;letter-spacing:-.01em;}
+.adm-type-title-1{font-size:24px;font-weight:700;letter-spacing:-.01em;}
+.adm-type-title-2{font-size:20px;font-weight:700;letter-spacing:-.01em;}
+.adm-type-title-3{font-size:17px;font-weight:700;}
+.adm-type-body{font-size:14px;font-weight:400;}
+.adm-type-body.medium{font-weight:500;}
+.adm-type-caption{font-size:13px;font-weight:400;}
+.adm-type-caption.strong{font-weight:600;}
+.adm-type-small{font-size:12px;font-weight:500;}

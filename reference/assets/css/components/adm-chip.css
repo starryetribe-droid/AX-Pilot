@@ -1,0 +1,28 @@
+/* 칩 필터 — 문서: docs/components/chip.md */
+.adm-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-full);
+    background: #fff;
+    color: var(--g700);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font);
+    cursor: pointer;
+}
+
+.adm-chip.active {
+    background: var(--g900);
+    border-color: var(--g900);
+    color: #fff;
+    font-weight: 600;
+}
+
+.adm-chip.date {
+    border-radius: var(--r-md);
+    color: var(--g800);
+}

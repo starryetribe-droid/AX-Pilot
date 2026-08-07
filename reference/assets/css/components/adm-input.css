@@ -1,0 +1,83 @@
+/* 인풋 / 텍스트에어리어 — 문서: docs/components/input.md */
+.adm-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.adm-field>label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--g800);
+}
+
+.adm-field>label .req {
+    color: var(--red-500);
+    margin-left: 2px;
+}
+
+.adm-field .help {
+    font-size: 12px;
+    color: var(--text-sub);
+}
+
+.adm-field .help.error {
+    color: var(--red-500);
+}
+
+.adm-input {
+    height: 40px;
+    width: 100%;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    padding: 0 12px;
+    font-size: 14px;
+    font-family: var(--font);
+    color: var(--g900);
+    background: #fff;
+    outline: none;
+}
+
+.adm-input::placeholder {
+    color: var(--g400);
+}
+
+.adm-input:focus {
+    border-color: var(--g900);
+}
+
+.adm-input.error {
+    border-color: var(--red-500);
+}
+
+.adm-input:disabled {
+    background: var(--g50);
+    color: var(--g400);
+}
+
+.adm-textarea {
+    width: 100%;
+    min-height: 110px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    padding: 12px;
+    font-size: 14px;
+    font-family: var(--font);
+    color: var(--g900);
+    resize: vertical;
+    outline: none;
+}
+
+.adm-textarea::placeholder {
+    color: var(--g400);
+}
+
+.adm-textarea:focus {
+    border-color: var(--g900);
+}
+
+.adm-count {
+    align-self: flex-end;
+    font-size: 12px;
+    color: var(--g400);
+}

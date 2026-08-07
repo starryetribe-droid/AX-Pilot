@@ -1,0 +1,79 @@
+/* 탭 — 문서: docs/components/tabs.md
+   .tab/.t는 실제 <button type="button" role="tab">에 적용 — appearance/font/border를 리셋한다.
+   활성 상태는 .active 클래스 + aria-selected를 assets/js/adm-interactions.js가 함께 토글한다. */
+.adm-tabs {
+   display: flex;
+   border-bottom: 1px solid var(--line);
+}
+
+.adm-tabs.fixed .tab {
+   flex: 1;
+   text-align: center;
+}
+
+.adm-tabs .tab {
+   appearance: none;
+   -webkit-appearance: none;
+   background: none;
+   border: none;
+   font: inherit;
+   padding: 12px 4px;
+   margin-bottom: -1px;
+   font-size: 14.5px;
+   color: var(--g500);
+   cursor: pointer;
+   border-bottom: 2px solid transparent;
+   font-weight: 500;
+}
+
+.adm-tabs .tab.active {
+   color: var(--g900);
+   font-weight: 700;
+   border-bottom-color: var(--g900);
+}
+
+.adm-tabs.fluid {
+   gap: 28px;
+}
+
+.adm-tabs2 {
+   display: flex;
+   gap: 24px;
+   padding: 10px 0;
+   border-bottom: 1px solid var(--g100);
+   background: var(--g25);
+   padding-left: 4px;
+   font-size: 13px;
+}
+
+.adm-tabs2 .t {
+   appearance: none;
+   -webkit-appearance: none;
+   background: none;
+   border: none;
+   font: inherit;
+   color: var(--g500);
+   cursor: pointer;
+}
+
+.adm-tabs2 .t.active {
+   color: var(--g900);
+   font-weight: 700;
+   text-decoration: underline;
+   text-underline-offset: 6px;
+}
+
+/* 탭 콘텐츠 패널 — aria-controls로 연결된 button[role=tab] 클릭 시 assets/js/adm-interactions.js가 표시/숨김을 전환한다. */
+.adm-tabpanel {
+   margin-top: 12px;
+   padding: 20px;
+   background: var(--g25);
+   border: 1px solid var(--line);
+   border-radius: var(--r-md);
+   color: var(--g600);
+   font-size: 13.5px;
+}
+
+.adm-tabpanel[hidden] {
+   display: none;
+}

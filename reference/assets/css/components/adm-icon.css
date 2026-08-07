@@ -1,0 +1,296 @@
+/* ============================================================
+   ETRIBE 공통 어드민 디자인 시스템 — 아이콘 (Icon)
+   원본: assets/images/icons/ic-*.svg (fill 고정)
+
+   v0.2: mask-image + 인라인 style로 크기·경로를 지정했으나,
+   - mask-image로 "다른 파일의 SVG를 마스크로 합성"하는 방식은 file://
+     프로토콜에서 브라우저가 보안상 차단해(cross-origin 픽셀 합성 제한)
+     로컬 폴더에서 직접 열면 아이콘이 전부 사라지는 문제가 있었다.
+   - 인라인 style은 사용처마다 크기·경로 문자열이 중복돼 유지보수가 어려웠다.
+
+   v0.3: background-image + 클래스 조합으로 교체했다. background-image는
+   마스크 합성이 아니라 이미지를 그대로 그리는 연산이라 file://에서도
+   제한 없이 동작한다(<img>와 동일 카테고리). 다만 원본 SVG의 fill이
+   black으로 고정돼 있어 currentColor 상속(hover/다크 변형 등 색 자동 전환)은
+   더 이상 지원하지 않는다 — 필요하면 .adm-icon.muted(불투명도)로 톤만 조절한다.
+
+   v0.3.1: assets/images/icons/의 아이콘 전체를 등록했다. 이전에는 "실제
+   사용하는 것만 등록" 방침이라 SVG 파일은 있는데 클래스가 없어 아이콘이
+   보이지 않는 사고가 잦았다(파일 52개 / 등록 15개). 이제 docs/foundation/icons.md
+   표에 있는 아이콘은 클래스만 붙이면 바로 쓸 수 있다.
+
+   사용법: <span class="adm-icon ic-<이름> sz-<크기>"></span>
+   - 인라인 style 금지. 새 아이콘/크기가 필요하면 이 파일에 규칙을 추가한다.
+   - 아이콘 파일 목록은 docs/foundation/icons.md 참고.
+   - 어두운 배경(Primary 버튼 등) 위에는 흰색 변형(.ic-*-wh)을 쓴다 — 아래 "흰색 변형" 참고.
+   ============================================================ */
+.adm-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* 톤 — 원본처럼 옅게(보조) 표시해야 하는 자리(검색 인풋, 데이트피커 등)에만 사용 */
+.adm-icon.muted {
+  opacity: .55;
+}
+
+/* 크기 */
+.adm-icon.sz-12 {
+  width: 12px;
+  height: 12px;
+}
+
+.adm-icon.sz-13 {
+  width: 13px;
+  height: 13px;
+}
+
+.adm-icon.sz-14 {
+  width: 14px;
+  height: 14px;
+}
+
+.adm-icon.sz-15 {
+  width: 15px;
+  height: 15px;
+}
+
+.adm-icon.sz-16 {
+  width: 16px;
+  height: 16px;
+}
+
+.adm-icon.sz-18 {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- 공통 액션 ---------------------------------------------------------- */
+.adm-icon.ic-plus {
+  background-image: url('../../images/icons/ic-plus.svg');
+}
+
+.adm-icon.ic-copy {
+  background-image: url('../../images/icons/ic-copy.svg');
+}
+
+.adm-icon.ic-edit {
+  background-image: url('../../images/icons/ic-edit.svg');
+}
+
+.adm-icon.ic-delete {
+  background-image: url('../../images/icons/ic-delete.svg');
+}
+
+.adm-icon.ic-save {
+  background-image: url('../../images/icons/ic-save.svg');
+}
+
+.adm-icon.ic-download {
+  background-image: url('../../images/icons/ic-download.svg');
+}
+
+.adm-icon.ic-print {
+  background-image: url('../../images/icons/ic-print.svg');
+}
+
+.adm-icon.ic-refresh {
+  background-image: url('../../images/icons/ic-refresh.svg');
+}
+
+.adm-icon.ic-search {
+  background-image: url('../../images/icons/ic-search.svg');
+}
+
+.adm-icon.ic-filter {
+  background-image: url('../../images/icons/ic-filter.svg');
+}
+
+.adm-icon.ic-sliders {
+  background-image: url('../../images/icons/ic-sliders.svg');
+}
+
+.adm-icon.ic-setting {
+  background-image: url('../../images/icons/ic-setting.svg');
+}
+
+.adm-icon.ic-more {
+  background-image: url('../../images/icons/ic-more.svg');
+}
+
+.adm-icon.ic-logout {
+  background-image: url('../../images/icons/ic-logout.svg');
+}
+
+.adm-icon.ic-lock {
+  background-image: url('../../images/icons/ic-lock.svg');
+}
+
+/* ---- 내비게이션 / 화살표 ------------------------------------------------- */
+.adm-icon.ic-menu {
+  background-image: url('../../images/icons/ic-menu.svg');
+}
+
+.adm-icon.ic-home {
+  background-image: url('../../images/icons/ic-home.svg');
+}
+
+.adm-icon.ic-dashboard {
+  background-image: url('../../images/icons/ic-dashboard.svg');
+}
+
+.adm-icon.ic-arrow-right {
+  background-image: url('../../images/icons/ic-arrow-right.svg');
+}
+
+.adm-icon.ic-arrow-left {
+  background-image: url('../../images/icons/ic-arrow-left.svg');
+}
+
+.adm-icon.ic-arrow-up {
+  background-image: url('../../images/icons/ic-arrow-up.svg');
+}
+
+.adm-icon.ic-arrow-down {
+  background-image: url('../../images/icons/ic-arrow-down.svg');
+}
+
+.adm-icon.ic-arrow-double-left {
+  background-image: url('../../images/icons/ic-arrow-double-left.svg');
+}
+
+.adm-icon.ic-arrow-double-right {
+  background-image: url('../../images/icons/ic-arrow-double-right.svg');
+}
+
+/* ---- 상태 / 피드백 ------------------------------------------------------- */
+.adm-icon.ic-check-circle {
+  background-image: url('../../images/icons/ic-check-circle.svg');
+}
+
+.adm-icon.ic-x-circle {
+  background-image: url('../../images/icons/ic-x-circle.svg');
+}
+
+.adm-icon.ic-alert {
+  background-image: url('../../images/icons/ic-alert.svg');
+}
+
+.adm-icon.ic-alarm {
+  background-image: url('../../images/icons/ic-alarm.svg');
+}
+
+.adm-icon.ic-info {
+  background-image: url('../../images/icons/ic-info.svg');
+}
+
+/* ---- 콘텐츠 / 오브젝트 --------------------------------------------------- */
+.adm-icon.ic-folder {
+  background-image: url('../../images/icons/ic-folder.svg');
+}
+
+.adm-icon.ic-file {
+  background-image: url('../../images/icons/ic-file.svg');
+}
+
+.adm-icon.ic-image {
+  background-image: url('../../images/icons/ic-image.svg');
+}
+
+.adm-icon.ic-calendar {
+  background-image: url('../../images/icons/ic-calendar.svg');
+}
+
+.adm-icon.ic-clock {
+  background-image: url('../../images/icons/ic-clock.svg');
+}
+
+.adm-icon.ic-tag {
+  background-image: url('../../images/icons/ic-tag.svg');
+}
+
+.adm-icon.ic-package {
+  background-image: url('../../images/icons/ic-package.svg');
+}
+
+.adm-icon.ic-star {
+  background-image: url('../../images/icons/ic-star.svg');
+}
+
+.adm-icon.ic-card {
+  background-image: url('../../images/icons/ic-card.svg');
+}
+
+.adm-icon.ic-mail {
+  background-image: url('../../images/icons/ic-mail.svg');
+}
+
+.adm-icon.ic-link {
+  background-image: url('../../images/icons/ic-link.svg');
+}
+
+.adm-icon.ic-phone {
+  background-image: url('../../images/icons/ic-phone.svg');
+}
+
+.adm-icon.ic-security {
+  background-image: url('../../images/icons/ic-security.svg');
+}
+
+.adm-icon.ic-chat {
+  background-image: url('../../images/icons/ic-chat.svg');
+}
+
+.adm-icon.ic-cart {
+  background-image: url('../../images/icons/ic-cart.svg');
+}
+
+.adm-icon.ic-list {
+  background-image: url('../../images/icons/ic-list.svg');
+}
+
+.adm-icon.ic-eye {
+  background-image: url('../../images/icons/ic-eye.svg');
+}
+
+.adm-icon.ic-sound {
+  background-image: url('../../images/icons/ic-sound.svg');
+}
+
+/* ---- 사용자 -------------------------------------------------------------- */
+.adm-icon.ic-user {
+  background-image: url('../../images/icons/ic-user.svg');
+}
+
+.adm-icon.ic-profile {
+  background-image: url('../../images/icons/ic-profile.svg');
+}
+
+.adm-icon.ic-people {
+  background-image: url('../../images/icons/ic-people.svg');
+}
+
+/* ---- 흰색 변형 ----------------------------------------------------------- */
+/* SVG의 fill이 파일에 고정돼 있어 currentColor로 색이 따라오지 않는다.
+   어두운 배경(.adm-btn Primary, .adm-gnb.dark 등) 위에서는 흰색 SVG를 가리키는
+   .ic-*-wh 클래스를 쓴다. 밝은 배경에는 기본(검정) 클래스를 그대로 쓴다.
+   새 흰색 변형이 필요하면 assets/images/icons/에 ic-<이름>-wh.svg를 추가하고
+   여기에 규칙을 등록한다. */
+.adm-icon.ic-search-wh {
+  background-image: url('../../images/icons/ic-search-wh.svg');
+}
+
+.adm-icon.ic-edit-wh {
+  background-image: url('../../images/icons/ic-edit-wh.svg');
+}
+
+.adm-icon.ic-plus-wh {
+  background-image: url('../../images/icons/ic-plus-wh.svg');
+}
+
+.adm-icon.ic-delete-wh {
+  background-image: url('../../images/icons/ic-delete-wh.svg');
+}

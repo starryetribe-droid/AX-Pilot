@@ -1,0 +1,58 @@
+/* 헤더 (Top Bar) — 문서: docs/components/layout-topbar.md
+   v0.3: 서비스 로고는 LNB .brand로 이동했다 — topbar는 좌측 계정 정보 / 우측 유틸 아이콘·로그아웃만 담당한다. */
+.adm-topbar {
+   width: 100%;
+   height: 52px;
+   background: #fff;
+   border-bottom: 1px solid var(--line);
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 32px;
+}
+
+.adm-topbar .env {
+   font-size: 11px;
+   font-weight: 600;
+   color: var(--g600);
+   border: 1px solid var(--line-strong);
+   border-radius: 4px;
+   padding: 2px 7px;
+   background: var(--g25);
+}
+
+.adm-utils {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   font-size: 13px;
+   color: var(--g700);
+}
+
+.adm-utils .u {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+}
+
+/* 로그아웃처럼 클릭 가능한 유틸 아이템은 실제 <button type="button">에 .u를 적용 — appearance/font를 리셋한다 */
+.adm-utils button.u {
+   appearance: none;
+   -webkit-appearance: none;
+   border: none;
+   background: none;
+   font: inherit;
+   color: inherit;
+   cursor: pointer;
+   padding: 0;
+}
+
+.adm-utils button.u:hover {
+   color: var(--g900);
+}
+
+.adm-utils .divider {
+   width: 1px;
+   height: 16px;
+   background: var(--line-strong);
+}

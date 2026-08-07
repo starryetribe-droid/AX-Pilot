@@ -1,0 +1,170 @@
+/* 데이트피커 — 문서: docs/components/date-picker.md
+   실제 <button type="button">에 적용 — appearance/font를 리셋해 button 기본 스타일을 지운다. */
+.adm-date {
+   appearance: none;
+   -webkit-appearance: none;
+   display: inline-flex;
+   align-items: center;
+   gap: 10px;
+   height: 40px;
+   border: 1px solid var(--line-strong);
+   border-radius: var(--r-md);
+   padding: 0 14px;
+   background: #fff;
+   font-size: 13.5px;
+   font-family: var(--font);
+   color: var(--g800);
+   text-align: left;
+   cursor: pointer;
+   outline: none;
+}
+
+.adm-date:focus,
+.adm-date[aria-expanded="true"] {
+   border-color: var(--g900);
+}
+
+.adm-date .tilde {
+   color: var(--g400);
+}
+
+.adm-date .lead {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+}
+
+.adm-date>.adm-icon {
+   margin-left: auto;
+   opacity: .6;
+}
+
+/* 캘린더 팝오버 — .adm-date 클릭 시 JS(assets/js/adm-interactions.js)가 body 하위에 띄운다. */
+.adm-date-panel {
+   position: absolute;
+   z-index: 1000;
+   width: 296px;
+   background: #fff;
+   border: 1px solid var(--line-strong);
+   border-radius: var(--r-lg);
+   box-shadow: var(--shadow-modal);
+   padding: 16px;
+   font-family: var(--font);
+}
+
+.adm-date-panel[hidden] {
+   display: none;
+}
+
+.adm-date-panel .cal-head {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 10px;
+}
+
+.adm-date-panel .cal-ttl {
+   font-size: 14px;
+   font-weight: 700;
+   color: var(--g900);
+}
+
+.adm-date-panel .cal-nav {
+   appearance: none;
+   border: none;
+   background: none;
+   width: 28px;
+   height: 28px;
+   border-radius: var(--r-sm);
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   color: var(--g600);
+   font-size: 13px;
+   cursor: pointer;
+}
+
+.adm-date-panel .cal-nav:hover {
+   background: var(--g50);
+}
+
+.adm-date-panel .cal-grid {
+   display: grid;
+   grid-template-columns: repeat(7, 1fr);
+   gap: 2px;
+}
+
+.adm-date-panel .wd {
+   text-align: center;
+   font-size: 11.5px;
+   color: var(--g500);
+   padding: 4px 0 8px;
+}
+
+.adm-date-panel .day {
+   appearance: none;
+   border: none;
+   background: none;
+   font: inherit;
+   height: 32px;
+   font-size: 13px;
+   color: var(--g800);
+   cursor: pointer;
+   border-radius: var(--r-sm);
+}
+
+.adm-date-panel .day:hover {
+   background: var(--g50);
+}
+
+.adm-date-panel .day.other {
+   color: var(--g300);
+}
+
+.adm-date-panel .day.today {
+   font-weight: 700;
+   color: var(--blue-500);
+}
+
+.adm-date-panel .day.in-range {
+   background: var(--g100);
+   border-radius: 0;
+}
+
+.adm-date-panel .day.range-start,
+.adm-date-panel .day.range-end {
+   background: var(--g900);
+   color: #fff;
+   font-weight: 700;
+}
+
+.adm-date-panel .day.range-start {
+   border-radius: var(--r-sm) 0 0 var(--r-sm);
+}
+
+.adm-date-panel .day.range-end {
+   border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+
+.adm-date-panel .day.range-start.range-end {
+   border-radius: var(--r-sm);
+}
+
+.adm-date-panel .cal-foot {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-top: 14px;
+   padding-top: 14px;
+   border-top: 1px solid var(--line);
+}
+
+.adm-date-panel .cal-range-txt {
+   font-size: 12px;
+   color: var(--g600);
+}
+
+.adm-date-panel .cal-acts {
+   display: flex;
+   gap: 8px;
+}

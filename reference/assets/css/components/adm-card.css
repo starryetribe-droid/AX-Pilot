@@ -1,0 +1,13 @@
+/* 카드 — 문서: docs/components/card.md */
+.adm-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 24px;
+}
+
+.adm-card .card-ttl {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}

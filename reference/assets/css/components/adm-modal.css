@@ -1,0 +1,112 @@
+/* 모달 / 알럿 — 문서: docs/components/modal.md
+   주의: 원본의 .adm-dim-demo는 문서 전용 클래스이므로 여기 포함하지 않는다
+   (CONVENTIONS.md §4 예외 참고). 실제 딤은 .adm-modal-overlay가 담당한다. */
+.adm-modal-overlay {
+   position: fixed;
+   inset: 0;
+   background: rgba(25, 27, 31, .5);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 1000;
+}
+
+.adm-modal-overlay[hidden] {
+   display: none;
+}
+
+.adm-modal {
+   width: 480px;
+   background: #fff;
+   border-radius: var(--r-xl);
+   box-shadow: var(--shadow-modal);
+   padding: 32px;
+   position: relative;
+}
+
+.adm-modal.wide {
+   width: 720px;
+}
+
+.adm-modal .m-head {
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   margin-bottom: 8px;
+}
+
+.adm-modal .m-ttl {
+   font-size: 20px;
+   font-weight: 700;
+   letter-spacing: -.01em;
+}
+
+/* .m-x는 실제 <button type="button">에 적용 — appearance/font를 리셋한다. */
+.adm-modal .m-x {
+   appearance: none;
+   -webkit-appearance: none;
+   background: none;
+   border: none;
+   font: inherit;
+   width: 24px;
+   height: 24px;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   color: var(--g500);
+   font-size: 18px;
+   cursor: pointer;
+   line-height: 1;
+}
+
+.adm-modal .m-desc {
+   font-size: 13.5px;
+   color: var(--text-sub);
+   margin-bottom: 24px;
+}
+
+.adm-modal .m-sec {
+   font-size: 15px;
+   font-weight: 700;
+   margin: 24px 0 14px;
+}
+
+.adm-modal .m-body>.adm-field+.adm-field {
+   margin-top: 16px;
+}
+
+.adm-modal .m-foot {
+   margin-top: 28px;
+}
+
+.adm-alert {
+   width: 400px;
+   background: #fff;
+   border-radius: var(--r-xl);
+   box-shadow: var(--shadow-modal);
+   padding: 28px;
+}
+
+.adm-alert .a-msg {
+   font-size: 15px;
+   font-weight: 600;
+   color: var(--g900);
+   line-height: 1.5;
+}
+
+.adm-alert .a-sub {
+   font-size: 13px;
+   color: var(--g600);
+   margin-top: 6px;
+}
+
+.adm-alert .a-acts {
+   display: flex;
+   gap: 8px;
+   margin-top: 20px;
+}
+
+.adm-alert .a-acts .adm-btn {
+   flex: 1;
+   height: 44px;
+}

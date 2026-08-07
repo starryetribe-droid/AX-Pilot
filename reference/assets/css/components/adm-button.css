@@ -1,0 +1,127 @@
+/* 버튼 — 문서: docs/components/button.md */
+.adm-btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: 6px;
+   height: 40px;
+   padding: 0 20px;
+   border-radius: var(--r-md);
+   border: 1px solid transparent;
+   background: var(--g900);
+   color: #fff;
+   font-size: 14px;
+   font-weight: 600;
+   font-family: var(--font);
+   cursor: pointer;
+   white-space: nowrap;
+}
+
+.adm-btn:hover {
+   background: var(--g800);
+}
+
+.adm-btn.line {
+   background: #fff;
+   color: var(--g800);
+   border-color: var(--line-strong);
+}
+
+.adm-btn.line:hover {
+   background: var(--g25);
+}
+
+.adm-btn.ghost {
+   background: transparent;
+   color: var(--g700);
+   border-color: transparent;
+}
+
+.adm-btn.ghost:hover {
+   background: var(--g50);
+}
+
+.adm-btn.danger {
+   background: var(--red-500);
+}
+
+.adm-btn.danger:hover {
+   background: var(--red-600);
+}
+
+.adm-btn.sm {
+   height: 32px;
+   padding: 0 14px;
+   font-size: 13px;
+   border-radius: var(--r-sm);
+}
+
+.adm-btn.lg {
+   height: 48px;
+   padding: 0 26px;
+   font-size: 15px;
+}
+
+.adm-btn.full {
+   width: 100%;
+   height: 52px;
+   font-size: 15px;
+}
+
+.adm-btn:disabled,
+.adm-btn.disabled {
+   background: var(--g100);
+   color: var(--g400);
+   border-color: transparent;
+   cursor: not-allowed;
+}
+
+.adm-btn.line:disabled,
+.adm-btn.line.disabled {
+   background: var(--g25);
+   color: var(--g400);
+   border-color: var(--g200);
+}
+
+.adm-btn.line .adm-icon,
+.adm-btn.ghost .adm-icon,
+.adm-btn:disabled .adm-icon,
+.adm-btn.disabled .adm-icon {
+   filter: none;
+}
+
+/* 실제 <button type="button">에 적용 — appearance/font를 리셋해 button 기본 스타일을 지운다. */
+.adm-icon-btn {
+   appearance: none;
+   -webkit-appearance: none;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 40px;
+   height: 40px;
+   border: 1px solid var(--line-strong);
+   border-radius: var(--r-md);
+   background: #fff;
+   color: var(--g700);
+   font-family: var(--font);
+   cursor: pointer;
+}
+
+.adm-icon-btn:hover {
+   background: var(--g25);
+}
+
+.adm-icon-btn.sm {
+   width: 32px;
+   height: 32px;
+   border-radius: var(--r-sm);
+}
+
+.adm-icon-btn.ghost {
+   border-color: transparent;
+   background: transparent;
+}
+
+.adm-icon-btn.ghost:hover {
+   background: var(--g50);
+}

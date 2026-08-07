@@ -1,0 +1,87 @@
+/* 셀렉트 — 문서: docs/components/select.md
+   .adm-select는 실제 <select>를 감싸는 래퍼. 화살표(::after)는 순수 장식이며 상태와 무관하다.
+   드롭다운 열기/키보드 탐색/선택은 브라우저 네이티브 동작 — JS 불필요. */
+.adm-select {
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   height: 40px;
+   min-width: 160px;
+   border: 1px solid var(--line-strong);
+   border-radius: var(--r-md);
+   background: #fff;
+}
+
+.adm-select select {
+   appearance: none;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   width: 100%;
+   height: 100%;
+   border: none;
+   outline: none;
+   background: transparent;
+   padding: 0 30px 0 12px;
+   font-size: 14px;
+   font-family: var(--font);
+   color: var(--g800);
+   cursor: pointer;
+}
+
+.adm-select select:required:invalid {
+   color: var(--g400);
+}
+
+.adm-select::after {
+   content: "";
+   position: absolute;
+   right: 7px;
+   top: 50%;
+   width: 16px;
+   height: 16px;
+   background-image: url('../../images/icons/ic-arrow-down.svg');
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: contain;
+   transform: translateY(-50%);
+   pointer-events: none;
+}
+
+.adm-select.sm {
+   height: 32px;
+   min-width: 0;
+   border-radius: var(--r-sm);
+}
+
+.adm-select.sm select {
+   font-size: 13px;
+   padding: 0 24px 0 10px;
+}
+
+.adm-select.bare {
+   border: none;
+}
+
+.adm-select.bare select {
+   font-weight: 600;
+   color: var(--g800);
+   padding: 0 18px 0 4px;
+}
+
+.adm-select.bare::after {
+   right: 2px;
+}
+
+.adm-select.disabled {
+   background: var(--g50);
+}
+
+.adm-select.disabled select,
+.adm-select select:disabled {
+   color: var(--g400);
+   cursor: not-allowed;
+}
+
+.adm-select.disabled::after {
+   opacity: .4;
+}

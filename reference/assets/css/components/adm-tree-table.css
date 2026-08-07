@@ -1,0 +1,47 @@
+/* 트리 테이블 — 문서: docs/components/tree-table.md
+   의존성: adm-table.css (.adm-table 안에서 사용) */
+.adm-tree-cell {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   color: var(--g800);
+}
+
+/* 1~3 Depth는 실제 <button>(확장/축소 트리거), 4 Depth(리프)는 비대화형 <span> */
+button.adm-tree-cell {
+   appearance: none;
+   -webkit-appearance: none;
+   background: none;
+   border: none;
+   font: inherit;
+   padding: 0;
+   text-align: left;
+   cursor: pointer;
+}
+
+.adm-tree-cell .cv {
+   width: 0;
+   height: 0;
+   border-top: 4px solid transparent;
+   border-bottom: 4px solid transparent;
+   border-left: 5.5px solid var(--g500);
+   display: inline-block;
+   flex-shrink: 0;
+}
+
+.adm-tree-cell .cv.open {
+   transform: rotate(90deg);
+}
+
+.adm-tree-cell.d2 {
+   padding-left: 24px;
+}
+
+.adm-tree-cell.d3 {
+   padding-left: 48px;
+}
+
+.adm-tree-cell.d4 {
+   padding-left: 72px;
+   color: var(--g600);
+}

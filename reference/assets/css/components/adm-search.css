@@ -1,0 +1,35 @@
+/* 서치 — 문서: docs/components/search.md */
+.adm-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    min-width: 260px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    padding: 0 12px;
+    background: #fff;
+}
+
+.adm-search input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    font-family: var(--font);
+    color: var(--g900);
+    background: transparent;
+}
+
+.adm-search input::placeholder {
+    color: var(--g400);
+}
+
+.adm-search .ic {
+    flex-shrink: 0;
+    display: inline-flex;
+}
+
+.adm-search .ic .adm-icon {
+    opacity: .55;
+}

@@ -1,0 +1,144 @@
+/* 테이블 — 문서: docs/components/table.md */
+/* overflow-x:auto — 컬럼이 많거나 셀 내용이 넓으면(예: nowrap 텍스트) 테이블 폭이 래퍼를 넘어설 수 있다.
+   overflow-y:hidden으로 위아래는 라운드 코너에 맞춰 그대로 클리핑하고, 가로만 스크롤되게 한다. */
+.adm-table-wrap {
+   background: #fff;
+   border: 1px solid var(--line);
+   border-radius: var(--r-lg);
+   overflow-x: auto;
+   overflow-y: hidden;
+}
+
+.adm-table {
+   width: 100%;
+   border-collapse: collapse;
+   font-size: 13.5px;
+}
+
+.adm-table th {
+   height: 48px;
+   padding: 0 14px;
+   background: #EFF3FB;
+   color: var(--g600);
+   font-weight: 600;
+   font-size: 13px;
+   border-bottom: 1px solid var(--line);
+   text-align: center;
+   white-space: nowrap;
+}
+
+.adm-table th.l,
+.adm-table td.l {
+   text-align: left;
+}
+
+.adm-table td {
+   height: 52px;
+   padding: 8px 14px;
+   border-bottom: 1px solid var(--line);
+   color: var(--g800);
+   text-align: center;
+   white-space: nowrap;
+}
+
+.adm-table tr:last-child td {
+   border-bottom: none;
+}
+
+.adm-table tr.hover td {
+   background: var(--g25);
+}
+
+.adm-table tr.selected td {
+   background: var(--g50);
+}
+
+.adm-table tr.disabled td {
+   color: var(--g400);
+}
+
+/* .th-sort는 실제 <button type="button">에 적용 — 라벨 텍스트+아이콘 전체를 감싸 클릭 영역을 넓힌다
+   (음수 margin으로 th 패딩 바깥까지 히트 영역을 확장). appearance/font를 리셋해 button 기본 스타일을 지운다.
+   클릭할 때마다 정렬 없음 → 오름차순(up) → 내림차순(dn) → 정렬 없음 순으로 순환한다(assets/js/adm-interactions.js). */
+.adm-table th .th-sort {
+   appearance: none;
+   -webkit-appearance: none;
+   background: none;
+   border: none;
+   font: inherit;
+   display: inline-flex;
+   align-items: center;
+   gap: 5px;
+   color: inherit;
+   cursor: pointer;
+   padding: 14px 8px;
+   margin: -14px -8px;
+   border-radius: var(--r-sm);
+}
+
+.adm-table th .th-sort:hover {
+   background: var(--g50);
+}
+
+.adm-table .sort {
+   display: inline-flex;
+   flex-direction: column;
+   gap: 1px;
+}
+
+.adm-table .sort i {
+   width: 0;
+   height: 0;
+   border-left: 3.5px solid transparent;
+   border-right: 3.5px solid transparent;
+   display: block;
+}
+
+.adm-table .sort i.up {
+   border-bottom: 4px solid var(--g400);
+}
+
+.adm-table .sort i.dn {
+   border-top: 4px solid var(--g400);
+}
+
+.adm-table .sort i.on {
+   border-bottom-color: var(--g800);
+   border-top-color: var(--g800);
+}
+
+.adm-table th .th-sort:hover .sort i.up:not(.on) {
+   border-bottom-color: var(--g600);
+}
+
+.adm-table th .th-sort:hover .sort i.dn:not(.on) {
+   border-top-color: var(--g600);
+}
+
+.adm-table td .notice {
+   color: var(--red-500);
+   font-weight: 600;
+}
+
+.adm-table td .reply {
+   color: var(--g600);
+}
+
+/* 셀 내용이 긴 컬럼(설명·메모 등)을 위한 두 가지 옵션. 기본 폭 220px이 내장돼 있어 클래스만 붙이면 바로 동작하고,
+   컬럼마다 다른 폭이 필요할 때만 style="max-width:…"로 덮어쓴다.
+   .truncate: 한 줄 유지 + 말줄임표(title 속성은 assets/js/adm-interactions.js가 셀 텍스트로 자동 채운다. 수동 작성 금지).
+   .wrap: 줄바꿈 허용, 행 높이가 내용만큼 자동으로 늘어난다(여러 줄 노출이 필요할 때). */
+.adm-table td.truncate {
+   max-width: 220px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   cursor: help;
+}
+
+.adm-table td.wrap {
+   max-width: 220px;
+   white-space: normal;
+   word-break: break-word;
+   height: auto;
+   text-align: left;
+}

@@ -1,0 +1,53 @@
+/* 초이스 그룹 — 문서: docs/components/choice-group.md
+   .adm-choice는 실제 <input type="radio">를 감싸는 <label>이다. input은 opacity:0으로 전체를 덮고,
+   상태는 :has(input:checked)/:has(input:disabled) 네이티브 의사 클래스로 구동 — JS 불필요. */
+.adm-choice-group {
+   display: flex;
+   gap: 8px;
+}
+
+.adm-choice {
+   position: relative;
+   flex: 1;
+   height: 44px;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   border: 1px solid var(--line-strong);
+   border-radius: var(--r-md);
+   background: #fff;
+   color: var(--g700);
+   font-size: 14px;
+   font-weight: 500;
+   font-family: var(--font);
+   cursor: pointer;
+}
+
+.adm-choice input {
+   position: absolute;
+   inset: 0;
+   margin: 0;
+   opacity: 0;
+   cursor: pointer;
+}
+
+.adm-choice:has(input:checked) {
+   border: 1.5px solid var(--g900);
+   color: var(--g900);
+   font-weight: 700;
+}
+
+.adm-choice:has(input:disabled) {
+   background: var(--g25);
+   color: var(--g400);
+   cursor: not-allowed;
+}
+
+.adm-choice input:disabled {
+   cursor: not-allowed;
+}
+
+.adm-choice:has(input:focus-visible) {
+   outline: 2px solid var(--blue-500);
+   outline-offset: 2px;
+}

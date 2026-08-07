@@ -402,34 +402,53 @@ Step 2   python3 .claude/skills/feature-spec/scripts/build_admin_sb.py {화면�
 
 브랜드 무관 공통 어드민의 **권장 기본 템플릿**. 디자인 시스템 단일 출처 =
 워크스페이스 `90. 어드민/DesignSystem/admin-common-design-system.html` (컴포넌트 룩·토큰·상태 정의,
-저장소 사본: `reference/admin-common-design-system.html` — 워크스페이스본 수정 시 사본도 갱신).
+저장소 사본: `reference/admin-common-design-system.html` + `reference/assets/` + `reference/docs/`
++ `reference/DESIGN-SYSTEM-CONVENTIONS.md` — 워크스페이스본 수정 시 사본도 함께 갱신).
 템플릿(`templates/admin-common.html`)은 이 시스템에서 추출한 것 — **룩 수정은 디자인 시스템 → 템플릿 순으로 반영**.
+
+> **v0.2 전면 동기화 (2026-08-06)**: 디자인 시스템 v0.2와 레이아웃까지 1:1로 맞췄다.
+> 헤더 64→**52px**, 콘텐츠 중앙 정렬→**좌측 정렬**(LNB 우측 95px), 로고 위치 topbar→**LNB `.brand`**,
+> 테이블 헤더 배경 흰색→**#EFF3FB**, 페이지바 브레드크럼 **타이틀 위로**, LNB **`.dark` 변형** 추가,
+> **아이콘 52종**(`ic-*`)을 data URI로 내장. 구 셸(v0.1)로 만든 기존 SB도 그대로 렌더된다(호환 CSS 유지).
 
 **프레임 규격 (절대 어기지 말 것)**:
 
 | 항목 | 값 |
 |------|-----|
-| `.admin-canvas` | **W 2560px 고정** · min-height 1504px (헤더 64 + 바디 1440) |
-| 헤더 `.adm-topbar` | H 64px 풀폭 |
-| LNB `.adm-gnb` | W 260px |
-| 콘텐츠 `.adm-content` | **W 1440px 고정**, `.adm-main`(flex 중앙)이 자동 센터링 |
+| `.admin-canvas` | **W 2560px 고정** · min-height 1492px (헤더 52 + 바디 1440) |
+| 헤더 `.adm-topbar` | **H 52px** · `.adm-col` 안에 위치해 LNB 우측 폭(2300px) 차지 · 로고 없음(계정/유틸만) |
+| LNB `.adm-gnb` | W 260px · 상단 `.brand`(서비스명) · 다크 서페이스는 `.adm-gnb.dark` |
+| 콘텐츠 `.adm-content` | **W 1440px 고정** · `.adm-main`이 `padding-left:95px`로 **좌측 정렬**(중앙 정렬 아님, 우측 765px는 여백) |
 | 수직 여백 | 콘텐츠 상단 48px / 하단 96px (`.adm-content` padding에 내장) |
 | 수직 리듬 | 카드 간 24px(`.adm-content` gap) · 섹션 간 40px(`.adm-sec-gap` 16px 추가) · 카드 패딩 24px |
 | 컨트롤 높이 | 기본 40 · 소형 32 · 대형 48 · 모달 풀버튼 52 |
 
-**본문 골격** (src 작성 시 이 구조 고정):
+**본문 골격** (src 작성 시 이 구조 고정 — 헤더가 `.adm-col` 안으로 들어간 것이 v0.1과의 차이):
 ```html
 <div class="wf-canvas admin-canvas">
-  <div class="adm-topbar">…</div>
   <div class="adm-body">
-    <div class="adm-gnb">…</div>
-    <div class="adm-main"><div class="adm-content">
-      <div class="adm-pagebar">…</div>
-      <!-- 필터 카드 / 툴바 / 테이블 / 페이지네이션 … -->
-    </div></div>
+    <div class="adm-gnb dark">
+      <div class="brand"><strong class="tit">서비스명</strong><span class="desc">부제</span></div>
+      <div class="grp open">그룹명 <span class="cv"></span></div>
+      <div class="sub"><a class="active">메뉴</a></div>
+    </div>
+    <div class="adm-col">
+      <div class="adm-topbar">…계정·유틸…</div>
+      <div class="adm-main"><div class="adm-content">
+        <div class="adm-pagebar">…</div>
+        <!-- 필터 카드 / 툴바 / 테이블 / 페이지네이션 … -->
+      </div></div>
+    </div>
   </div>
 </div>
 ```
+
+**아이콘 (v0.2 신규)**: `<span class="adm-icon ic-<이름> sz-<크기>"></span>` — 52종이 템플릿에 data URI로
+내장돼 있어 별도 파일 참조 없이 SB 단독 HTML에서 바로 렌더된다. 크기는 `sz-12/13/14/15/16/18`.
+**어두운 배경(Primary `.adm-btn`) 위에는 흰색 변형** `ic-search-wh` / `ic-edit-wh`를 쓴다(기본 아이콘은 검정이라 안 보임).
+텍스트 글리프(`«` `›` `✎` `↺` `⌕`)로 아이콘을 대신하지 않는다.
+아이콘 목록·용도는 `reference/docs/foundation/icons.md`, 컴포넌트별 스펙은 `reference/docs/components/*.md`,
+클래스/토큰 규칙은 `reference/DESIGN-SYSTEM-CONVENTIONS.md` 참고(모두 디자인 시스템 v0.2 사본).
 
 **디자인 규칙**: 무채색 기본(Primary 버튼 = g900 검정). 컬러는 상태 전용 —
 Green(태그·토글 ON), Red(공지·삭제·에러), Blue(텍스트 링크). 폰트 Pretendard
