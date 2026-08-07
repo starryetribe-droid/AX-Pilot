@@ -2,160 +2,179 @@
   <div class="wf-canvas-wrap">
     <div class="num-strip"></div>
     <div class="wf-canvas admin-canvas" style="min-height:0;">
-
-      <!-- 1. 헤더 -->
-      <div class="adm-topbar">
-        <span class="adm-num">1</span>
-        <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">KT AX Admin</span></div>
-        <div class="adm-utils">
-          <span class="u"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
-          <span class="divider"></span>
-          <span class="adm-btn ghost sm">로그아웃</span>
-        </div>
-      </div>
-
       <div class="adm-body">
-        <!-- 2. LNB (IA v0.3) -->
-        <div class="adm-gnb">
+
+        <!-- 2. LNB -->
+        <div class="adm-gnb dark">
           <span class="adm-num">2</span>
-          <div class="grp">대시보드</div>
-          <div class="grp active">메인 관리 <span class="cv">▴</span></div>
+          <div class="brand"><strong class="tit">KT AX Admin</strong><span class="desc">상품 소개사이트 관리자</span></div>
+          <div class="grp">대시보드 <span class="cv"></span></div>
+          <div class="grp open">메인 관리 <span class="cv"></span></div>
           <div class="sub">
             <a class="active">메인 배너 관리</a>
             <a>메인 콘텐츠 관리</a>
             <a>메인 팝업 관리</a>
           </div>
-          <div class="grp">AX 솔루션 컨설턴트 <span class="cv">▾</span></div>
-          <div class="grp">AX 도입 관리 <span class="cv">▾</span></div>
-          <div class="grp">도입사례 관리 <span class="cv">▾</span></div>
-          <div class="grp">인사이트 관리 <span class="cv">▾</span></div>
-          <div class="grp">이벤트 관리 <span class="cv">▾</span></div>
-          <div class="grp">문의 관리 <span class="cv">▾</span></div>
-          <div class="grp">시스템 관리 <span class="cv">▾</span></div>
+          <div class="grp">AX 솔루션 컨설턴트 <span class="cv"></span></div>
+          <div class="grp">AX 도입 관리 <span class="cv"></span></div>
+          <div class="grp">도입사례 관리 <span class="cv"></span></div>
+          <div class="grp">인사이트 관리 <span class="cv"></span></div>
+          <div class="grp">이벤트 관리 <span class="cv"></span></div>
+          <div class="grp">문의 관리 <span class="cv"></span></div>
+          <div class="grp">시스템 관리 <span class="cv"></span></div>
         </div>
 
-        <div class="adm-main">
-          <div class="adm-content">
+        <div class="adm-col">
+          <!-- 1. 헤더 -->
+          <div class="adm-topbar">
+            <span class="adm-num">1</span>
+            <div class="adm-utils">
+              <span class="adm-user"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
+              <span class="env">STG</span>
+            </div>
+            <div class="adm-utils">
+              <span class="adm-icon-btn ghost sm"><span class="adm-icon ic-alarm sz-16"></span></span>
+              <span class="divider"></span>
+              <span class="u"><span class="adm-icon ic-logout sz-16"></span>로그아웃</span>
+            </div>
+          </div>
 
-            <!-- 3. 페이지 헤더 / 6. 배너 등록 -->
+          <div class="adm-main"><div class="adm-content">
+
+            <!-- 3. 페이지 헤더 -->
             <div class="adm-pagebar">
               <span class="adm-num">3</span>
               <div class="left">
-                <span class="ttl">메인 배너 관리</span>
                 <span class="adm-crumb">Home <span class="sep">›</span> 메인 관리 <span class="sep">›</span> <span class="cur">메인 배너 관리</span></span>
-              </div>
-              <div class="acts">
-                <span class="adm-anchor">
-                  <span class="adm-num">6</span>
-                  <span class="adm-btn">+ 배너 등록</span>
-                </span>
+                <span class="ttl">메인 배너 관리</span>
               </div>
             </div>
 
             <!-- 4. 배너 리스트 조회 영역 -->
             <div class="adm-filter-card inline">
               <span class="adm-num">4</span>
-              <div class="f adm-anchor">
-                <span class="adm-num sub">4-2</span>
+              <div class="f">
                 <label>노출 여부</label>
-                <span class="adm-select" style="min-width:140px;">전체<span class="ar"></span></span>
+                <span class="adm-anchor"><span class="adm-num sub">4-2</span>
+                  <span class="adm-select" style="min-width:150px;">전체<span class="ar"></span></span></span>
               </div>
-              <div class="f adm-anchor">
-                <span class="adm-num sub">4-3</span>
+              <div class="f">
                 <label>등록일</label>
-                <span class="adm-date">YYYY-MM-DD ~ YYYY-MM-DD <span class="ar">▾</span></span>
+                <span class="adm-anchor"><span class="adm-num sub">4-3</span>
+                  <span class="adm-date"><span class="lead"><span class="d-start">YYYY-MM-DD</span> <span class="tilde">~</span> <span class="d-end">YYYY-MM-DD</span></span><span class="adm-icon ic-calendar sz-14"></span></span></span>
               </div>
-              <div class="f adm-anchor">
-                <span class="adm-num sub">4-1</span>
+              <div class="f">
                 <label>검색 기준</label>
-                <span class="adm-select" style="min-width:130px;">배너명<span class="ar"></span></span>
-                <span class="adm-search" style="min-width:240px;"><span class="ph">검색어를 입력해 주세요</span><span class="ic">⌕</span></span>
+                <span class="adm-anchor"><span class="adm-num sub">4-1</span>
+                  <span class="adm-select" style="min-width:150px;">배너명<span class="ar"></span></span></span>
+                <span class="adm-search" style="min-width:280px;"><span class="ph">검색어를 입력해 주세요</span><span class="ic"><span class="adm-icon ic-search sz-15"></span></span></span>
               </div>
               <div class="acts">
-                <span class="adm-anchor"><span class="adm-num sub">4-5</span><span class="adm-btn line">↺ 초기화</span></span>
-                <span class="adm-anchor"><span class="adm-num sub">4-4</span><span class="adm-btn">검색</span></span>
+                <span class="adm-anchor"><span class="adm-num sub">4-5</span>
+                  <span class="adm-btn line"><span class="adm-icon ic-refresh sz-14"></span> 초기화</span></span>
+                <span class="adm-anchor"><span class="adm-num sub">4-4</span>
+                  <span class="adm-btn"><span class="adm-icon ic-search-wh sz-14"></span> 검색</span></span>
+              </div>
+            </div>
+
+            <!-- 툴바 (총 건수 + 6. 배너 등록 버튼) -->
+            <div class="adm-toolbar">
+              <div class="left">
+                <span class="total"><b>총 3건</b> <span class="cap">· 노출 중 2건 / 최대 5건</span></span>
+              </div>
+              <div class="right">
+                <span class="adm-anchor"><span class="adm-num">6</span>
+                  <span class="adm-btn"><span class="adm-icon ic-plus-wh sz-14"></span> 배너 등록</span></span>
               </div>
             </div>
 
             <!-- 5. 배너 리스트 테이블 -->
-            <div class="adm-toolbar">
-              <div class="left"><span class="total"><b>총 3건</b> <span style="color:#8A919C;">· 노출 중 2건 (최대 5건)</span></span></div>
-              <div class="right"></div>
-            </div>
             <div class="adm-table-wrap">
               <span class="adm-num">5</span>
-              <table class="adm-table" style="font-size:13px;">
+              <table class="adm-table">
                 <thead>
                   <tr>
                     <th style="width:110px;"><span class="adm-num sub">5-1</span>노출 순서</th>
                     <th class="l"><span class="adm-num sub">5-2</span>배너명</th>
-                    <th style="width:140px;"><span class="adm-num sub">5-3</span>배너 이미지</th>
-                    <th class="l"><span class="adm-num sub">5-4</span>랜딩 URL</th>
-                    <th style="width:110px;"><span class="adm-num sub">5-5</span>노출 여부</th>
-                    <th style="width:210px;"><span class="adm-num sub">5-6</span>등록일시 / 수정일시</th>
-                    <th style="width:90px;"><span class="adm-num sub">5-7</span>삭제</th>
+                    <th style="width:180px;"><span class="adm-num sub">5-3</span>배너 이미지</th>
+                    <th class="l" style="width:320px;"><span class="adm-num sub">5-4</span>랜딩 URL</th>
+                    <th style="width:130px;"><span class="adm-num sub">5-5</span>노출 여부</th>
+                    <th style="width:230px;"><span class="adm-num sub">5-6</span>등록일시 / 수정일시</th>
+                    <th style="width:100px;">관리</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><span style="color:#B0B6BF;">⠿</span> <span class="adm-input" style="width:44px;height:30px;display:inline-flex;justify-content:center;">1</span></td>
+                    <td><span class="adm-select sm" style="min-width:64px;">1<span class="ar"></span></span></td>
                     <td class="l"><span class="adm-link">7월 AX 프로모션 배너</span></td>
-                    <td><span style="display:inline-block;width:96px;height:36px;background:#EEF0F3;border-radius:4px;"></span></td>
-                    <td class="l">https://ktax.kt.com/event/2607</td>
+                    <td><span style="display:inline-block;width:120px;height:40px;background:#EEF0F3;border:1px solid #E4E7EB;border-radius:6px;"></span></td>
+                    <td class="l truncate">https://ax.kt.com/promotion/202607</td>
                     <td><span class="adm-toggle on"></span></td>
-                    <td>2026-07-01 10:20 / 2026-07-18 14:05</td>
-                    <td><span class="adm-btn line sm">삭제</span></td>
+                    <td>2026-07-01 10:22 / 2026-07-18 09:04</td>
+                    <td><span class="adm-btn line sm"><span class="adm-icon ic-delete sz-13"></span></span></td>
                   </tr>
                   <tr>
-                    <td><span style="color:#B0B6BF;">⠿</span> <span class="adm-input" style="width:44px;height:30px;display:inline-flex;justify-content:center;">2</span></td>
+                    <td><span class="adm-select sm" style="min-width:64px;">2<span class="ar"></span></span></td>
                     <td class="l"><span class="adm-link">AX 솔루션 소개 배너</span></td>
-                    <td><span style="display:inline-block;width:96px;height:36px;background:#EEF0F3;border-radius:4px;"></span></td>
-                    <td class="l">https://ktax.kt.com/solution</td>
+                    <td><span style="display:inline-block;width:120px;height:40px;background:#EEF0F3;border:1px solid #E4E7EB;border-radius:6px;"></span></td>
+                    <td class="l truncate">https://ax.kt.com/solution</td>
                     <td><span class="adm-toggle on"></span></td>
-                    <td>2026-06-21 09:11 / 2026-07-02 16:40</td>
-                    <td><span class="adm-btn line sm">삭제</span></td>
+                    <td>2026-06-24 14:10 / 2026-07-02 11:31</td>
+                    <td><span class="adm-btn line sm"><span class="adm-icon ic-delete sz-13"></span></span></td>
                   </tr>
                   <tr>
-                    <td><span style="color:#B0B6BF;">⠿</span> <span class="adm-input ph" style="width:44px;height:30px;display:inline-flex;justify-content:center;">-</span></td>
-                    <td class="l"><span class="adm-link">상반기 세미나 배너 (종료)</span></td>
-                    <td><span style="display:inline-block;width:96px;height:36px;background:#EEF0F3;border-radius:4px;"></span></td>
-                    <td class="l"><span style="color:#B0B6BF;">-</span></td>
+                    <td><span class="adm-select sm" style="min-width:64px;">3<span class="ar"></span></span></td>
+                    <td class="l"><span class="adm-link">도입 문의 유도 배너</span></td>
+                    <td><span style="display:inline-block;width:120px;height:40px;background:#EEF0F3;border:1px solid #E4E7EB;border-radius:6px;"></span></td>
+                    <td class="l truncate">-</td>
                     <td><span class="adm-toggle"></span></td>
-                    <td>2026-05-02 11:00 / 2026-06-30 18:00</td>
-                    <td><span class="adm-btn line sm">삭제</span></td>
+                    <td>2026-06-11 09:00 / -</td>
+                    <td><span class="adm-btn line sm"><span class="adm-icon ic-delete sz-13"></span></span></td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-          </div>
+            <div class="adm-paging">
+              <span class="pg nav disabled"><span class="adm-icon ic-arrow-double-left sz-12"></span></span>
+              <span class="pg nav disabled"><span class="adm-icon ic-arrow-left sz-12"></span></span>
+              <span class="pg cur">1</span>
+              <span class="pg nav disabled"><span class="adm-icon ic-arrow-right sz-12"></span></span>
+              <span class="pg nav disabled"><span class="adm-icon ic-arrow-double-right sz-12"></span></span>
+            </div>
+
+          </div></div>
         </div>
       </div>
     </div>
 
-    <div class="wf-sub-connector" style="padding-top:280px;">
-      <div class="wf-sub-connector-line"></div>
-      <div class="wf-sub-connector-label">노출 5건 초과 저장 / 삭제 클릭 시</div>
+    <!-- 7. 알럿 (경량 오버레이 — 같은 장 서브 캔버스) -->
+    <div class="wf-sub-connector"
+         style="display:flex; flex-direction:column; align-items:center; padding-top:360px; flex-shrink:0; overflow:visible;">
+      <div class="wf-sub-connector-label"
+           style="font-size:12px; color:#6d7882; background:#fff; padding:3px 10px; border:1px solid #b1b8be; border-radius:4px; white-space:nowrap; flex-shrink:0; margin-bottom:8px;">
+        노출 5건 초과 등록 / 삭제 클릭
+      </div>
+      <div class="wf-sub-connector-line"
+           style="width:2px; flex:1; min-height:40px; background:repeating-linear-gradient(to bottom, #b1b8be 0 6px, transparent 6px 12px);"></div>
     </div>
 
-    <!-- 7. 알럿 2종 (경량 오버레이) -->
-    <div class="wf-sub-canvas admin-canvas" style="width:400px;min-height:0;margin-top:180px;border-radius:16px;">
-      <div style="padding:28px;position:relative;">
-        <span class="adm-num" style="top:-9px;left:-9px;">7</span>
-        <div style="position:relative;padding-bottom:20px;border-bottom:1px solid #EEF0F3;margin-bottom:20px;">
-          <span class="adm-num sub">7-1</span>
-          <div style="font-size:12px;color:#8A919C;margin-bottom:8px;">노출 최대치 알럿</div>
-          <div style="font-size:14.5px;font-weight:600;margin-bottom:16px;">메인 배너는 최대 5개까지 노출 가능합니다.</div>
-          <span class="adm-btn full" style="height:44px;">확인</span>
+    <div class="wf-sub-canvas admin-canvas" style="width:520px; min-height:0; padding:40px; background:#DFE2E6; display:flex; flex-direction:column; gap:32px; position:relative;">
+      <span class="adm-num" style="top:10px; left:10px;">7</span>
+      <div>
+        <div style="font-size:12px; color:#8A919C; margin-bottom:8px;">노출 최대치 알럿</div>
+        <div class="adm-alert">
+          <div class="a-msg">메인 배너는 최대 5개까지 노출 가능합니다.</div>
+          <div class="a-sub">노출 중인 배너를 비노출로 변경한 뒤 다시 시도해 주세요.</div>
+          <div class="a-acts"><span class="adm-btn">확인</span></div>
         </div>
-        <div style="position:relative;">
-          <span class="adm-num sub">7-2</span>
-          <div style="font-size:12px;color:#8A919C;margin-bottom:8px;">삭제 확인 알럿</div>
-          <div style="font-size:14.5px;font-weight:600;margin-bottom:16px;">배너를 삭제하시겠습니까?</div>
-          <div style="display:flex;gap:8px;">
-            <span class="adm-btn line" style="flex:1;">취소</span>
-            <span class="adm-btn" style="flex:1;">삭제</span>
-          </div>
+      </div>
+      <div>
+        <div style="font-size:12px; color:#8A919C; margin-bottom:8px;">삭제 확인 알럿</div>
+        <div class="adm-alert">
+          <div class="a-msg">선택한 배너를 삭제하시겠습니까?</div>
+          <div class="a-sub">삭제한 배너는 복구할 수 없습니다.</div>
+          <div class="a-acts"><span class="adm-btn line">취소</span><span class="adm-btn">삭제</span></div>
         </div>
       </div>
     </div>
@@ -163,35 +182,26 @@
 </div>
 
 <div class="desc-panel">
-  <div class="desc-section">
-    <div class="desc-section-header">화면 설명</div>
-    <div class="desc-section-body">
-      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
-        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page (IA v0.3 «TO-BE 관리자») / 관리자 등급: 최고·일반</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 템플릿: 공통 어드민 (admin-common) — 프레임 2560px · 콘텐츠 1440px 중앙</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 경로: Admin &gt; 메인 관리 &gt; 메인 배너 관리</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 연결 SB: 등록 = KTAX-AD-MN01-1000 · 상세/수정 = KTAX-AD-MN01-1100</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 프론트 연동: 메인 배너 이미지 영역(KTAX-FO-MN01-0000) — 5초 간격 스와이프 롤링, 최대 5건 노출, 배너 1건인 경우 좌우 이동 버튼/Indicator 비노출</span></p></li>
-      
-      </ul>
-    </div>
+  <div class="desc-sec">
+    <div class="desc-sec-head">화면 설명</div>
+    <ul>
+      <li><p class="desc-block"><span class="lvl1">메인 화면에 노출되는 배너를 등록·수정·삭제하고 노출 순서를 관리하는 목록 화면.</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">화면 경로 : 메인 관리 &gt; 메인 배너 관리 &gt; 목록</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">연결 SB : KTAX-AD-MN01-1000(배너 등록) · KTAX-AD-MN01-1100(배너 상세/수정)</span><br><span class="note">* 정의서 «3. 배너 등록/수정 팝업»은 페이지형 화면으로 확정(2026-07-22) — 별도 SB로 분리</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">프론트 연동 : 메인 &gt; 배너 이미지 영역</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5초 간격 스와이프 롤링, 최대 5건 노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 클릭 시 관리자 설정 URL로 랜딩</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 배너 1건인 경우 좌우 이동 버튼/Indicator 비노출</span></p></li>
+    </ul>
   </div>
-
-  <div class="desc-section">
-    <div class="desc-section-header">Description</div>
-    <div class="desc-section-body">
-      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
-        <li><p class="desc-block"><span class="lvl1">1. 헤더 (Top Bar · H 64px)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 좌: 로고 + "KT AX Admin" / 우: 관리자 계정 · 로그아웃</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">2. LNB (W 260px · IA 1depth)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 대시보드 / 메인 관리 / AX 솔루션 컨설턴트 / AX 도입 관리 / 도입사례 관리 / 인사이트 관리 / 이벤트 관리 / 문의 관리 / 시스템 관리</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 활성: 메인 관리 › 메인 배너 관리</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">3. 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 타이틀 "메인 배너 관리" + 브레드크럼 / 노출 중 건수(n/5) 안내</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">4. 배너 리스트 조회 영역</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 상세 조건 조회 및 검색/초기화 — 조회 조건 선택/입력 후 [검색] 버튼 클릭 또는 ENTER 시 조회 실행</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 조회 결과는 배너 리스트 테이블(⑤)에 반영 (노출 순서 기준 정렬 유지)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-1. 검색 기준 선택 + 검색어 입력</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 기준 셀렉박스 — Default: 배너명 / 배너명·랜딩 URL</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 검색어 인풋 — 플레이스홀더 "검색어를 입력해 주세요"</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-2. 노출 여부 선택 — Default: 전체 / 전체·노출·비노출</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-3. 등록일(기간) 선택: 데이트피커 클릭 시 기간선택 달력 출력 / Default: 전체 기간</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-4. [검색] 클릭 또는 ENTER 시 조회 실행</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 4-5. [초기화] 클릭 시 조회 조건값 초기화 — 모든 조건 Default 복원, 재조회 없음</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 초기화 후 자동 재조회 여부 정책 확정 필요 / UI = 필터 카드 인라인 변형(디자인 시스템 §3.12)</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">5. 배너 리스트 테이블</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 등록된 배너를 노출 순서 기준으로 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-1. 노출 순서 설정: 드래그 앤 드롭(⠿) 또는 순서값 입력으로 변경, 변경 시 프론트 배너 롤링 순서에 반영 / 노출 순서: 노출 중 배너 내 순서 지정 (비노출 "-")</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-2. 배너명: 관리용 명칭 (프론트 미노출), 클릭 시 상세/수정 페이지 &lt;KTAX-AD-MN01-1100&gt; 이동</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-3. 배너 이미지: 등록된 이미지 썸네일 미리보기 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-4. 랜딩 URL: 프론트에서 배너 클릭 시 해당 URL로 랜딩 / 미입력 시 배너 클릭 이동 없음</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-5. 노출 여부: 노출/비노출 값 출력, 리스트에서 토글 변경 가능</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-6. 등록일시 / 수정일시</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-7. 배너 삭제: 삭제 클릭 시 확인 알럿(7-2) 출력 후 삭제 처리</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">6. [배너 등록] 버튼</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 클릭 시 등록 페이지 &lt;KTAX-AD-MN01-1000&gt; 이동 (IA: Page 유형 — 팝업 아님)</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">7. 알럿</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 7-1. 노출 최대치: 노출(Y) 상태 배너가 5건인 상태에서 노출(Y)로 등록 시도 시 등록 불가 처리 — "메인 배너는 최대 5개까지 노출 가능합니다." + [확인]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 7-2. 삭제 확인: [취소]/[삭제]</span><br><span class="note">&nbsp;&nbsp;&nbsp;* 삭제 확인 문구는 정의 미존재 — (제안)</span></p></li>
-      
-        <li><p class="desc-block"><span class="lvl1">[동작 / 예외]</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">노출 순서·토글 변경</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 변경 즉시 저장 + 프론트 배너 롤링 순서 반영</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">조회 결과 0건</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 조회 결과 0건 시 빈 상태 표시 : '조회 결과가 없습니다.'</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">배너 0건</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) 빈 상태 — "등록된 배너가 없습니다. [배너 등록]으로 추가해주세요."</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">조회/저장 API 실패</span><br><span class="note">&nbsp;&nbsp;&nbsp;* (제안) "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요."</span></p></li>
-      
-      </ul>
-    </div>
+  <div class="desc-sec">
+    <div class="desc-sec-head">Description</div>
+    <ul>
+      <li><p class="desc-block"><span class="lvl1">1. 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 로그인 계정명·운영 환경 표시, 알림·로그아웃 유틸 제공</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">2. LNB</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 어드민 1depth 메뉴 9종, 현재 위치(메인 관리 &gt; 메인 배너 관리) 활성 표시</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">3. 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 브레드크럼 + 화면 타이틀 노출</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">4. 배너 리스트 조회 영역</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 상세 조건 조회 및 검색/초기화</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 조회 조건 선택/입력 후 [검색] 버튼 클릭 또는 ENTER 시 조회 실행</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 조회 결과는 배너 리스트 테이블에 반영 (노출 순서 기준 정렬 유지)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-1) 검색 기준 선택 + 검색어 입력 인풋필드</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 검색 기준 선택 셀렉박스 : 배너명 / 랜딩 URL (Default : 배너명)</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 검색어 입력 인풋필드 (플레이스 홀더 : 검색어를 입력해 주세요)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-2) 노출 여부 선택 셀렉박스</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 전체 / 노출 / 비노출 (Default : 전체)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-3) 등록일(기간) 선택</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- YYYY-MM-DD ~ YYYY-MM-DD 데이트피커 클릭 시 기간선택 달력 출력 (Default : 전체 기간)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-4) [검색] 버튼 클릭 또는 ENTER 시 조회 실행</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-5) [초기화] 버튼 클릭 시 선택/입력된 조회 조건값 초기화</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 모든 조건 Default 복원, 재조회 없음</span><br><span class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 초기화 후 자동 재조회 여부 정책 확정 필요</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 조회 결과 0건 시 빈 상태 표시 : '조회 결과가 없습니다.'</span><br><span class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 키워드 검색 조합(검색 기준 + 검색어)은 조회 영역 맨 뒤에 배치 — 배지 번호는 정의서 번호를 따름</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">5. 배너 리스트 테이블</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 등록된 배너를 노출 순서 기준으로 출력</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5-1) 노출 순서 설정 : 노출 중 배너 내 순서 지정</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 드래그 앤 드롭 또는 순서값 입력으로 변경, 변경 시 프론트 배너 롤링 순서에 반영</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5-2) 배너명 : 클릭 시 배너 상세/수정 화면으로 이동</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5-3) 배너 이미지 : 등록된 이미지 썸네일 미리보기 출력</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5-4) 랜딩 URL : 미입력 시 '-' 표시</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5-5) 노출 여부 : 노출 / 비노출 값 출력, 리스트에서 토글 변경 가능</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5-6) 등록일시 / 수정일시 : 수정 이력 없으면 '-' 표시</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">6. [배너 등록] 버튼</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 클릭 시 배너 등록 화면으로 이동 (KTAX-AD-MN01-1000)</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">7. 알럿</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출 최대치 알럿 : 노출(Y) 상태 배너가 5건인 상태에서 노출(Y)로 등록 시도 시 등록 불가 처리</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 알럿 : '메인 배너는 최대 5개까지 노출 가능합니다.'</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 배너 삭제 : 삭제 클릭 시 확인 알럿 출력 후 삭제 처리</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">[동작 / 예외]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출 중 배너가 5건을 초과할 수 없음 — 초과 시 등록/노출 전환 차단</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 조회 결과 0건 : '조회 결과가 없습니다.' 빈 상태 표시</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 삭제한 배너는 복구 불가</span></p></li>
+    </ul>
   </div>
 </div>

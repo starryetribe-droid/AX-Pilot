@@ -2,94 +2,160 @@
   <div class="wf-canvas-wrap">
     <div class="num-strip"></div>
     <div class="wf-canvas admin-canvas" style="min-height:0;">
-
-      <!-- 1. 헤더 -->
-      <div class="adm-topbar">
-        <span class="adm-num">1</span>
-        <div class="adm-logo"><span class="mark">LOGO</span><span class="svc">KT AX Admin</span></div>
-        <div class="adm-utils">
-          <span class="u"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
-          <span class="divider"></span>
-          <span class="adm-btn ghost sm">로그아웃</span>
-        </div>
-      </div>
-
       <div class="adm-body">
+
         <!-- 2. LNB -->
-        <div class="adm-gnb">
+        <div class="adm-gnb dark">
           <span class="adm-num">2</span>
-          <div class="grp">대시보드</div>
-          <div class="grp active">메인 관리 <span class="cv">▴</span></div>
+          <div class="brand"><strong class="tit">KT AX Admin</strong><span class="desc">상품 소개사이트 관리자</span></div>
+          <div class="grp">대시보드 <span class="cv"></span></div>
+          <div class="grp open">메인 관리 <span class="cv"></span></div>
           <div class="sub">
             <a class="active">메인 배너 관리</a>
             <a>메인 콘텐츠 관리</a>
             <a>메인 팝업 관리</a>
           </div>
-          <div class="grp">AX 솔루션 컨설턴트 <span class="cv">▾</span></div>
-          <div class="grp">AX 도입 관리 <span class="cv">▾</span></div>
-          <div class="grp">도입사례 관리 <span class="cv">▾</span></div>
-          <div class="grp">인사이트 관리 <span class="cv">▾</span></div>
-          <div class="grp">이벤트 관리 <span class="cv">▾</span></div>
-          <div class="grp">문의 관리 <span class="cv">▾</span></div>
-          <div class="grp">시스템 관리 <span class="cv">▾</span></div>
+          <div class="grp">AX 솔루션 컨설턴트 <span class="cv"></span></div>
+          <div class="grp">AX 도입 관리 <span class="cv"></span></div>
+          <div class="grp">도입사례 관리 <span class="cv"></span></div>
+          <div class="grp">인사이트 관리 <span class="cv"></span></div>
+          <div class="grp">이벤트 관리 <span class="cv"></span></div>
+          <div class="grp">문의 관리 <span class="cv"></span></div>
+          <div class="grp">시스템 관리 <span class="cv"></span></div>
         </div>
 
-        <div class="adm-main">
-          <div class="adm-content">
+        <div class="adm-col">
+          <!-- 1. 헤더 -->
+          <div class="adm-topbar">
+            <span class="adm-num">1</span>
+            <div class="adm-utils">
+              <span class="adm-user"><span class="adm-avatar sm">관</span>관리자(admin)님</span>
+              <span class="env">STG</span>
+            </div>
+            <div class="adm-utils">
+              <span class="adm-icon-btn ghost sm"><span class="adm-icon ic-alarm sz-16"></span></span>
+              <span class="divider"></span>
+              <span class="u"><span class="adm-icon ic-logout sz-16"></span>로그아웃</span>
+            </div>
+          </div>
+
+          <div class="adm-main"><div class="adm-content">
 
             <!-- 3. 페이지 헤더 -->
             <div class="adm-pagebar">
               <span class="adm-num">3</span>
               <div class="left">
-                <span class="ttl">배너 상세/수정</span>
                 <span class="adm-crumb">Home <span class="sep">›</span> 메인 관리 <span class="sep">›</span> 메인 배너 관리 <span class="sep">›</span> <span class="cur">상세/수정</span></span>
+                <span class="ttl">배너 상세/수정</span>
               </div>
             </div>
 
-            <!-- 4. 배너 정보 폼 (기존 값 바인딩) -->
-            <div class="adm-card" style="max-width:760px;">
+            <!-- 4. 배너 등록 폼 -->
+            <div class="adm-card">
               <span class="adm-num">4</span>
-              <div class="card-ttl">배너 정보 <span style="font-size:12.5px;font-weight:500;color:#8A919C;margin-left:8px;">*표시는 필수 입력 사항입니다</span></div>
-              <div style="display:flex;flex-direction:column;gap:20px;">
-                <div class="adm-field"><span class="adm-num sub">4-1</span><label>배너명<span class="req">*</span></label><span class="adm-input">7월 AX 프로모션 배너</span></div>
-                <div class="adm-field"><span class="adm-num sub">4-2</span><label>배너 이미지<span class="req">*</span></label>
-                  <div style="border:1px dashed #D3D7DD;border-radius:8px;padding:16px;display:flex;align-items:center;gap:12px;">
-                    <span style="display:inline-block;width:160px;height:64px;background:#EEF0F3;border-radius:6px;"></span>
-                    <span class="adm-btn line sm">파일 변경</span>
+              <div class="card-ttl">배너 정보</div>
+
+              <div class="adm-field" style="margin-bottom:20px;">
+                <span class="adm-num sub">4-1</span>
+                <label>배너명 <span class="req">*</span></label>
+                <span class="adm-input" style="max-width:640px;">7월 AX 프로모션 배너</span>
+                <span class="help">관리용 명칭으로 프론트에는 노출되지 않습니다.</span>
+              </div>
+
+              <div class="adm-field" style="margin-bottom:20px;">
+                <span class="adm-num sub">4-2</span>
+                <label>배너 이미지 <span class="req">*</span></label>
+                <div style="display:flex; align-items:flex-start; gap:16px;">
+                  <span style="display:inline-block; width:320px; height:120px; background:#EEF0F3; border:1px solid #E4E7EB; border-radius:8px;"></span>
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <span class="adm-btn line"><span class="adm-icon ic-image sz-14"></span> 파일 첨부</span>
+                    <span class="help">JPG / PNG · 권장 사이즈·용량 안내 문구</span>
                   </div>
-                  <span class="help">권장 사이즈·용량·포맷(JPG/PNG) 안내 — 사이즈 정책 확정 필요</span>
                 </div>
-                <div class="adm-field"><span class="adm-num sub">4-3</span><label>배너 타이틀<span class="req">*</span></label><span class="adm-input">AI로 완성하는 업무 혁신, KT AX</span><span class="adm-count">18/00 (글자수 제한 추후 확정)</span></div>
-                <div class="adm-field"><span class="adm-num sub">4-4</span><label>배너 서브 타이틀</label><span class="adm-input">7월 한정 도입 컨설팅 무료 이벤트</span><span class="adm-count">17/00 (글자수 제한 추후 확정)</span></div>
-                <div class="adm-field"><span class="adm-num sub">4-5</span><label>랜딩 URL</label><span class="adm-input">https://ktax.kt.com/event/2607</span>
-                  <span style="display:inline-flex;gap:16px;margin-top:4px;">
-                    <span class="adm-opt"><span class="adm-radio"></span>본창 이동</span>
-                    <span class="adm-opt"><span class="adm-radio on"></span>새창 이동</span>
-                  </span>
+              </div>
+
+              <div class="adm-field" style="margin-bottom:20px;">
+                <span class="adm-num sub">4-3</span>
+                <label>배너 타이틀 <span class="req">*</span></label>
+                <span class="adm-input" style="max-width:640px;">AI로 완성하는 업무 혁신</span>
+                <span class="help">MO는 줄바꿈 기능 제공 (최대 2줄)</span>
+              </div>
+
+              <div class="adm-field" style="margin-bottom:20px;">
+                <span class="adm-num sub">4-4</span>
+                <label>배너 서브 타이틀</label>
+                <span class="adm-input" style="max-width:640px;">KT AX 솔루션으로 지금 시작하세요</span>
+                <span class="help">MO는 줄바꿈 기능 제공 (최대 2줄)</span>
+              </div>
+
+              <div class="adm-field" style="margin-bottom:20px;">
+                <span class="adm-num sub">4-7</span>
+                <label>이미지 대체 텍스트(alt)</label>
+                <span class="adm-input" style="max-width:640px;">AX 프로모션 배너 이미지</span>
+                <span class="help">SEO·웹 접근성용. 미입력 시 배너 타이틀이 자동 적용됩니다.</span>
+              </div>
+
+              <div class="adm-field" style="margin-bottom:20px;">
+                <span class="adm-num sub">4-5</span>
+                <label>랜딩 URL</label>
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <span class="adm-input" style="max-width:640px;">https://ax.kt.com/promotion/202607</span>
+                  <span class="adm-opt"><span class="adm-radio on"></span>새창</span>
+                  <span class="adm-opt"><span class="adm-radio"></span>본창</span>
                 </div>
-                <div class="adm-field"><span class="adm-num sub">4-6</span><label>노출 여부<span class="req">*</span></label>
-                  <span style="display:inline-flex;gap:16px;">
-                    <span class="adm-opt"><span class="adm-radio on"></span>노출</span>
-                    <span class="adm-opt"><span class="adm-radio"></span>비노출</span>
-                  </span>
+                <span class="help">미입력 시 배너 클릭 이동이 없습니다.</span>
+              </div>
+
+              <div class="adm-field">
+                <span class="adm-num sub">4-6</span>
+                <label>노출 여부</label>
+                <div class="adm-choice-group" style="max-width:280px;">
+                  <span class="adm-choice selected">노출</span>
+                  <span class="adm-choice">비노출</span>
                 </div>
-                <div class="adm-field"><label>등록일시 / 수정일시</label><span class="adm-input disabled">2026-07-01 10:20 / 2026-07-18 14:05</span></div>
               </div>
             </div>
 
-            <!-- 5. 하단 버튼 -->
-            <div style="display:flex;justify-content:space-between;max-width:760px;position:relative;">
-              <span class="adm-anchor">
-                <span class="adm-num sub">5-1</span>
-                <span class="adm-btn danger">삭제</span>
-              </span>
-              <span class="adm-anchor">
-                <span class="adm-num">5</span>
-                <span class="adm-btn line">취소</span>
-                <span class="adm-btn">저장</span>
-              </span>
+            <!-- 5. 저장 액션 -->
+            <div style="display:flex; justify-content:center; gap:8px; position:relative;">
+              <span class="adm-num" style="top:-4px; left:-30px;">5</span>
+              <span class="adm-btn line lg" style="min-width:140px;">목록</span><span class="adm-btn danger lg" style="min-width:140px;"><span class="adm-icon ic-delete-wh sz-14"></span> 삭제</span>
+              <span class="adm-btn lg" style="min-width:140px;">수정</span>
             </div>
 
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 알럿 (경량 오버레이 — 같은 장 서브 캔버스) -->
+    <div class="wf-sub-connector"
+         style="display:flex; flex-direction:column; align-items:center; padding-top:300px; flex-shrink:0; overflow:visible;">
+      <div class="wf-sub-connector-label"
+           style="font-size:12px; color:#6d7882; background:#fff; padding:3px 10px; border:1px solid #b1b8be; border-radius:4px; white-space:nowrap; flex-shrink:0; margin-bottom:8px;">
+        [삭제] 클릭 / 노출 5건 초과
+      </div>
+      <div class="wf-sub-connector-line"
+           style="width:2px; flex:1; min-height:40px; background:repeating-linear-gradient(to bottom, #b1b8be 0 6px, transparent 6px 12px);"></div>
+    </div>
+
+    <div class="wf-sub-canvas admin-canvas" style="width:520px; min-height:0; padding:40px; background:#DFE2E6; position:relative;">
+      <span class="adm-num" style="top:10px; left:10px;">6</span>
+      <div style="display:flex; flex-direction:column; gap:32px;">
+        <div>
+          <div style="font-size:12px; color:#8A919C; margin-bottom:8px;">삭제 확인 알럿</div>
+          <div class="adm-alert">
+            <div class="a-msg">선택한 배너를 삭제하시겠습니까?</div>
+            <div class="a-sub">삭제한 배너는 복구할 수 없습니다.</div>
+            <div class="a-acts"><span class="adm-btn line">취소</span><span class="adm-btn">삭제</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px; color:#8A919C; margin-bottom:8px;">노출 최대치 알럿</div>
+          <div class="adm-alert">
+            <div class="a-msg">메인 배너는 최대 5개까지 노출 가능합니다.</div>
+            <div class="a-sub">노출 중인 배너를 비노출로 변경한 뒤 다시 시도해 주세요.</div>
+            <div class="a-acts"><span class="adm-btn">확인</span></div>
           </div>
         </div>
       </div>
@@ -98,25 +164,25 @@
 </div>
 
 <div class="desc-panel">
-  <div class="desc-section">
-    <div class="desc-section-header">화면 설명</div>
-    <div class="desc-section-body">
-      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
-        <li><p class="desc-block"><span class="lvl2">&nbsp;&nbsp;&nbsp;• 화면 유형: Page (IA v0.3) / 진입: 목록 &lt;KTAX-AD-MN01-0000&gt; 배너명 클릭</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 등록 &lt;KTAX-AD-MN01-1000&gt;과 동일 폼 — 기존 값 바인딩 + [삭제] 추가</span></p></li>
-      
-      </ul>
-    </div>
+  <div class="desc-sec">
+    <div class="desc-sec-head">화면 설명</div>
+    <ul>
+      <li><p class="desc-block"><span class="lvl1">등록된 메인 배너의 상세 정보를 확인하고 수정·삭제하는 화면. 정의서 «3. 배너 등록/수정 팝업»은 페이지형으로 확정(2026-07-22)되어 별도 SB로 분리.</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">화면 경로 : 메인 관리 &gt; 메인 배너 관리 &gt; 상세/수정</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">연결 SB : KTAX-AD-MN01-0000(목록) · KTAX-AD-MN01-1000(등록)</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">진입 : 목록 화면의 배너명 클릭</span></p></li>
+    </ul>
   </div>
-
-  <div class="desc-section">
-    <div class="desc-section-header">Description</div>
-    <div class="desc-section-body">
-      <ul class="desc-list" style="list-style:none;padding:0;margin:0;">
-        <li><p class="desc-block"><span class="lvl1">1~3. 헤더 · LNB · 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 목록 화면과 동일 (타이틀 "배너 상세/수정")</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">4. 배너 정보 폼 (기존 값 바인딩)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 입력 항목·규칙(4-1~4-6)은 등록 &lt;KTAX-AD-MN01-1000&gt;과 동일</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 등록일시/수정일시: 읽기 전용 표기</span></p></li>
-        <li><p class="desc-block"><span class="lvl1">5. [취소]/[저장] · 5-1. [삭제]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [저장]: 노출(Y) 5건 검사 포함, 저장 후 목록 복귀 + 프론트 반영</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 5-1. [삭제]: 삭제 클릭 시 확인 알럿 출력 후 삭제 처리 → 목록 복귀 (알럿은 목록 SB ⑦-2와 동일)</span></p></li>
-      
-      </ul>
-    </div>
+  <div class="desc-sec">
+    <div class="desc-sec-head">Description</div>
+    <ul>
+      <li><p class="desc-block"><span class="lvl1">1. 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 로그인 계정명·운영 환경 표시, 알림·로그아웃 유틸 제공</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">2. LNB</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 어드민 1depth 메뉴 9종, 현재 위치(메인 관리 &gt; 메인 배너 관리) 활성 표시</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">3. 페이지 헤더</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 브레드크럼 + 화면 타이틀 노출</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">4. 배너 상세/수정 폼</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-1) 배너명 입력 인풋필드</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 관리용 명칭 (프론트 미노출)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-2) 배너 이미지 업로드</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 파일 첨부 방식, 업로드 후 미리보기 출력</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 권장 사이즈·용량·포맷(JPG/PNG) 안내 문구 노출</span><br><span class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 사이즈 정책 확정 필요</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-3) 배너 타이틀 입력</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- MO는 줄바꿈 기능 제공 (최대 2줄)</span><br><span class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 글자수 제한 정책은 추후 확정</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-4) 배너 서브 타이틀 입력</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- MO는 줄바꿈 기능 제공 (최대 2줄)</span><br><span class="note">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 글자수 제한 정책은 추후 확정</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-5) 랜딩 URL 입력 인풋필드</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 프론트에서 배너 클릭 시 해당 URL로 랜딩</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 미입력 시 배너 클릭 이동 없음</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 새창/본창 이동 선택</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-6) 노출 여부 설정 : 노출 / 비노출 선택</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4-7) 배너 이미지 대체 텍스트(alt) 입력 인풋필드 [2026-07-29 SEO 반영]</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- SEO·웹 접근성용, 미입력 시 배너 타이틀 자동 적용</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">5. 저장 액션</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 진입 시 기존 등록값이 각 항목에 채워진 상태로 출력</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [수정] 클릭 시 유효성 검사 후 저장, 저장 완료 시 목록 화면으로 이동</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [삭제] 클릭 시 확인 알럿 출력 후 삭제 처리</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [목록] 클릭 시 저장 없이 목록 화면으로 이동</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">6. 알럿</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 배너 삭제 : 삭제 클릭 시 확인 알럿 출력 후 삭제 처리</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출 최대치 알럿 : 노출(Y) 배너 5건 상태에서 비노출→노출 전환 시도 시 차단</span><br><span class="lvl4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 알럿 : '메인 배너는 최대 5개까지 노출 가능합니다.'</span></p></li>
+      <li><p class="desc-block"><span class="lvl1">[동작 / 예외]</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 필수 항목(배너명·배너 이미지·배너 타이틀) 미입력 시 저장 불가</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 노출 중 배너 5건 초과 시 노출(Y) 전환 차단</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 삭제한 배너는 복구 불가</span></p></li>
+    </ul>
   </div>
 </div>
