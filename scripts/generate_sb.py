@@ -197,17 +197,19 @@ def render_html(*, screen_id: str, title: str, path_str: str, author: str, ymd: 
 
 def main():
     ap = argparse.ArgumentParser(description="ETRIBE SB HTML 일괄 생성")
-    ap.add_argument("--variant", choices=["mobile", "pc"], default="mobile",
-                    help="SB 양식 (현재 mobile만 지원, pc는 추후)")
+    ap.add_argument("--variant", choices=["mobile", "pc", "tablet"], default="mobile",
+                    help="SB 양식. 보일러플레이트(meta/footer/CSS)는 공통이고 "
+                         "캔버스 사양은 body(.wf-canvas)에서 결정 — mobile 390 / "
+                         "tablet 1024×768 가로 / pc 100%. 규격은 SKILL.md §4.1.")
     ap.add_argument("--input", required=True, help="screens.json 경로")
     ap.add_argument("--output", required=True, help="출력 디렉토리")
     ap.add_argument("--skill-dir", default=None,
                     help="스킬 루트 (기본: 이 스크립트 기준 자동 탐지)")
     args = ap.parse_args()
 
-    # PC variant도 mobile과 동일 보일러플레이트(meta/footer/CSS) 사용.
-    # 화면 body 내부의 .wf-canvas 사양만 PC variant에 맞게 작성되어 있어야 함
-    # (호출자 Claude가 sb-pc 가이드 fetch 후 body 작성 시 처리).
+    # PC·tablet variant도 mobile과 동일 보일러플레이트(meta/footer/CSS) 사용.
+    # 화면 body 내부의 .wf-canvas 사양만 variant에 맞게 작성되어 있어야 함
+    # (호출자 Claude가 가이드 fetch 후 body 작성 시 처리. tablet은 sb-pc 가이드 재사용).
 
     # skill_dir 자동 탐지: 스크립트의 부모의 부모
     if args.skill_dir:

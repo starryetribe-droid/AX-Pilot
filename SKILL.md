@@ -152,18 +152,23 @@ ETRIBE 공통 패턴(자동 적용 가능):
 
 ### 4.0 Variant 결정 (Step 0)
 
-PRD 분석 전 사용자에게 **모바일 / PC 중 하나**를 확인:
+PRD 분석 전 사용자에게 **모바일 / PC / 태블릿 중 하나**를 확인:
 
 ```
 [{기능ID} SB 생성]
 어느 양식이 필요하세요?
   A) 모바일 (--variant mobile)
   B) PC (--variant pc)
+  C) 태블릿 — 가로 landscape (--variant tablet)
 
 기본값은 모바일입니다.
 ```
 
-**★ 한 번에 하나의 variant만 생성한다.** 두 variant 모두 필요한 경우, 한쪽 완료 후 별도 SB 모드 요청으로 다른 쪽 생성. 한 번에 둘 다 만들면 오류율이 높아 분리한다.
+**★ 한 번에 하나의 variant만 생성한다.** 여러 variant가 필요하면 한쪽 완료 후 별도 SB 모드 요청으로 다른 쪽 생성. 한 번에 둘 이상 만들면 오류율이 높아 분리한다.
+
+**★ 태블릿(TA)은 콘텐츠를 새로 만들지 않는다.** PC 또는 모바일 SB가 이미 있으면 그
+**desc-panel(Description)을 그대로 승계**하고 캔버스 레이아웃만 태블릿 규격으로 리플로우한다
+(§4.1 콘텐츠 동일성). 둘 다 없으면 PC를 먼저 만드는 것을 권한다.
 
 ```
 Step 0   작성자명 입력 요청 (★ 공통)
@@ -171,33 +176,44 @@ Step 1   python3 .claude/skills/feature-spec/scripts/fetch_guide.py \
            --mode sb-mobile (or sb-pc) --author "{author}" \
            --feature-id "{기능ID}" --action {create|edit} \
            --project-path "01. 공통 기능/{카테고리}/SB/{기능ID}"
+           # 태블릿은 sb-pc 가이드를 그대로 fetch (컴포넌트 §6 카탈로그 공유, 캔버스만 태블릿 규격)
 Step 2   PRD 분석 → 화면 분리 (가이드의 화면 분리 원칙 적용 — variant 무관)
 Step 3   각 화면의 body HTML 작성 (wf-panel + desc-panel)
-         - mobile: .wf-canvas 390×min-height:844
-         - pc: .wf-canvas width:100%; max-width:2560px; height:auto
+         - mobile:  .wf-canvas 390×min-height:844
+         - pc:      .wf-canvas width:100%; max-width:2560px; height:auto
+         - tablet:  .wf-canvas width:1024px; min-height:768px; height:auto  (가로, 중앙 카드 max-width:560px)
          - 컴포넌트 마크업은 fetch한 가이드 §6 카탈로그를 그대로 적용
-         - Description 영역은 variant 무관하게 동일
+         - Description 영역은 variant 무관하게 동일 (태블릿은 PC/모바일 desc 그대로 승계)
 Step 4   /tmp/{기능ID}_screens.json 작성
 Step 5   python3 .claude/skills/feature-spec/scripts/generate_sb.py \
-           --variant {mobile|pc} --input /tmp/{기능ID}_screens.json \
-           --output "01. 공통 기능/{카테고리}/SB/{기능ID}{_PC?}"
+           --variant {mobile|pc|tablet} --input /tmp/{기능ID}_screens.json \
+           --output "01. 공통 기능/{카테고리}/SB/{기능ID}{_PC|_TA?}"
          - mobile 출력: "01. 공통 기능/{cat}/SB/{기능ID}/"
          - pc 출력:     "01. 공통 기능/{cat}/SB/{기능ID}_PC/"
+         - tablet 출력: "01. 공통 기능/{cat}/SB/{기능ID}_TA/"
+         - 파이프라인(_project) 구조에서는 05_SB/{pc|mo|ta}/ 하위에 저장
 ```
 
-### 4.1 PC/모바일 차이 (절대 어기지 말 것)
+### 4.1 PC/모바일/태블릿 차이 (절대 어기지 말 것)
 
-**화면 정의 콘텐츠는 두 variant가 동일해야 한다.** 같은 컴포넌트 목록, 같은 동작 설명, 같은 예외 처리. 다른 것은 **양식(레이아웃)만**:
+**화면 정의 콘텐츠는 모든 variant가 동일해야 한다.** 같은 컴포넌트 목록, 같은 동작 설명, 같은 예외 처리. 다른 것은 **양식(레이아웃)만**:
 
-| 항목 | 모바일 | PC |
-|------|--------|-----|
-| `.wf-canvas` 폭 | 390px 고정 | 100% (max-width 2560px) |
-| `.wf-canvas` 높이 | min-height 844px | **min-height 1440px** + height auto (상한 없음) |
-| KRDS 컴포넌트 | app-bar, tab-bar, FAB 등 | GNB, 테이블, 숫자 페이지네이션, LNB 등 |
-| 페이지 타이틀 | 22px | 28–32px |
-| 입력/버튼 | 48px | 40–48px |
+| 항목 | 모바일 | 태블릿(TA·가로) | PC |
+|------|--------|-----------------|-----|
+| `.wf-canvas` 폭 | 390px 고정 | **1024px 고정** (iPad 가로 표준) | 100% (max-width 2560px) |
+| `.wf-canvas` 높이 | min-height 844px | **min-height 768px** + height auto | **min-height 1440px** + height auto |
+| 상단/네비 | app-bar 52px | **웹형 상단바 60px** (GNB/LNB 없음) | GNB/헤더 64px |
+| 콘텐츠 배치 | 폭 꽉 참 | **중앙 정렬 카드 max-width 560px** | 중앙 정렬 카드 max-width 480px |
+| KRDS 컴포넌트 | app-bar, tab-bar, FAB 등 | 웹형 상단바 + 중앙 카드 (단일 컬럼) | GNB, 테이블, 숫자 페이지네이션, LNB 등 |
+| 페이지 타이틀 | 22px | 26–28px | 28–32px |
+| 입력/버튼 | 48px | 48–52px | 40–48px |
 
-**금지**: PC 양식이라고 컴포넌트 목록을 누락하거나 화면을 분리/병합 추가로 하지 말 것. 화면 분리 원칙은 variant 무관.
+**태블릿 방향**: 기본 **가로(landscape) 1024×768**. 세로형이 필요한 화면은 요청 시 768×1024로 별도 지정.
+**태블릿 배치 원칙**: 넓은 가로 캔버스라도 폼·위저드는 **중앙 정렬 단일 컬럼 카드**로 둔다.
+좌우 스플릿(브랜드 패널+폼 등) 같은 **새 구성 요소를 만들지 않는다** — 콘텐츠 동일성 위반.
+모달/다이얼로그는 PC와 동일하게 **우측 서브 캔버스**로 처리.
+
+**금지**: variant가 다르다고 컴포넌트 목록을 누락하거나 화면을 분리/병합 추가로 하지 말 것. 화면 분리 원칙은 variant 무관.
 
 ### 4.2 챗봇 SB — 인텐트 워크북 기반 ★
 
