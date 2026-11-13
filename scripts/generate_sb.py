@@ -141,7 +141,8 @@ def ensure_canvas_wrap(body: str, screen_id: str) -> str:
 
 
 def render_html(*, screen_id: str, title: str, path_str: str, author: str, ymd: str,
-                body: str, style_block: str, logo_data_url: str, channel: str = "Front") -> str:
+                body: str, style_block: str, logo_data_url: str, channel: str = "Front",
+                variant: str = "mobile") -> str:
     """단일 SB HTML 렌더링.
 
     메타 헤더 구조 (사용자 확정 2026-07-22 — 레퍼런스 화면설계서 기준):
@@ -150,6 +151,10 @@ def render_html(*, screen_id: str, title: str, path_str: str, author: str, ymd: 
     푸터: 버전 표기 없음, 우측 하단 ETRIBE 로고만 (background-image).
     """
     # style block 안의 {LOGO_URL} placeholder 치환은 안 함 — 이미 base64가 들어있는 style block 사용
+    # body 클래스 = 채널·variant별 프레임 규격 훅 (sb-style-block «프레임 규격», SKILL §4.1)
+    #   sb-ch-front|sb-ch-admin  ×  sb-v-mobile|sb-v-pc|sb-v-tablet
+    ch_cls = "sb-ch-admin" if channel.strip().lower() == "admin" else "sb-ch-front"
+    body_cls = f"{ch_cls} sb-v-{variant}"
     return f'''<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -159,7 +164,7 @@ def render_html(*, screen_id: str, title: str, path_str: str, author: str, ymd: 
 {FONT_LINKS}
 {style_block}
 </head>
-<body>
+<body class="{body_cls}">
 
 <div class="sb-page">
 
@@ -199,8 +204,12 @@ def main():
     ap = argparse.ArgumentParser(description="ETRIBE SB HTML 일괄 생성")
     ap.add_argument("--variant", choices=["mobile", "pc", "tablet"], default="mobile",
                     help="SB 양식. 보일러플레이트(meta/footer/CSS)는 공통이고 "
-                         "캔버스 사양은 body(.wf-canvas)에서 결정 — mobile 390 / "
-                         "tablet 1024×768 가로 / pc 100%. 규격은 SKILL.md §4.1.")
+                         "캔버스 사양은 body 클래스(sb-ch-*/sb-v-*)로 스타일 블록이 적용 — "
+                         "프론트 시트 2560: mobile 390(콘텐츠 340) / pc 1920(콘텐츠 1440) / "
+                         "tablet 1024×768 가로, 어드민 시트 3400: 2560(콘텐츠 1440). 규격은 SKILL.md §4.1.")
+    ap.add_argument("--template", default=None,
+                    help="프론트 전용 컴포넌트 템플릿 (templates/front-<이름>.html). "
+                         "예: dabom → 다봄 앱 와이어프레임 (SKILL.md §4.0.1)")
     ap.add_argument("--input", required=True, help="screens.json 경로")
     ap.add_argument("--output", required=True, help="출력 디렉토리")
     ap.add_argument("--skill-dir", default=None,
@@ -220,6 +229,9 @@ def main():
     # 검증
     verify_logo(skill_dir)
     style_block = load_template(skill_dir, "sb-style-block.html")
+    if args.template:
+        # 프론트 템플릿 스타일을 공통 스타일 블록 뒤에 덧붙임 (클래스는 템플릿 스코프 안에서만 동작)
+        style_block += "\n" + load_template(skill_dir, f"front-{args.template}.html")
     logo_data_url = load_template(skill_dir, "sb-logo-data-url.txt").strip()
 
     # screens.json 로드
@@ -256,6 +268,7 @@ def main():
             style_block=style_block,
             logo_data_url=logo_data_url,
             channel=channel,
+            variant=args.variant,
         )
         out_path = out_dir / f"{sid}.html"
         out_path.write_text(html, encoding="utf-8")

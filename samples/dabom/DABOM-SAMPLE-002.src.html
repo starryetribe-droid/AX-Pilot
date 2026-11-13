@@ -1,0 +1,65 @@
+<!-- 다봄 샘플 2: 입력 폼 — Sub Header + Input + 하단 고정 CTA + 하단 흐름(Confirm·Toast) -->
+<div class="wf-panel dabom-board">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas dabom-canvas">
+
+      <div class="dbm-header">
+        <span class="num-badge">1</span>
+        <div class="back"><span class="di s20 di-back"></span><span class="title">프로필 수정</span></div>
+      </div>
+
+      <div class="wf-canvas-content">
+        <div class="dbm-main" style="gap:28px;padding-top:24px;">
+          <div class="dbm-field"><span class="num-badge">2</span>
+            <span class="label">닉네임</span>
+            <div class="dbm-input"><span class="val">다봄이</span><span class="di s20 di-clear"></span></div>
+          </div>
+          <div class="dbm-field"><span class="num-badge">3</span>
+            <span class="label">생년월일</span>
+            <div class="dbm-input error"><span class="val">1950-13-01</span><span class="di di-calendar"></span></div>
+            <span class="dbm-err">생년월일을 다시 확인해 주세요.</span>
+          </div>
+          <div class="dbm-field"><span class="num-badge">4</span>
+            <span class="label">성별</span>
+            <div style="display:flex;gap:28px;"><span class="dbm-radio on">여성</span><span class="dbm-radio">남성</span></div>
+          </div>
+          <div class="dbm-field" style="flex-direction:row;justify-content:space-between;align-items:center;"><span class="num-badge">5</span>
+            <span class="dbm-body">앱 푸시 알림 받기</span><span class="dbm-toggle on"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dbm-cta wf-bottom-fixed"><span class="num-badge">6</span>
+        <span class="secondary">취소<span class="dbm-tap" style="left:78px;top:44px;--down:28px;"></span></span><span class="primary">저장</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dbm-flow">
+    <div class="dbm-ov">
+      <div class="dbm-ov-title">수정 취소 Confirm</div>
+      <div class="dabom-sysalert">
+        <div class="msg">수정한 내용이 저장되지 않아요.<br>그만하시겠어요?</div>
+        <div class="acts"><span>취소</span><span>확인</span></div>
+      </div>
+    </div>
+    <div class="dbm-ov">
+      <div class="dbm-ov-title">저장 완료 Toast msg</div>
+      <div class="dbm-toast">저장을 완료했어요.</div>
+    </div>
+  </div>
+</div>
+<div class="desc-panel">
+  <div class="desc-section"><div class="desc-section-header">화면 설명</div><div class="desc-section-body"><ul class="desc-list">
+    <li><p class="desc-block"><span class="lvl2">• 사용자 프로필(닉네임·생년월일·성별·알림 수신)을 수정하는 화면</span></p></li>
+  </ul></div></div>
+  <div class="desc-section"><div class="desc-section-header">Description</div><div class="desc-section-body"><ul class="desc-list">
+    <li><p class="desc-block"><span class="lvl1">1. Header (Sub)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 뒤로가기 Icon button 탭 시, 변경 내용이 있으면 [수정 취소] Confirm 제공</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">2. 닉네임 Input box</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 텍스트 입력 시 Clear Button 노출, 탭 시 입력값 삭제</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">3. 생년월일 Date picker</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 형식 : YYYY-MM-DD, 탭 시 Date picker 제공</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 유효성 오류 시, Error 상태 + "생년월일을 다시 확인해 주세요." 제공</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">4. 성별 Radio button</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 단일 선택 (여성 / 남성)</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">5. 앱 푸시 알림 Toggle</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• On/Off 즉시 반영</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">6. CTA</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 하단 고정(Sticky), 좌측 Negative 취소 Button / 우측 Positive 저장 Button</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 취소 Button 탭 시, [수정 취소] Confirm 제공 — [확인] 탭 시 미저장 후 이전 화면</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 저장 Button 탭 시, 저장 후 [저장 완료] Toast msg 제공 · 필수값 미입력 시 Disabled</span></p></li>
+  </ul></div></div>
+</div>

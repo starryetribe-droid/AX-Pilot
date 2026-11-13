@@ -8,9 +8,10 @@ description: |
     (a) 사용자에게 프로세스 입력 요청 (A/B/C/D/E 중 선택)
     (b) Mermaid 플로우차트 프리뷰 → 사용자 승인 (D 옵션이어도 적용)
   PRD 본문/SB는 프리뷰 없이 작성·저장.
+  ★ 프론트 SB는 첫 질문으로 "다봄 화면설계서인가요?"를 묻는다 (다봄 = 전용 모바일 템플릿).
 
   트리거: "A-02 PRD 만들어줘", "회원가입 기획해줘", "PRD에서 SB",
-        "A-01-003 화면 추가", "Description 수정" 등.
+        "A-01-003 화면 추가", "Description 수정", "다봄 SB 만들어줘" 등.
 
   가이드는 ETRIBE 사내 서버에서 fetch (로컬 저장 X, 토큰·설정 파일 불필요).
 ---
@@ -150,9 +151,51 @@ ETRIBE 공통 패턴(자동 적용 가능):
 
 ## 4. SB 모드
 
+### 4.0.0 ★ 다봄 SB 여부 확인 (프론트 SB 첫 질문 — 사용자 확정 2026-11-13)
+
+프론트 SB(어드민 §4.4·챗봇 워크북 §4.2 제외)를 만들 때는 **variant 질문보다 먼저** 묻는다:
+
+```
+[{기능ID} SB 생성]
+다봄(고대 AI 심리 앱) 화면설계서인가요?
+  A) 예 — 다봄 전용 와이어프레임 (모바일 고정, front-dabom 템플릿)
+  B) 아니요 — 공통 프론트 SB (다음 단계에서 모바일/PC/태블릿 선택)
+```
+
+- 사용자가 요청에서 이미 «다봄»을 밝혔으면(예: "다봄 로그인 SB 만들어줘") 묻지 않고 A로 진행.
+- 프로젝트 폴더·PRD·IA가 다봄 것이어도 **추측으로 A를 고르지 말고** 질문한다.
+- A → §4.0.1로 진행 (§4.0 variant 질문 생략). B → §4.0.
+
+### 4.0.1 다봄 SB 플로우
+
+규칙·컴포넌트 카탈로그 = **`reference/dabom-front-guide.md`** (기준 화면 = Figma «사진첩_상세 Ver.0.3» node 1385-7006,
+보조 = `00. 공통` 페이지). 작성 전 반드시 읽는다.
+
+```
+Step 0   작성자명 입력 요청 (★ 공통)
+Step 1   fetch_guide.py --mode sb-mobile --author "{author}" ...   # 공통 SB 규칙(§6 등)은 그대로 적용
+Step 2   PRD 분석 → 화면 분리 (공통 원칙)
+Step 3   화면별 본문 src 작성 → samples/dabom/ 또는 프로젝트 폴더에 {화면ID}.src.html
+         - <div class="wf-panel dabom-board"> 안 <div class="wf-canvas dabom-canvas"> (390×844, 콘텐츠 358)
+         - 시트 배치: 와이어프레임 좌상단 → 우측 .dbm-cases(Case 변형) → 하단 .dbm-flow(Confirm·Toast·이동 노트)
+         - 컴포넌트는 가이드 §3 카탈로그 클래스(.dbm-*)만 사용 — KRDS 공통 컴포넌트 클래스 혼용 금지
+         - 패턴 참고: samples/dabom/DABOM-SAMPLE-001(사진첩_상세 재현) / -002(입력 폼·CTA·Confirm·Toast)
+Step 4   python3 .claude/skills/feature-spec/scripts/build_dabom_sb.py \
+           --src {src} --id {화면ID} --title "{화면명}" --path "{화면경로}" --author "{author}" [--out {출력폴더}]
+         # 내부적으로 generate_sb.py --variant mobile --template dabom 호출 (screens.json 자동 생성)
+```
+
+- 출력 기본: `~/Downloads/SB_다봄/` (`DABOM_OUT`로 변경). 파이프라인(_project) 구조면 `05_SB/mo/`.
+- **공통 프론트 규칙과 다른 점 (다봄 우선)**:
+  - 콘텐츠 폭 **358**(좌우 16) — 공통 MO 340 대신 다봄 Figma 값.
+  - Alert/Confirm/Toast는 **와이어프레임 하단** `.dbm-flow`에, 창 위 회색 유형명 바 `.dbm-ov-title` — 우측 서브 캔버스 규칙 미적용.
+  - 넘버 배지 = 반투명 레드 원(31px, 요소 좌상단 모서리 오버레이), 세부·Case = 짙은 레드 캡슐 `.dbm-tag`.
+  - Description 문장은 기준 화면 패턴(«탭 시, …», «[화면명] 화면으로 이동함», «[용도] Confirm 제공») — 가이드 §4.
+- Alert/Confirm = **System Alert**(`.dabom-sysalert`). 모든 문구는 다봄 UX Writing(«-해요체») — 가이드 §5.
+
 ### 4.0 Variant 결정 (Step 0)
 
-PRD 분석 전 사용자에게 **모바일 / PC / 태블릿 중 하나**를 확인:
+PRD 분석 전 사용자에게 **모바일 / PC / 태블릿 중 하나**를 확인 (§4.0.0에서 «아니요»일 때):
 
 ```
 [{기능ID} SB 생성]
@@ -179,8 +222,9 @@ Step 1   python3 .claude/skills/feature-spec/scripts/fetch_guide.py \
            # 태블릿은 sb-pc 가이드를 그대로 fetch (컴포넌트 §6 카탈로그 공유, 캔버스만 태블릿 규격)
 Step 2   PRD 분석 → 화면 분리 (가이드의 화면 분리 원칙 적용 — variant 무관)
 Step 3   각 화면의 body HTML 작성 (wf-panel + desc-panel)
-         - mobile:  .wf-canvas 390×min-height:844
-         - pc:      .wf-canvas width:100%; max-width:2560px; height:auto
+         - mobile:  .wf-canvas 390×min-height:844 · 콘텐츠 영역 340 (.wf-content-area)
+         - pc:      .wf-canvas 1920 고정 · min-height:1440 · 콘텐츠 영역 1440 (.wf-content-area, 중앙)
+           (폭은 스타일 블록이 body 클래스로 적용 — .wf-canvas에 인라인 width 지정 금지)
          - tablet:  .wf-canvas width:1024px; min-height:768px; height:auto  (가로, 중앙 카드 max-width:560px)
          - 컴포넌트 마크업은 fetch한 가이드 §6 카탈로그를 그대로 적용
          - Description 영역은 variant 무관하게 동일 (태블릿은 PC/모바일 desc 그대로 승계)
@@ -200,10 +244,13 @@ Step 5   python3 .claude/skills/feature-spec/scripts/generate_sb.py \
 
 | 항목 | 모바일 | 태블릿(TA·가로) | PC |
 |------|--------|-----------------|-----|
-| `.wf-canvas` 폭 | 390px 고정 | **1024px 고정** (iPad 가로 표준) | 100% (max-width 2560px) |
+| 화면설계서 프레임(시트) | 2560px | 2560px | **2560px** |
+| `.wf-canvas` 폭 | 390px 고정 | **1024px 고정** (iPad 가로 표준) | **1920px 고정** |
+| 콘텐츠 영역 `.wf-content-area` | **340px** (좌우 25) | — | **1440px** (중앙) |
+| Description 패널 | 640px | 640px | **440px** (2560 시트에 1920 캔버스 수용) |
 | `.wf-canvas` 높이 | min-height 844px | **min-height 768px** + height auto | **min-height 1440px** + height auto |
 | 상단/네비 | app-bar 52px | **웹형 상단바 60px** (GNB/LNB 없음) | GNB/헤더 64px |
-| 콘텐츠 배치 | 폭 꽉 참 | **중앙 정렬 카드 max-width 560px** | 중앙 정렬 카드 max-width 480px |
+| 콘텐츠 배치 | 340 영역 안 | **중앙 정렬 카드 max-width 560px** | 1440 영역 안 (폼은 중앙 카드 max-width 480px) |
 | KRDS 컴포넌트 | app-bar, tab-bar, FAB 등 | 웹형 상단바 + 중앙 카드 (단일 컬럼) | GNB, 테이블, 숫자 페이지네이션, LNB 등 |
 | 페이지 타이틀 | 22px | 26–28px | 28–32px |
 | 입력/버튼 | 48px | 48–52px | 40–48px |
@@ -212,6 +259,8 @@ Step 5   python3 .claude/skills/feature-spec/scripts/generate_sb.py \
 **태블릿 배치 원칙**: 넓은 가로 캔버스라도 폼·위저드는 **중앙 정렬 단일 컬럼 카드**로 둔다.
 좌우 스플릿(브랜드 패널+폼 등) 같은 **새 구성 요소를 만들지 않는다** — 콘텐츠 동일성 위반.
 모달/다이얼로그는 PC와 동일하게 **우측 서브 캔버스**로 처리.
+**PC 서브 캔버스 주의**: 1920 캔버스가 2560 시트를 거의 채우므로, 서브 캔버스(모달)가 붙는 PC 화면은
+시트가 그만큼 우측으로 늘어난다(메타 헤더·푸터는 자동으로 따라 늘어남).
 
 **금지**: variant가 다르다고 컴포넌트 목록을 누락하거나 화면을 분리/병합 추가로 하지 말 것. 화면 분리 원칙은 variant 무관.
 
@@ -299,6 +348,95 @@ Step 2   CHATBOT_XLSX="{워크북경로}" \
 ```
 
 **금지**: `<div>` 분리, CSS `::before`, padding/margin 들여쓰기.
+
+### ★ Description 컴포넌트명 영문 표기 (사용자 확정 2026-11-12 — 전 SB 공통)
+
+Description에서 UI 컴포넌트를 지칭할 때는 **`{화면 라벨} {영문 컴포넌트명}`** 형식으로 쓴다 — **대괄호 없이**.
+라벨(화면에 보이는 문구)은 한글 그대로, **컴포넌트 종류만 영문**.
+(사용자 확정 2026-11-13: 컴포넌트명을 대괄호로 감싸지 않는다.)
+
+- ✅ `구분 Select box` · `검색 Input box` · `삭제 Button` · `노출 여부 Radio button` · `등록일 Date picker`
+- ❌ `[구분 Select box]`(대괄호) · `구분 셀렉트박스` · `검색어 입력창` · `삭제 버튼` · `노출 여부 라디오`
+- 라벨이 없으면 컴포넌트명만: `Checkbox` · `Pagination`
+- 대괄호는 **화면명·버튼 문구·팝업 이름을 인용할 때만** 쓴다: `[사진첩_목록] 화면으로 이동`, `[확인] 탭 시`,
+  `[삭제 여부] Confirm 제공`. 컴포넌트명 자체에는 쓰지 않는다.
+
+| 한글(사용 금지) | 영문 표기 |
+|---|---|
+| 셀렉트박스 · 드롭다운 · 선택박스 | Select box |
+| 인풋 · 입력창 · 입력박스 · 검색창 | Input box |
+| 텍스트 영역 · 멀티라인 입력 | Textarea |
+| 버튼 | Button |
+| 체크박스 | Checkbox |
+| 라디오 · 라디오버튼 | Radio button |
+| 토글 · 스위치 | Toggle |
+| 탭 | Tab |
+| 달력 · 날짜 선택 | Date picker |
+| 파일 첨부 · 업로드 | File upload |
+| 텍스트 링크 | Text link |
+| 테이블 · 목록 표 | Table |
+| 페이지네이션 · 페이징 | Pagination |
+| 토스트 | Toast |
+| 모달 · 팝업 | Modal / Popup |
+| 알럿 | Alert |
+| 컨펌 · 확인창 | Confirm |
+
+### ★ Alert / Confirm 표기·배치 규칙 (사용자 확정 2026-11-12 — 전 SB 공통)
+
+**① 용어 통일** — 와이어프레임 라벨·Description·연결 라벨(`.wf-sub-connector-label`)·주석 어디서든
+`알럿` → **Alert**, `컨펌` → **Confirm**으로 쓴다. 한글 «알럿/얼럿/컨펌» 표기 금지.
+- **Alert** = 안내형, 버튼 1개(`[확인]`). 예: 저장 완료, 필수값 누락, 최대치 초과, 시스템 오류
+- **Confirm** = 의사 확인형, 버튼 2개(`[취소]`/`[확인]`). 예: 삭제·저장·승인·이탈 확인
+- 유형명 = `{용도} Alert` / `{용도} Confirm` (예: `삭제 Confirm`, `저장 완료 Alert`, `[공통] 시스템 오류 Alert`).
+  «취소 확인 알럿»처럼 버튼 2개인데 Alert라고 부르지 말 것 → `취소 Confirm`.
+
+**② 유형명은 창 밖, 창 위** — Alert/Confirm **창 내부에는 유형명·분류 라벨을 넣지 않는다.**
+창 안에는 실제 사용자에게 보이는 메시지·입력·버튼만 둔다. 유형명은 창 바로 위에 `.wf-dialog-label`로 따로 표기.
+Alert/Confirm마다 독립된 창 1개 + 그 위 라벨. 배치는 채널별로 다르다.
+
+**어드민 — 와이어프레임 안에 배치 (사용자 확정 2026-11-13)**: 별도 서브 캔버스·감싸는 박스·연결 점선을
+만들지 않는다. `.admin-canvas` 안(`.adm-body` 다음 형제)에 `.wf-dialog-dock`을 두면 콘텐츠(1440) 오른쪽
+빈 여백(765px)에 창만 세로로 쌓인다. `top`은 트리거 요소 높이에 맞춰 인라인으로 지정.
+
+```html
+<div class="wf-canvas admin-canvas">
+  <div class="adm-body">…LNB · topbar · 콘텐츠…</div>
+  <!-- 10. Alert / Confirm -->
+  <div class="wf-dialog-dock" style="top:560px;">
+    <div class="wf-dialog-item">
+      <div class="wf-dialog-label">삭제 Confirm</div>
+      <div class="adm-alert">
+        <span class="adm-num sub">10-1</span>
+        <div class="a-msg">삭제하시겠습니까?</div>
+        <div class="a-sub">삭제 시, 다시 복구할 수 없습니다.</div>
+        <div class="a-acts"><span class="adm-btn line">취소</span><span class="adm-btn">확인</span></div>
+      </div>
+    </div>
+    <div class="wf-dialog-item">
+      <div class="wf-dialog-label">삭제 완료 Alert</div>
+      <div class="adm-alert">
+        <span class="adm-num sub">10-2</span>
+        <div class="a-msg">삭제가 완료되었습니다.</div>
+        <div class="a-acts"><span class="adm-btn">확인</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+- 트리거는 Description에 적는다(예: «8. 삭제 Button 클릭 시 10-1 삭제 Confirm»). 와이어프레임에 연결선 그리지 않음.
+- 창이 많아 캔버스 하단을 넘으면 `.admin-canvas`에 `min-height`를 늘려 수용(창을 콘텐츠 위에 겹치지 말 것).
+
+**프론트(모바일/PC/TA/챗봇)**: 기존대로 캔버스 우측 서브 캔버스. `.wf-sub-canvas.wf-dialog-stack` 안에
+`.wf-dialog-item`(라벨 + `<div class="wf-dialog-box"><div class="dialog-box">…</div></div>`)을 쌓는다.
+
+- 넘버 배지(n-m)는 **창(.adm-alert / .wf-dialog-box)에** 오버레이 — 라벨에 붙이지 않는다.
+  라벨 `margin-bottom:14px`가 배지(-9px 오프셋)와의 겹침을 막으므로 인라인으로 줄이지 말 것.
+- 여러 Alert/Confirm을 한 박스 안에 구분선으로 이어 붙이는 방식 금지 — 항목마다 창을 분리.
+- Description 항목 제목도 동일 용어: `10. Alert / Confirm` → 하위 `10-1. 삭제 Confirm` …
+- ⚠️ `samples/admin/*.src.html` 중 2026-11-12 이전 작성분은 창 안 회색 유형명 + «알럿/컨펌» 구표기다.
+  2026-11-13 이전 작성분은 Alert를 와이어프레임 밖 서브 캔버스(또는 테두리 박스)에 둔다.
+  패턴 참고 시 이 부분은 따라 하지 말고 위 구조로 작성.
 
 ### screens.json 형식
 
@@ -407,11 +545,11 @@ Step 2   python3 .claude/skills/feature-spec/scripts/build_admin_sb.py {화면�
 1. 작성자명 질문 (★ 공통)
 2. 기능정의 엑셀(어드민 세부기능정의 워크북 xlsx) 첨부 요청
      예: 디자인밀챗봇_어드민_세부기능정의_YYYYMMDD.xlsx → ADMIN_SPEC_XLSX
-3. §5.1 분기로 PRD 생성 (커버리지 기계 검증 포함) → 사용자 컨펌 대기
-4. PRD 컨펌 후 §4.4 어드민 SB 생성 (템플릿: 풀무원 admin-pulmuone)
+3. §5.1 분기로 PRD 생성 (커버리지 기계 검증 포함) → 사용자 승인 대기
+4. PRD 승인 후 §4.4 어드민 SB 생성 (템플릿: 풀무원 admin-pulmuone)
 ```
 
-- 3→4 사이 컨펌 없이 SB로 넘어가지 말 것.
+- 3→4 사이 승인 없이 SB로 넘어가지 말 것.
 - 워크북 없이 시안/기존 PRD로 바로 SB를 원하면 §4.4 기본 플로우로 진행(이때도 소스 확인 질문 필수).
 
 ### 4.4.2 ★ 공통 어드민 템플릿 (admin-common) — 프레임·퍼블리싱 규격 (사용자 확정 2026-07-21)
@@ -431,7 +569,8 @@ Step 2   python3 .claude/skills/feature-spec/scripts/build_admin_sb.py {화면�
 
 | 항목 | 값 |
 |------|-----|
-| `.admin-canvas` | **W 2560px 고정** · min-height 1492px (헤더 52 + 바디 1440) |
+| 화면설계서 프레임(시트) | **W 3400px** (사용자 확정 2026-11-13 — `sb-ch-admin` body 클래스로 자동 적용) |
+| `.admin-canvas` (와이어프레임) | **W 2560px 고정** · min-height 1492px (헤더 52 + 바디 1440) |
 | 헤더 `.adm-topbar` | **H 52px** · `.adm-col` 안에 위치해 LNB 우측 폭(2300px) 차지 · 로고 없음(계정/유틸만) |
 | LNB `.adm-gnb` | W 260px · 상단 `.brand`(서비스명) · 다크 서페이스는 `.adm-gnb.dark` |
 | 콘텐츠 `.adm-content` | **W 1440px 고정** · `.adm-main`이 `padding-left:95px`로 **좌측 정렬**(중앙 정렬 아님, 우측 765px는 여백) |
@@ -485,7 +624,8 @@ Green(태그·토글 ON), Red(공지·삭제·에러), Blue(텍스트 링크). �
 서브 캔버스 규칙 대신 **모달/팝업을 별도 SB 페이지로 분리**한다 (화면ID -00N 증분,
 예: ADM-MAIN-002 배너 등록/수정 팝업). 팝업 페이지 캔버스 = 회색 스테이지(#DFE2E6)
 중앙에 .adm-modal 배치, 부모 화면 desc에 «연결 SB» 상호 참조 표기.
-**알럿·토스트류 경량 오버레이만** 같은 장 우측 서브 캔버스 허용.
+**Alert·Confirm·Toast류 경량 오버레이만** 같은 장에 두되, 별도 영역 없이 **와이어프레임 안 우측 여백**에 배치
+(`.wf-dialog-dock`, §4 ★ Alert / Confirm 규칙).
 
 **★ SB 시트 양식 (사용자 확정 2026-07-28 — 레퍼런스 화면설계서 기준)**
 
@@ -507,6 +647,13 @@ Green(태그·토글 ON), Red(공지·삭제·에러), Blue(텍스트 링크). �
 **★ 필터 카드 배치 (사용자 확정 2026-07-29)**: 키워드 검색 조합(검색 기준 셀렉트 + 검색어 인풋)은
 필터 카드에서 **항상 맨 아래**(그리드 = 마지막 행, 인라인 = 액션 앞 맨 뒤)에 배치한다.
 배지 번호는 정의서 번호를 따르므로 시각 순서와 달라도 무방.
+
+**★ 목록 테이블 컬럼 규칙 (사용자 확정 2026-11-13)**:
+- 어드민 목록 테이블은 **항상 맨 왼쪽에 `No` 컬럼**을 둔다 (정의서·시안에 없어도 추가). 최신 등록순 역순 번호.
+- **엑셀 다운로드가 있는 목록**은 `No` 왼쪽, 즉 **맨 왼쪽에 체크박스 컬럼**을 추가한다
+  (헤더 = 전체 선택 `.adm-check`, 행 = 개별 선택). 컬럼 순서: `Checkbox | No | …`.
+- Description: 체크박스 선택 시 선택 항목만, 미선택 시 조회 결과 전체를 다운로드하는 기준을 명시
+  (정의서에 기준이 다르면 정의서 우선). 테이블 세부 배지(n-m)는 체크박스·No 컬럼에도 부여.
 
 **★ 배지 겹침 금지 (사용자 확정 2026-07-29)**: 영역 배지(n)와 세부 배지(n-m)가 같은 자리에
 겹치면 안 된다. 템플릿이 자동 분리 —

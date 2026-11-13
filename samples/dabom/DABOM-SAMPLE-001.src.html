@@ -1,0 +1,78 @@
+<!-- 다봄 기준 샘플: Figma «사진첩_상세 Ver.0.3» (node 1385-7006) 재현 — 시트 배치·배지·Case·하단 흐름 패턴 -->
+<div class="wf-panel dabom-board">
+  <div class="wf-canvas-wrap">
+    <div class="num-strip"></div>
+    <div class="wf-canvas dabom-canvas">
+
+      <div class="dbm-header">
+        <div class="back"><span class="di s20 di-back"></span><span class="title">사진첩</span></div>
+        <div class="acts"><span class="bell"><span class="di di-bell"></span></span><span class="di di-my"></span><span class="di di-menu"></span></div>
+      </div>
+
+      <div class="dbm-main">
+        <div class="dbm-date">
+          <div class="d" style="position:relative;"><span class="num-badge">1</span><span class="di di-calendar"></span>2025년 1월 15일</div>
+          <div class="dbm-fav"><span class="num-badge">2</span><span class="di di-heart"></span><span class="dbm-tap" style="left:28px;top:30px;--right:32px;"></span><span class="dbm-fav" style="position:absolute;left:96px;top:-2px;box-shadow:0 2px 6px rgba(0,0,0,.12);"><span class="di di-heart-on"></span></span></div>
+        </div>
+        <div class="dbm-img"><span class="num-badge">3</span><span class="dbm-tag pin" style="top:-30px;left:22px;">Case1) 사진</span>사용자가<br>챗봇 대화 시<br>전송한 이미지</div>
+        <div class="dbm-textview"><span class="num-badge">4</span>오늘은 손자와 함께 공원에 갔다. 날씨가 정말 좋았고 벚꽃이 예쁘게 피어있었다. 손자가 그네를 타는 모습을 보며 행복했다. 오랜만에 마음이 따뜻해지는 하루였다.</div>
+        <div class="dbm-btns">
+          <div class="dbm-btn"><span class="num-badge">5</span><span class="di s20 di-share"></span>공유하기</div>
+          <div class="dbm-btn-row">
+            <div class="dbm-btn tertiary"><span class="num-badge">6</span><span class="di di-trash"></span>삭제하기<span class="dbm-tap" style="left:72px;top:40px;--down:84px;"></span></div>
+            <div class="dbm-btn secondary"><span class="num-badge">7</span><span class="di s18 di-edit"></span>수정하기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 이미지 영역 Case 변형 (와이어프레임 우측) -->
+    <div class="dbm-cases">
+      <div class="dbm-case">
+        <span class="dbm-tag" style="align-self:flex-start;">Case2) 키워드</span>
+        <div class="dabom-canvas" style="width:358px;min-height:0;"><div class="dbm-img">생성된<br>Image</div></div>
+        <div style="display:flex;align-items:center;gap:8px;justify-content:center;font-size:22px;font-weight:700;"><span class="dbm-tag">3-1</span>키워드</div>
+      </div>
+      <div class="dbm-case">
+        <span class="dbm-tag" style="align-self:flex-start;">Case3) 일상</span>
+        <div class="dabom-canvas" style="width:358px;min-height:0;"><div class="dbm-img">생성된<br>Image</div></div>
+      </div>
+      <div class="dbm-case">
+        <span class="dbm-tag" style="align-self:flex-start;">Case4) Noimage</span>
+        <div class="dabom-canvas" style="width:358px;min-height:0;"><div class="dbm-img">이미지 생성을<br>하지 않는 경우 사용</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 삭제 흐름 (와이어프레임 하단) -->
+  <div class="dbm-flow">
+    <div class="dbm-ov">
+      <div class="dbm-ov-title">삭제 여부 Confirm</div>
+      <div class="dabom-sysalert">
+        <div class="msg">삭제하시겠어요?<br>삭제하시면 다시 볼 수 없어요.</div>
+        <div class="acts"><span>취소</span><span>확인<span class="dbm-tap" style="left:14px;top:22px;"></span></span></div>
+      </div>
+    </div>
+    <span class="dbm-arrow" style="margin-top:110px;"></span>
+    <div class="dbm-note" style="margin-top:86px;">[사진첩_목록] 화면으로 이동</div>
+    <span class="dbm-arrow" style="margin-top:110px;"></span>
+    <div class="dbm-ov">
+      <div class="dbm-ov-title">삭제 완료 Toast msg</div>
+      <div class="dbm-toast">삭제를 완료했어요.</div>
+    </div>
+  </div>
+</div>
+<div class="desc-panel">
+  <div class="desc-section"><div class="desc-section-header">화면 설명</div><div class="desc-section-body"><ul class="desc-list">
+    <li><p class="desc-block"><span class="lvl2">• 다봄이와 기억 찾기 시 수집된 이미지와 기억 요약을 확인하는 화면</span></p></li>
+  </ul></div></div>
+  <div class="desc-section"><div class="desc-section-header">Description</div><div class="desc-section-body"><ul class="desc-list">
+    <li><p class="desc-block"><span class="lvl1">1. 날짜</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 형식 : YYYY년 MM월 DD일</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">2. 즐겨찾기 Icon button</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 탭 시, 즐겨찾기 설정/해제</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">3. 이미지 영역</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 내용 및 기능은 [사진첩_목록] 내 썸네일 이미지와 동일</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 탭 시, 액션 없음</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• Case1) 사진 / Case2) 키워드 / Case3) 일상 / Case4) Noimage</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3-1) 키워드 훈련인 경우 제시했던 키워드를 제공함</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">4. 기억 요약 Textarea (AS-IS 동일)</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• only view</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">5. 공유하기 Button</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 탭 시, 디바이스 자체 공유 기능 호출 (공통 가이드를 따름)</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">6. 삭제하기 Button</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• [삭제 여부] Confirm 제공 (System Alert)</span><br><span class="lvl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [확인] 탭 시, [사진첩_목록] 화면으로 이동 후 [삭제 완료] Toast msg 제공</span></p></li>
+    <li><p class="desc-block"><span class="lvl1">7. 수정하기 Button</span><br><span class="lvl2">&nbsp;&nbsp;&nbsp;• 탭 시, [사진첩_수정] 화면으로 이동함</span></p></li>
+  </ul></div></div>
+</div>

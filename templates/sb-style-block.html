@@ -176,6 +176,18 @@ body {
 .wf-sub-connector-label { font-size:9px; color:var(--krds-gray-40); white-space:nowrap; margin-top:4px; }
 .wf-sub-canvas { width:300px; background:var(--krds-gray-0); border-radius:var(--krds-radius-lg); box-shadow:0 2px 16px rgba(0,0,0,.08); position:relative; overflow:visible; }
 .wf-sub-title { font-size:10px; font-weight:700; color:var(--krds-gray-40); letter-spacing:.05em; margin-bottom:6px; }
+
+/* ===== Alert / Confirm 스택 — 유형명은 창 밖 상단 라벨 (사용자 확정 2026-11-12) =====
+   .wf-sub-canvas.wf-dialog-stack (투명 컨테이너, admin-canvas와 함께 써도 2560px/흰 배경 해제)
+     └─ .wf-dialog-item × N
+          ├─ .wf-dialog-label   ← "삭제 Confirm" 등 유형명 (창 밖)
+          └─ .wf-dialog-box | .adm-alert   ← 실제 창 (유형명 텍스트 금지)
+   라벨 margin-bottom 14px = 창 좌상단 배지(-9px 오프셋)와 겹치지 않는 최소 간격 */
+.wf-sub-canvas.wf-dialog-stack { width:auto; min-height:0; background:transparent; box-shadow:none; border-radius:0; display:flex; flex-direction:column; gap:32px; }
+.wf-dialog-item { position:relative; }
+.wf-dialog-label { font-size:13px; font-weight:700; line-height:18px; color:var(--krds-gray-70); margin-bottom:14px; white-space:nowrap; }
+.wf-dialog-box { position:relative; width:300px; background:var(--krds-gray-0); border-radius:var(--krds-radius-lg); box-shadow:0 2px 16px rgba(0,0,0,.08); }
+.wf-dialog-item > .adm-alert { position:relative; }
 .dialog-box { padding:28px 20px 20px; text-align:center; }
 .dialog-title { font-size:16px; font-weight:600; color:var(--krds-gray-90); margin-bottom:8px; }
 .dialog-desc { font-size:14px; color:var(--krds-gray-50); margin-bottom:24px; line-height:1.5; }
@@ -290,6 +302,27 @@ body {
   box-sizing:border-box;
 }
 /* 버전 표기 제거 (사용자 확정 2026-07-22) — 우측 하단 ETRIBE 로고만 background-image로 표시 */
+
+/* ===== 프레임 규격 (사용자 확정 2026-11-13) — body 클래스는 generate_sb.py가 부여 =====
+   프론트(sb-ch-front): 시트 2560 · PC 와이어프레임 1920(콘텐츠 1440) · MO 390(콘텐츠 340)
+   어드민(sb-ch-admin): 시트 3400 · 와이어프레임 2560(콘텐츠 1440, 템플릿 .admin-canvas/.adm-content)
+   시트 = max-content + min-width → 규격 폭에 정확히 맞고, 넘치는 요소가 있을 때만 늘어남 */
+body.sb-ch-admin, body.sb-ch-admin .sb-page { min-width:3400px; }
+/* 프론트 PC: 2560 시트에 1920 캔버스를 담기 위해 Description 패널 640 → 440 */
+body.sb-ch-front.sb-v-pc .page { grid-template-columns:1fr 440px; }
+body.sb-ch-front.sb-v-pc .wf-canvas { width:1920px; min-height:1440px; }
+body.sb-ch-front.sb-v-mobile .wf-canvas { width:390px; }
+/* 콘텐츠 영역 — 헤더/GNB·탭바는 캔버스 전폭, 본문은 이 래퍼 안에 */
+.wf-content-area { margin:0 auto; width:100%; }
+body.sb-ch-front.sb-v-pc .wf-content-area { width:1440px; }
+body.sb-ch-front.sb-v-mobile .wf-content-area { width:340px; }
+
+/* ===== 어드민 Alert/Confirm — 와이어프레임 안 우측 여백 배치 (사용자 확정 2026-11-13) =====
+   별도 서브 캔버스/감싸는 박스 없이 .admin-canvas 안에 직접 둔다.
+   left 1875 = LNB 260 + 좌측 여백 95 + 콘텐츠 1440 + 간격 80 (우측 여백 765 안에 400폭).
+   top은 트리거 요소 높이에 맞춰 인라인 style="top:NNNpx"로 지정 */
+.admin-canvas > .wf-dialog-dock { position:absolute; left:1875px; top:200px; width:400px; z-index:5;
+  display:flex; flex-direction:column; gap:32px; }
 
 
 </style>

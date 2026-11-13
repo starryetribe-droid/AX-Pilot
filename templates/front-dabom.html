@@ -1,0 +1,201 @@
+<style>
+/* ============================================================
+   다봄(고대 AI 심리 앱) 프론트 와이어프레임 템플릿 — front-dabom v0.2
+   - 기준 화면: Figma «사진첩_상세 Ver.0.3» (node 1385-7006) — 실제 다봄 SB 작성 방식
+       https://www.figma.com/design/w1l4o5F4fU3gnY2viMzc00/?node-id=1385-7006
+     컴포넌트 보조 출처: «00. 공통» 페이지 (node 22-294)
+   - 모바일 앱 전용: 캔버스 390 × min 844 / 좌우 여백 16 → 콘텐츠 358
+   - 시니어 대상 앱 → 본문 18px · 버튼 높이 60 · 라운드 8 · Noto Sans KR
+   - 시트 배치(.dabom-board): 와이어프레임 좌상단 → 우측 Case 변형 → 하단 Confirm/Toast 흐름
+   - 모든 클래스는 .dabom-board / .dabom-canvas 스코프 — KRDS 공통 스타일과 충돌 없음
+   - 규칙·카탈로그: reference/dabom-front-guide.md (Figma 수정 시 템플릿 → 가이드 순 갱신)
+   ============================================================ */
+.dabom-board, .dabom-canvas{
+ --d-ink:#171717; --d-title:#1F2937; --d-g700:#404040; --d-g600:#525252; --d-g500:#737373;
+ --d-g400:#A3A3A3; --d-g300:#D4D4D4; --d-g200:#E5E5E5; --d-g100:#F5F5F5; --d-g50:#FAFAFA;
+ --d-frame:#CED4DA; --d-note:#D9D9D9; --d-blue:#1A73E8; --d-red:#E5484D; --d-dim:rgba(0,0,0,.5);
+ --d-badge:rgba(255,0,0,.6); --d-tag:rgba(119,13,28,.62); --d-tap:#F5A623;
+ --d-font:"Noto Sans KR",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+
+/* ===== 0. 시트 배치 — wf-panel에 .dabom-board 부여 =====
+   .wf-panel.dabom-board
+     ├ .wf-canvas-wrap  : num-strip + 와이어프레임(.wf-canvas.dabom-canvas) + 우측 .dbm-cases
+     └ .dbm-flow        : 하단 Confirm/Toast/이동 흐름 (가로 나열, 화살표·노트) */
+.wf-panel.dabom-board{align-items:flex-start;padding:28px 30px 60px;font-family:var(--d-font);}
+.dabom-board .wf-canvas-wrap{gap:0;}
+.dabom-board *{box-sizing:border-box;}
+
+/* 넘버 배지 — 다봄 양식: 반투명 레드 원형, 요소 좌상단 모서리에 걸침 (레이아웃 무영향 오버레이) */
+.dabom-board .num-badge{position:absolute;top:-15px;left:-15px;width:31px;height:31px;min-width:0;padding:0;
+ border:0;border-radius:50%;background:var(--d-badge);color:#fff;font-size:15px;font-weight:700;
+ display:flex;align-items:center;justify-content:center;z-index:10;line-height:1;}
+.dabom-board .num-badge.edge{left:-34px;top:-6px;} /* 라벨·텍스트가 좌상단에 붙은 요소용 — 캔버스 가장자리에 걸침 */
+.dabom-canvas .dbm-field > .num-badge{left:-34px;top:-6px;}  /* 입력 필드: 라벨 가림 방지 */
+/* 세부 배지 / Case 태그 — 짙은 레드 캡슐 ("3-1", "Case1) 사진") */
+.dabom-board .dbm-tag{display:inline-flex;align-items:center;height:22px;padding:0 6px;border-radius:27px;
+ background:var(--d-tag);color:#fff;font-size:15px;font-weight:700;line-height:1;white-space:nowrap;}
+.dabom-board .dbm-tag.pin{position:absolute;top:-11px;left:0;z-index:9;}
+
+/* 우측 Case 변형 — 같은 영역의 상태별 대안 (와이어프레임 우측에 가로 나열) */
+.dabom-board .dbm-cases{display:flex;gap:56px;padding:116px 0 0 64px;align-items:flex-start;}
+.dabom-board .dbm-case{width:358px;display:flex;flex-direction:column;gap:8px;position:relative;}
+
+/* 하단 흐름 — Confirm/Alert/Toast + 이동 노트 + 화살표 */
+.dabom-board .dbm-flow{display:flex;align-items:flex-start;gap:16px;margin:64px 0 0 52px;flex-wrap:wrap;}
+.dabom-board .dbm-ov{display:flex;flex-direction:column;align-items:center;gap:22px;position:relative;}
+/* 오버레이 유형명 바 (창 밖 상단) — "삭제 여부 Confirm" / "삭제 완료 Toast msg" */
+.dabom-board .dbm-ov-title{align-self:stretch;height:41px;background:var(--d-g500);color:#fff;font-size:20px;font-weight:700;
+ display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:0 16px;}
+.dabom-board .dbm-note{background:var(--d-note);padding:16px 13px;font-size:14px;letter-spacing:-.7px;color:#000;white-space:nowrap;}
+.dabom-board .dbm-ver{display:inline-flex;align-items:center;height:35px;padding:0 10px;background:var(--d-note);font-size:13px;font-weight:700;color:#000;white-space:nowrap;}
+.dabom-board .dbm-arrow{align-self:center;width:40px;height:8px;flex-shrink:0;
+ background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 8'><path d='M.5.5 5 4 .5 7.5' fill='none' stroke='black' stroke-width='1'/></svg>") right center/6px 8px no-repeat,
+ repeating-linear-gradient(to right,#000 0 1px,transparent 1px 3px) left center/calc(100% - 1px) 1px no-repeat;}
+/* 탭 위치 표시 — Figma «Tap» 손가락 아이콘(원본 SVG 48×60.7) + 점선 화살표
+   style="left:X;top:Y" = 손끝(주황 점) 좌표. 점선: --down(아래로 길이) / --right(오른쪽으로 길이)
+   예) <span class="dbm-tap" style="left:72px;top:30px;--down:140px"></span> */
+.dabom-board .dbm-tap{position:absolute;width:48px;height:60.6981px;margin:-8.13px 0 0 -11.96px;z-index:8;pointer-events:none;
+ background:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjYwLjY5ODEiIHZpZXdCb3g9IjAgMCA0OCA2MC42OTgxIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KPGcgaWQ9IlRhcCI+CjxjaXJjbGUgaWQ9IkVsbGlwc2UgNzkiIGN4PSIxMS45NjA1IiBjeT0iOC4xMjkyIiByPSI4LjEyOTIiIGZpbGw9IiNGQUJDM0YiLz4KPGcgaWQ9IlZlY3RvciI+Cjx1c2UgeGxpbms6aHJlZj0iI3N0cm9rZTBfMF8xNiIgZmlsbD0id2hpdGUiLz4KPG1hc2sgaWQ9InN0cm9rZTFfMF8xNiIgZmlsbD0id2hpdGUiPgo8dXNlIHhsaW5rOmhyZWY9IiNzdHJva2UwXzBfMTYiLz4KPC9tYXNrPgo8cGF0aCBkPSJNNDggMzEuOTA3MVY0Mi4wNjg2QzQ4IDQyLjM5NTEgNDcuOTYyMyA0Mi43MjA2IDQ3Ljg4NzUgNDMuMDM4NEw0NC41MDAzIDU3LjQzMzlDNDQuMDUwNCA1OS4zNDY0IDQyLjM0MzYgNjAuNjk4MSA0MC4zNzg5IDYwLjY5ODFIMTguMzYyM0MxNy42OTQ0IDYwLjY5OCAxNy4wMzYxIDYwLjU0MDEgMTYuNDQxIDYwLjIzN0MxNS44NDU5IDU5LjkzNCAxNS4zMzA5IDU5LjQ5NDUgMTQuOTM4MSA1OC45NTQ0TDEuMzg5NyA0MC4zMjVDMC4wMTQ0IDM4LjQzMzkgLTAuNzY5MzkgMzUuMjQ3IDEuMTIxNiAzMy44NzE3QzMuMDEyODEgMzIuNDk2MyA2Ljg2MjcyIDMzLjQ1MzQgOC4yMzgwMiAzNS4zNDQ1TDExLjU4NzkgMzkuOTUwOFYxMC43MzczQzExLjU4NzkgOC4zOTkwMiAxMy40MTU3IDUuNDE5NDcgMTUuNzU0MSA1LjQxOTQ3QzE4LjA5MjYgNS40MTk0NyAyMC4wNTU5IDguMzk5MDIgMjAuMDU1OSAxMC43MzczVjMxLjkwNzFIMjAuOTAyNlYyNy42NzMyQzIwLjkwMjYgMjUuMzM0OSAyMi43OTgyIDIzLjQzOTIgMjUuMTM2NiAyMy40MzkyQzI3LjQ3NSAyMy40MzkyIDI5LjM3MDYgMjUuMzM0OSAyOS4zNzA2IDI3LjY3MzJWMzEuOTA3MUgzMC4yMTc0VjI5LjM2NjhDMzAuMjE3NCAyNy4wMjg0IDMyLjExMjkgMjUuMTMyOCAzNC40NTEzIDI1LjEzMjhDMzYuNzg5NyAyNS4xMzI4IDM4LjY4NTMgMjcuMDI4NCAzOC42ODUzIDI5LjM2NjhWMzEuOTA3MUgzOS41MzIxQzM5LjUzMjEgMjkuNTY4OCA0MS40Mjc2IDI3LjY3MzIgNDMuNzY2IDI3LjY3MzJDNDYuMTA0NSAyNy42NzMyIDQ4IDI5LjU2ODggNDggMzEuOTA3MVoiIHN0cm9rZS13aWR0aD0iMS4wODM4OSIgc3Ryb2tlPSJibGFjayIgbWFzaz0idXJsKCNzdHJva2UxXzBfMTYpIi8+CjwvZz4KPC9nPgo8ZGVmcz4KPHBhdGggaWQ9InN0cm9rZTBfMF8xNiIgZD0iTTQ4IDQyLjA2ODZWMzEuOTA3MUM0OCAyOS41Njg4IDQ2LjEwNDUgMjcuNjczMiA0My43NjYgMjcuNjczMkM0MS40Mjc2IDI3LjY3MzIgMzkuNTMyMSAyOS41Njg4IDM5LjUzMjEgMzEuOTA3MUgzOC42ODUzVjI5LjM2NjhDMzguNjg1MyAyNy4wMjg0IDM2Ljc4OTcgMjUuMTMyOCAzNC40NTEzIDI1LjEzMjhDMzIuMTEyOSAyNS4xMzI4IDMwLjIxNzQgMjcuMDI4NCAzMC4yMTc0IDI5LjM2NjhWMzEuOTA3MUgyOS4zNzA2VjI3LjY3MzJDMjkuMzcwNiAyNS4zMzQ5IDI3LjQ3NSAyMy40MzkyIDI1LjEzNjYgMjMuNDM5MkMyMi43OTgyIDIzLjQzOTIgMjAuOTAyNiAyNS4zMzQ5IDIwLjkwMjYgMjcuNjczMlYzMS45MDcxSDIwLjA1NTlWMTAuNzM3M0MyMC4wNTU5IDguMzk5MDIgMTguMDkyNiA1LjQxOTQ3IDE1Ljc1NDEgNS40MTk0N0MxMy40MTU3IDUuNDE5NDcgMTEuNTg3OSA4LjM5OTAyIDExLjU4NzkgMTAuNzM3M1YzOS45NTA4TDguMjM4MDIgMzUuMzQ0NUM2Ljg2MjcyIDMzLjQ1MzQgMy4wMTI4MSAzMi40OTYzIDEuMTIxNiAzMy44NzE3Qy0wLjc2OTM5IDM1LjI0NyAwLjAxNDQgMzguNDMzOSAxLjM4OTcgNDAuMzI1TDE0LjkzODEgNTguOTU0NEMxNS4zMzA5IDU5LjQ5NDUgMTUuODQ1OSA1OS45MzQgMTYuNDQxIDYwLjIzN0MxNy4wMzYxIDYwLjU0MDEgMTcuNjk0NCA2MC42OTggMTguMzYyMyA2MC42OTgxSDQwLjM3ODlDNDIuMzQzNiA2MC42OTgxIDQ0LjA1MDQgNTkuMzQ2NCA0NC41MDAzIDU3LjQzMzlMNDcuODg3NSA0My4wMzg0QzQ3Ljk2MjMgNDIuNzIwNiA0OCA0Mi4zOTUxIDQ4IDQyLjA2ODZaIi8+CjwvZGVmcz4KPC9zdmc+Cg==") 0 0/48px 60.6981px no-repeat;--down:0px;--right:0px;}
+.dabom-board .dbm-tap::after{content:"";position:absolute;left:26px;top:58px;width:8px;height:var(--down);
+ background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 6'><path d='M.5.5 4 5 7.5.5' fill='none' stroke='black' stroke-width='1'/></svg>") bottom center/8px 6px no-repeat,
+ repeating-linear-gradient(to bottom,#000 0 1px,transparent 1px 3px) center top/1px calc(100% - 1px) no-repeat;}
+.dabom-board .dbm-tap::before{content:"";position:absolute;left:46px;top:22px;height:8px;width:var(--right);
+ background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 8'><path d='M.5.5 5 4 .5 7.5' fill='none' stroke='black' stroke-width='1'/></svg>") right center/6px 8px no-repeat,
+ repeating-linear-gradient(to right,#000 0 1px,transparent 1px 3px) left center/calc(100% - 1px) 1px no-repeat;}
+
+/* ===== 1. 캔버스 (휴대폰 프레임) ===== */
+.dabom-canvas{width:390px;min-height:844px;background:#fff;color:var(--d-ink);font-family:var(--d-font);
+ font-size:18px;line-height:1.6;border:0;outline:2px solid var(--d-frame);border-radius:8px;box-shadow:none;overflow:visible;}
+/* ↑ 프레임 선은 outline — Figma stroke처럼 레이아웃 폭을 먹지 않아 내부 390·콘텐츠 358 유지 */
+.dbm-case > .dabom-canvas{outline:0;}
+.dabom-canvas .wf-content-area{width:auto;margin:0;padding:0 16px;} /* 다봄 콘텐츠 = 358 (Figma 기준) */
+
+/* --- 아이콘: Figma 원본 SVG(data URI) + 보조 라인 아이콘 --- */
+.dabom-canvas .di{display:inline-block;width:24px;height:24px;flex-shrink:0;background:center/contain no-repeat;vertical-align:middle;}
+.dabom-canvas .di.s20{width:20px;height:20px;} .dabom-canvas .di.s18{width:18px;height:18px;}
+/* Figma 원본 아이콘 9종 (사진첩_상세 1340:5665에서 추출, 프레임 경계선만 제거) */
+.dabom-canvas .di-back{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB2aWV3Qm94PSIwIDAgMjAgMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJGcmFtZSI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8wXzU1KSI+CjxwYXRoIGlkPSJWZWN0b3IiIGQ9Ik0yMC40MTQgOC43MDdINS44MjhMMTEuMTIxIDMuNDE0TDkuNzA3IDJMMiA5LjcwN0w5LjcwNyAxNy40MTRMMTEuMTIxIDE2TDUuODI4IDEwLjcwN0gyMC40MTRWOC43MDdaIiBmaWxsPSJibGFjayIvPgo8L2c+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMF81NSI+CjxwYXRoIGQ9Ik0wIDBIMjBWMjBIMFYwWiIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K");}
+.dabom-canvas .di-bell{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjE3Ljk5OTUiIGhlaWdodD0iMjEuMDAxNCIgdmlld0JveD0iMCAwIDE3Ljk5OTUgMjEuMDAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIDE1NjE5NTQxMTEiPgo8cGF0aCBpZD0iSWNvbiIgZD0iTTEuMTA1MjYgMTUuMTUyOEwwLjI4MzM0OSAxNC41ODMyTDAuMjgzMzQ5IDE0LjU4MzJMMS4xMDUyNiAxNS4xNTI4Wk0yLjI2ODI0IDExLjUzODRMMS4yNjgyNCAxMS41MjcyVjExLjUzODRIMi4yNjgyNFpNMi4yOTI2NSA5LjM1MzA1TDMuMjkyNTkgOS4zNjQyMkMzLjI5MjY1IDkuMzU4NDkgMy4yOTI2NyA5LjM1Mjc2IDMuMjkyNjMgOS4zNDcwM0wyLjI5MjY1IDkuMzUzMDVaTTE2LjkwMDMgMTUuMTcwNEwxNy43MzMyIDE0LjYxNjlMMTcuNzMzMiAxNC42MTY5TDE2LjkwMDMgMTUuMTcwNFpNMTUuNzgxMSAxMS41Mzg0TDE2Ljc4MSAxMS41MjcxQzE2Ljc4MDkgMTEuNTEwOSAxNi43ODAzIDExLjQ5NDggMTYuNzc5MyAxMS40Nzg2TDE1Ljc4MTEgMTEuNTM4NFpNNi45NTcxOCAxOC4zMTFDNi41MjU2OCAxNy45NjYzIDUuODk2NDMgMTguMDM2NiA1LjU1MTcyIDE4LjQ2ODFDNS4yMDcwMSAxOC44OTk2IDUuMjc3MzcgMTkuNTI4OSA1LjcwODg3IDE5Ljg3MzZMNi4zMzMwMiAxOS4wOTIzTDYuOTU3MTggMTguMzExWk0xMi4yOTA1IDE5Ljg3MzZDMTIuNzIyIDE5LjUyODkgMTIuNzkyNCAxOC44OTk2IDEyLjQ0NzcgMTguNDY4MUMxMi4xMDI5IDE4LjAzNjYgMTEuNDczNyAxNy45NjYzIDExLjA0MjIgMTguMzExTDExLjY2NjQgMTkuMDkyM0wxMi4yOTA1IDE5Ljg3MzZaTTE1LjM4NTEgNS41MzUxQzE1LjEyODMgNS4wNDYxMyAxNC41MjM4IDQuODU3ODggMTQuMDM0OCA1LjExNDY0QzEzLjU0NTggNS4zNzE0IDEzLjM1NzYgNS45NzU5MyAxMy42MTQzIDYuNDY0OUwxNC40OTk3IDZMMTUuMzg1MSA1LjUzNTFaTTEuMTA1MjYgMTUuMTUyOEwxLjkyNzE4IDE1LjcyMjVDMi42MDE3MSAxNC43NDkyIDMuMjY4MjQgMTMuMzAxNSAzLjI2ODI0IDExLjUzODRIMi4yNjgyNEgxLjI2ODI0QzEuMjY4MjQgMTIuNzkxNiAwLjc5MjM5IDEzLjg0ODcgMC4yODMzNDkgMTQuNTgzMkwxLjEwNTI2IDE1LjE1MjhaTTIuMjY4MjQgMTEuNTM4NEwzLjI2ODE4IDExLjU0OTZMMy4yOTI1OSA5LjM2NDIyTDIuMjkyNjUgOS4zNTMwNUwxLjI5MjcxIDkuMzQxODhMMS4yNjgzIDExLjUyNzJMMi4yNjgyNCAxMS41Mzg0Wk0xNi45MDAzIDE1LjE3MDRMMTcuNzMzMiAxNC42MTY5QzE3LjUyNCAxNC4zMDIyIDE3LjI4MTMgMTMuNzUyIDE3LjA4NzggMTMuMTI0MkMxNi44OTQzIDEyLjQ5NjMgMTYuNzg1MyAxMS45MDUgMTYuNzgxIDExLjUyNzFMMTUuNzgxMSAxMS41Mzg0TDE0Ljc4MTIgMTEuNTQ5N0MxNC43ODg1IDEyLjE5NzQgMTQuOTU1MiAxMi45OTUgMTUuMTc2NSAxMy43MTMxQzE1LjM5NzggMTQuNDMxMyAxNS43MDg5IDE1LjE4NDMgMTYuMDY3NSAxNS43MjM5TDE2LjkwMDMgMTUuMTcwNFpNMTYuNDkzIDE2LjE4MzJWMTcuMTgzMkMxNy4yNzczIDE3LjE4MzIgMTcuNzE2NyAxNi41ODk2IDE3Ljg3NjkgMTYuMTc3MUMxOC4wNDMgMTUuNzQ5NiAxOC4wNzk5IDE1LjEzODYgMTcuNzMzMiAxNC42MTY5TDE2LjkwMDMgMTUuMTcwNEwxNi4wNjc1IDE1LjcyMzlDMTYuMDEzMiAxNS42NDIyIDE2LjAwMTggMTUuNTcxIDE2IDE1LjUzNjJDMTUuOTk4MiAxNS41MDE5IDE2LjAwMzYgMTUuNDc2MiAxNi4wMTI2IDE1LjQ1MzFDMTYuMDIwNyAxNS40MzIzIDE2LjA0NTcgMTUuMzc4MSAxNi4xMTQ2IDE1LjMxODhDMTYuMTkxMSAxNS4yNTI5IDE2LjMyMzIgMTUuMTgzMiAxNi40OTMgMTUuMTgzMlYxNi4xODMyWk0yLjI5MjY1IDkuMzUzMDVMMy4yOTI2MyA5LjM0NzAzQzMuMjcxNDQgNS44MjUyNCA2LjUxIDIuNjQwNjIgMTAuMjgzMSAzLjQ3NzY2TDEwLjQ5OTcgMi41MDEzOUwxMC43MTYzIDEuNTI1MTNDNS40ODkzOCAwLjM2NTU3NiAxLjI2NTA0IDQuNzY2MjkgMS4yOTI2NyA5LjM1OTA3TDIuMjkyNjUgOS4zNTMwNVpNMS41MDczMiAxNi4xODMyVjE1LjE4MzJDMS42ODA3OSAxNS4xODMyIDEuODE0MyAxNS4yNTU2IDEuODkwMDIgMTUuMzIyQzEuOTU3OTUgMTUuMzgxNiAxLjk4MTM2IDE1LjQzNDkgMS45ODgzNyAxNS40NTM1QzEuOTk2MjggMTUuNDc0NSAyLjAwMTMzIDE1LjQ5ODYgMS45OTkyMSAxNS41MzIyQzEuOTk3MDYgMTUuNTY2MiAxLjk4NDkgMTUuNjM5MiAxLjkyNzE4IDE1LjcyMjVMMS4xMDUyNiAxNS4xNTI4TDAuMjgzMzQ5IDE0LjU4MzJDLTAuMDc5NTc5MSAxNS4xMDY5IC0wLjA0NTI1NDggMTUuNzI4NCAwLjExNjcyOCAxNi4xNTg1QzAuMjcyNDM2IDE2LjU3MTkgMC43MTAyNTEgMTcuMTgzMiAxLjUwNzMyIDE3LjE4MzJWMTYuMTgzMlpNMTYuNDkzIDE2LjE4MzJWMTUuMTgzMkgxLjUwNzMyVjE2LjE4MzJWMTcuMTgzMkgxNi40OTNWMTYuMTgzMlpNOC45OTk2OSAyMC4wMDE0VjE5LjAwMTRDOC4xOTg5IDE5LjAwMTQgNy40ODUxOCAxOC43MzI4IDYuOTU3MTggMTguMzExTDYuMzMzMDIgMTkuMDkyM0w1LjcwODg3IDE5Ljg3MzZDNi41OTYyMSAyMC41ODI1IDcuNzUxNTMgMjEuMDAxNCA4Ljk5OTY5IDIxLjAwMTRWMjAuMDAxNFpNMTEuNjY2NCAxOS4wOTIzTDExLjA0MjIgMTguMzExQzEwLjUxNDIgMTguNzMyOCA5LjgwMDQ3IDE5LjAwMTQgOC45OTk2OSAxOS4wMDE0VjIwLjAwMTRWMjEuMDAxNEMxMC4yNDc4IDIxLjAwMTQgMTEuNDAzMiAyMC41ODI1IDEyLjI5MDUgMTkuODczNkwxMS42NjY0IDE5LjA5MjNaTTE1Ljc4MTEgMTEuNTM4NEMxNi43NzkzIDExLjQ3ODYgMTYuNzc5MyAxMS40Nzg2IDE2Ljc3OTMgMTEuNDc4NkMxNi43NzkzIDExLjQ3ODUgMTYuNzc5MyAxMS40Nzg1IDE2Ljc3OTMgMTEuNDc4NEMxNi43NzkzIDExLjQ3ODMgMTYuNzc5MyAxMS40NzgyIDE2Ljc3OTMgMTEuNDc4MUMxNi43NzkzIDExLjQ3NzcgMTYuNzc5MiAxMS40NzczIDE2Ljc3OTIgMTEuNDc2N0MxNi43NzkxIDExLjQ3NTUgMTYuNzc5IDExLjQ3MzkgMTYuNzc4OSAxMS40NzE3QzE2Ljc3ODYgMTEuNDY3MyAxNi43NzgzIDExLjQ2MSAxNi43Nzc3IDExLjQ1MjdDMTYuNzc2NyAxMS40MzYyIDE2Ljc3NTIgMTEuNDEyMSAxNi43NzMzIDExLjM4MTJDMTYuNzY5NCAxMS4zMTk1IDE2Ljc2MzcgMTEuMjMwNiAxNi43NTY0IDExLjEyMTNDMTYuNzQxNyAxMC45MDI5IDE2LjcyMDUgMTAuNjAyMSAxNi42OTQ1IDEwLjI3MjdDMTYuNjQzNyA5LjYzMDMzIDE2LjU3MDUgOC44MjU3MSAxNi40ODUyIDguMzMwMzJMMTUuNDk5NyA4LjVMMTQuNTE0MiA4LjY2OTY4QzE0LjU4MTUgOS4wNjA0NiAxNC42NDg5IDkuNzc1MDQgMTQuNzAwNyAxMC40MzAzQzE0LjcyNiAxMC43NDk3IDE0Ljc0NjYgMTEuMDQyMyAxNC43NjA4IDExLjI1NTJDMTQuNzY4IDExLjM2MTUgMTQuNzczNSAxMS40NDc3IDE0Ljc3NzMgMTEuNTA3MUMxNC43NzkxIDExLjUzNjggMTQuNzgwNiAxMS41NTk4IDE0Ljc4MTUgMTEuNTc1M0MxNC43ODIgMTEuNTgzIDE0Ljc4MjMgMTEuNTg4OCAxNC43ODI2IDExLjU5MjdDMTQuNzgyNyAxMS41OTQ2IDE0Ljc4MjggMTEuNTk2IDE0Ljc4MjggMTEuNTk2OUMxNC43ODI5IDExLjU5NzQgMTQuNzgyOSAxMS41OTc3IDE0Ljc4MjkgMTEuNTk3OUMxNC43ODI5IDExLjU5OCAxNC43ODI5IDExLjU5ODEgMTQuNzgyOSAxMS41OTgxQzE0Ljc4MjkgMTEuNTk4MiAxNC43ODI5IDExLjU5ODIgMTQuNzgyOSAxMS41OTgyQzE0Ljc4MjkgMTEuNTk4MiAxNC43ODI5IDExLjU5ODEgMTUuNzgxMSAxMS41Mzg0Wk0xNS40OTk3IDguNUwxNi40ODUyIDguMzMwMzJDMTYuMzg0OSA3Ljc0ODAzIDE2LjA4MzcgNy4wMTgwMyAxNS44NTQ3IDYuNTA4MDJDMTUuNzMyOCA2LjIzNjQ5IDE1LjYxNjQgNS45OTUyNyAxNS41MzA1IDUuODIyMDJDMTUuNDg3NSA1LjczNTE1IDE1LjQ1MTggNS42NjQ3NiAxNS40MjY2IDUuNjE1NDlDMTUuNDE0IDUuNTkwODQgMTUuNDA0IDUuNTcxNDQgMTUuMzk2OSA1LjU1Nzg2QzE1LjM5MzQgNS41NTEwNyAxNS4zOTA2IDUuNTQ1NzIgMTUuMzg4NiA1LjU0MTkxQzE1LjM4NzYgNS41NCAxNS4zODY4IDUuNTM4NDcgMTUuMzg2MiA1LjUzNzMzQzE1LjM4NTkgNS41MzY3NyAxNS4zODU3IDUuNTM2MjkgMTUuMzg1NSA1LjUzNTkyQzE1LjM4NTQgNS41MzU3MyAxNS4zODUzIDUuNTM1NTcgMTUuMzg1MiA1LjUzNTQzQzE1LjM4NTIgNS41MzUzNyAxNS4zODUxIDUuNTM1MjggMTUuMzg1MSA1LjUzNTI1QzE1LjM4NTEgNS41MzUxNyAxNS4zODUxIDUuNTM1MSAxNC40OTk3IDZDMTMuNjE0MyA2LjQ2NDkgMTMuNjE0MyA2LjQ2NDg0IDEzLjYxNDMgNi40NjQ3OUMxMy42MTQzIDYuNDY0NzggMTMuNjE0MiA2LjQ2NDczIDEzLjYxNDIgNi40NjQ3MUMxMy42MTQyIDYuNDY0NjcgMTMuNjE0MiA2LjQ2NDY2IDEzLjYxNDIgNi40NjQ2N0MxMy42MTQyIDYuNDY0NjkgMTMuNjE0MyA2LjQ2NDggMTMuNjE0NCA2LjQ2NTAxQzEzLjYxNDYgNi40NjU0MyAxMy42MTUgNi40NjYyMyAxMy42MTU2IDYuNDY3NEMxMy42MTY5IDYuNDY5NzUgMTMuNjE4OSA2LjQ3MzU4IDEzLjYyMTYgNi40Nzg4MkMxMy42MjcgNi40ODkzMSAxMy42MzU0IDYuNTA1NDUgMTMuNjQ2MiA2LjUyNjY2QzEzLjY2NzkgNi41NjkxMSAxMy42OTk3IDYuNjMxNzIgMTMuNzM4NSA2LjcxQzEzLjgxNjMgNi44NjcwMyAxMy45MjEyIDcuMDg0NjUgMTQuMDMwMiA3LjMyNzM1QzE0LjI2MzEgNy44NDU4IDE0LjQ2MTkgOC4zNjU3OSAxNC41MTQyIDguNjY5NjhMMTUuNDk5NyA4LjVaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBpZD0iSW50ZXJzZWN0IiBkPSJNMTMuNDk5NyAwQzE1LjQzMjcgMCAxNi45OTk3IDEuNTY3IDE2Ljk5OTcgMy41QzE2Ljk5OTcgNS40MzMgMTUuNDMyNyA3IDEzLjQ5OTcgN0MxMS41NjY3IDcgOS45OTk2OSA1LjQzMyA5Ljk5OTY5IDMuNUM5Ljk5OTY5IDEuNTY3IDExLjU2NjcgMCAxMy40OTk3IDBaTTEzLjQ5OTcgMkMxMi42NzEzIDIgMTEuOTk5NyAyLjY3MTU3IDExLjk5OTcgMy41QzExLjk5OTcgNC4zMjg0MyAxMi42NzEzIDUgMTMuNDk5NyA1QzE0LjMyODEgNSAxNC45OTk3IDQuMzI4NDMgMTQuOTk5NyAzLjVDMTQuOTk5NyAyLjY3MTU3IDE0LjMyODEgMiAxMy40OTk3IDJaIiBmaWxsPSJibGFjayIvPgo8L2c+Cjwvc3ZnPgo=");}
+.dabom-canvas .di-my{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJ1c2VyLXByb2ZpbGUtMDEiPgo8cGF0aCBpZD0iSWNvbiIgZD0iTTIwLjM5OTUgMjEuNkwyMC4zOTk4IDE4LjAwMDNDMjAuNCAxNi4wMTIgMTguNzg4MiAxNC40IDE2Ljc5OTggMTQuNEg3LjIwMDU3QzUuMjEyNSAxNC40IDMuNjAwNzkgMTYuMDExNSAzLjYwMDU3IDE3Ljk5OTZMMy42MDAxNiAyMS42TTE1LjYwMDIgNkMxNS42MDAyIDcuOTg4MjIgMTMuOTg4NCA5LjYgMTIuMDAwMiA5LjZDMTAuMDExOSA5LjYgOC40MDAxNiA3Ljk4ODIyIDguNDAwMTYgNkM4LjQwMDE2IDQuMDExNzcgMTAuMDExOSAyLjQgMTIuMDAwMiAyLjRDMTMuOTg4NCAyLjQgMTUuNjAwMiA0LjAxMTc3IDE1LjYwMDIgNloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9ImJsYWNrIi8+CjwvZz4KPC9zdmc+Cg==");}
+.dabom-canvas .di-menu{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJtZW51LTAxIj4KPHBhdGggaWQ9Ikljb24iIGQ9Ik0yMCAxOEg0TTIwIDEySDRNMjAgNkg0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlPSJibGFjayIvPgo8L2c+Cjwvc3ZnPgo=");}
+.dabom-canvas .di-calendar{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjIxIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjEgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJGcmFtZSI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8wXzQzKSI+CjxwYXRoIGlkPSJWZWN0b3IiIGQ9Ik00LjUgMS41VjNIMi4yNUMxLjAwNzgxIDMgMCA0LjAwNzgxIDAgNS4yNVY3LjVIMjFWNS4yNUMyMSA0LjAwNzgxIDE5Ljk5MjIgMyAxOC43NSAzSDE2LjVWMS41QzE2LjUgMC42NzAzMTIgMTUuODI5NyAwIDE1IDBDMTQuMTcwMyAwIDEzLjUgMC42NzAzMTIgMTMuNSAxLjVWM0g3LjVWMS41QzcuNSAwLjY3MDMxMiA2LjgyOTY5IDAgNiAwQzUuMTcwMzEgMCA0LjUgMC42NzAzMTIgNC41IDEuNVpNMjEgOUgwVjIxLjc1QzAgMjIuOTkyMiAxLjAwNzgxIDI0IDIuMjUgMjRIMTguNzVDMTkuOTkyMiAyNCAyMSAyMi45OTIyIDIxIDIxLjc1VjlaIiBmaWxsPSIjNTI1MjUyIi8+CjwvZz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8wXzQzIj4KPHBhdGggZD0iTTAgMEgyMVYyNEgwVjBaIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=");}
+.dabom-canvas .di-heart{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJGcmFtZSI+Cgo8bWFzayBpZD0ic3Ryb2tlMF8wXzMzIiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0yLjIzMTI1IDE0LjA4MTJMMTAuNzAxNiAyMS45ODkxQzExLjA1MzEgMjIuMzE3MiAxMS41MTcyIDIyLjUgMTIgMjIuNUMxMi40ODI4IDIyLjUgMTIuOTQ2OSAyMi4zMTcyIDEzLjI5ODQgMjEuOTg5MUwyMS43Njg3IDE0LjA4MTJDMjMuMTkzOCAxMi43NTQ3IDI0IDEwLjg5MzcgMjQgOC45NDg0NFY4LjY3NjU2QzI0IDUuNCAyMS42MzI4IDIuNjA2MjUgMTguNDAzMSAyLjA2NzE5QzE2LjI2NTYgMS43MTA5NCAxNC4wOTA2IDIuNDA5MzggMTIuNTYyNSAzLjkzNzVMMTIgNC41TDExLjQzNzUgMy45Mzc1QzkuOTA5MzggMi40MDkzOCA3LjczNDM4IDEuNzEwOTQgNS41OTY4OCAyLjA2NzE5QzIuMzY3MTkgMi42MDYyNSAwIDUuNCAwIDguNjc2NTZWOC45NDg0NEMwIDEwLjg5MzcgMC44MDYyNSAxMi43NTQ3IDIuMjMxMjUgMTQuMDgxMloiLz4KPC9tYXNrPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNMi4yMzEyNSAxNC4wODEzTDEwLjcwMTYgMjEuOTg5MUMxMS4wNTMxIDIyLjMxNzIgMTEuNTE3MiAyMi41IDEyIDIyLjVDMTIuNDgyOCAyMi41IDEyLjk0NjkgMjIuMzE3MiAxMy4yOTg0IDIxLjk4OTFMMjEuNzY4NyAxNC4wODEzQzIzLjE5MzcgMTIuNzU0NyAyNCAxMC44OTM3IDI0IDguOTQ4NDRWOC42NzY1NkMyNCA1LjQgMjEuNjMyOCAyLjYwNjI1IDE4LjQwMzEgMi4wNjcxOUMxNi4yNjU2IDEuNzEwOTQgMTQuMDkwNiAyLjQwOTM4IDEyLjU2MjUgMy45Mzc1TDEyIDQuNUwxMS40Mzc1IDMuOTM3NUM5LjkwOTM4IDIuNDA5MzggNy43MzQzOCAxLjcxMDk0IDUuNTk2ODggMi4wNjcxOUMyLjM2NzE5IDIuNjA2MjUgMCA1LjQgMCA4LjY3NjU2VjguOTQ4NDRDMCAxMC44OTM3IDAuODA2MjUgMTIuNzU0NyAyLjIzMTI1IDE0LjA4MTNaIiBzdHJva2Utd2lkdGg9IjYiIHN0cm9rZT0iIzczNzM3MyIgbWFzaz0idXJsKCNzdHJva2UwXzBfMzMpIi8+CjwvZz4KPC9zdmc+Cg==");}
+.dabom-canvas .di-share{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB2aWV3Qm94PSIwIDAgMjAgMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJGcmFtZSI+Cgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNMTEuOTkyMiAxLjM1OTM4QzExLjU0MyAxLjU1ODU5IDExLjI1IDIuMDA3ODEgMTEuMjUgMi41VjVINi44NzVDMy4wNzgxMiA1IDAgOC4wNzgxMiAwIDExLjg3NUMwIDE2LjMwMDggMy4xODM1OSAxOC4yNzczIDMuOTE0MDYgMTguNjc1OEM0LjAxMTcyIDE4LjczMDUgNC4xMjEwOSAxOC43NSA0LjIzMDQ3IDE4Ljc1QzQuNjU2MjUgMTguNzUgNSAxOC40MDIzIDUgMTcuOTgwNUM1IDE3LjY4NzUgNC44MzIwMyAxNy40MTggNC42MTcxOSAxNy4yMTg3QzQuMjUgMTYuODcxMSAzLjc1IDE2LjE4NzUgMy43NSAxNUMzLjc1IDEyLjkyOTcgNS40Mjk2OSAxMS4yNSA3LjUgMTEuMjVIMTEuMjVWMTMuNzVDMTEuMjUgMTQuMjQyMiAxMS41MzkxIDE0LjY5MTQgMTEuOTkyMiAxNC44OTA2QzEyLjQ0NTMgMTUuMDg5OCAxMi45Njg4IDE1LjAwNzggMTMuMzM1OSAxNC42Nzk3TDE5LjU4NTkgOS4wNTQ2OUMxOS44NDc3IDguODE2NDEgMjAgOC40ODA0NyAyMCA4LjEyNUMyMCA3Ljc2OTUzIDE5Ljg1MTYgNy40MzM1OSAxOS41ODU5IDcuMTk1MzFMMTMuMzM1OSAxLjU3MDMxQzEyLjk2ODggMS4yMzgyOCAxMi40NDE0IDEuMTU2MjUgMTEuOTkyMiAxLjM1OTM4WiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8L3N2Zz4K");}
+.dabom-canvas .di-edit{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgMTggMTgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJGcmFtZSI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8wXzMxKSI+CjxwYXRoIGlkPSJWZWN0b3IiIGQ9Ik0xNi41Nzk3IDAuNzYyODkxQzE1LjgwOTggLTAuMDA3MDMxMjIgMTQuNTY1MiAtMC4wMDcwMzEyMiAxMy43OTUzIDAuNzYyODkxTDEyLjczNzEgMS44MTc1OEwxNi4xNzg5IDUuMjU5MzhMMTcuMjM3MSA0LjIwMTE3QzE4LjAwNyAzLjQzMTI1IDE4LjAwNyAyLjE4NjcyIDE3LjIzNzEgMS40MTY4TDE2LjU3OTcgMC43NjI4OTFaTTYuMDYwOTQgOC40OTcyN0M1Ljg0NjQ4IDguNzExNzIgNS42ODEyNSA4Ljk3NTM5IDUuNTg2MzMgOS4yNjcxOUw0LjU0NTcgMTIuMzg5MUM0LjQ0Mzc1IDEyLjY5MTQgNC41MjQ2MSAxMy4wMjU0IDQuNzQ5NjEgMTMuMjUzOUM0Ljk3NDYxIDEzLjQ4MjQgNS4zMDg1OSAxMy41NTk4IDUuNjE0NDUgMTMuNDU3OEw4LjczNjMzIDEyLjQxNzJDOS4wMjQ2MSAxMi4zMjIzIDkuMjg4MjggMTIuMTU3IDkuNTA2MjUgMTEuOTQyNkwxNS4zODc5IDYuMDU3NDJMMTEuOTQyNiAyLjYxMjExTDYuMDYwOTQgOC40OTcyN1pNMy4zNzUgMi4yNUMxLjUxMTcyIDIuMjUgMCAzLjc2MTcyIDAgNS42MjVWMTQuNjI1QzAgMTYuNDg4MyAxLjUxMTcyIDE4IDMuMzc1IDE4SDEyLjM3NUMxNC4yMzgzIDE4IDE1Ljc1IDE2LjQ4ODMgMTUuNzUgMTQuNjI1VjExLjI1QzE1Ljc1IDEwLjYyNzcgMTUuMjQ3MyAxMC4xMjUgMTQuNjI1IDEwLjEyNUMxNC4wMDI3IDEwLjEyNSAxMy41IDEwLjYyNzcgMTMuNSAxMS4yNVYxNC42MjVDMTMuNSAxNS4yNDczIDEyLjk5NzMgMTUuNzUgMTIuMzc1IDE1Ljc1SDMuMzc1QzIuNzUyNzMgMTUuNzUgMi4yNSAxNS4yNDczIDIuMjUgMTQuNjI1VjUuNjI1QzIuMjUgNS4wMDI3MyAyLjc1MjczIDQuNSAzLjM3NSA0LjVINi43NUM3LjM3MjI3IDQuNSA3Ljg3NSAzLjk5NzI3IDcuODc1IDMuMzc1QzcuODc1IDIuNzUyNzMgNy4zNzIyNyAyLjI1IDYuNzUgMi4yNUgzLjM3NVoiIGZpbGw9IiM0MDQwNDAiLz4KPC9nPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzBfMzEiPgo8cGF0aCBkPSJNMCAwSDE4VjE4SDBWMFoiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==");}
+.dabom-canvas .di-trash{background-image:url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgd2lkdGg9IjE1Ljc1IiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgMTUuNzUgMTgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJGcmFtZSI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8wXzI5KSI+CjxwYXRoIGlkPSJWZWN0b3IiIGQ9Ik00Ljc1MzEyIDAuNjIyMjY2TDQuNSAxLjEyNUgxLjEyNUMwLjUwMjczNCAxLjEyNSAwIDEuNjI3NzMgMCAyLjI1QzAgMi44NzIyNyAwLjUwMjczNCAzLjM3NSAxLjEyNSAzLjM3NUgxNC42MjVDMTUuMjQ3MyAzLjM3NSAxNS43NSAyLjg3MjI3IDE1Ljc1IDIuMjVDMTUuNzUgMS42Mjc3MyAxNS4yNDczIDEuMTI1IDE0LjYyNSAxLjEyNUgxMS4yNUwxMC45OTY5IDAuNjIyMjY2QzEwLjgwNyAwLjIzOTA2MyAxMC40MTY4IDAgOS45OTE0MSAwSDUuNzU4NTlDNS4zMzMyIDAgNC45NDI5NyAwLjIzOTA2MyA0Ljc1MzEyIDAuNjIyMjY2Wk0xNC42MjUgNC41SDEuMTI1TDEuODcwMzEgMTYuNDE4QzEuOTI2NTYgMTcuMzA3NCAyLjY2NDg0IDE4IDMuNTU0MyAxOEgxMi4xOTU3QzEzLjA4NTIgMTggMTMuODIzNCAxNy4zMDc0IDEzLjg3OTcgMTYuNDE4TDE0LjYyNSA0LjVaIiBmaWxsPSIjNTI1MjUyIi8+CjwvZz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8wXzI5Ij4KPHBhdGggZD0iTTAgMEgxNS43NVYxOEgwVjBaIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=");}
+.dabom-canvas .di-bell{width:18px;height:22px;}
+.dabom-canvas .di-calendar{width:21px;height:24px;}
+.dabom-canvas .di-trash{width:15.75px;height:18px;}
+.dabom-canvas .di-heart-on{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23525252' d='M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z'/></svg>");}
+.dabom-canvas .di-setting{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 2.8l2 2.2 3-.4.6 2.9 2.6 1.6-1.2 2.9 1.2 2.9-2.6 1.6-.6 2.9-3-.4-2 2.2-2-2.2-3 .4-.6-2.9-2.6-1.6 1.2-2.9-1.2-2.9 2.6-1.6.6-2.9 3 .4z'/></svg>");}
+.dabom-canvas .di-close{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><path d='M5 5l14 14M19 5L5 19'/></svg>");}
+.dabom-canvas .di-clear{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round'><path d='M7 7l10 10M17 7L7 17'/></svg>");}
+.dabom-canvas .di-search{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23404040' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='6.5'/><path d='M16 16l4 4'/></svg>");}
+.dabom-canvas .di-eye{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='1.8'><path d='M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z'/><circle cx='12' cy='12' r='3'/></svg>");}
+.dabom-canvas .di-clock{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23525252' stroke-width='1.8' stroke-linecap='round'><circle cx='12' cy='12' r='8'/><path d='M12 7.5V12l3 2'/></svg>");}
+.dabom-canvas .di-down{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");}
+.dabom-canvas .di-plus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23404040' stroke-width='2' stroke-linecap='round'><path d='M12 5v14M5 12h14'/></svg>");}
+
+/* ===== 2. Header — 최상단 Sticky (56) =====
+   변형: main · sub · test · chatbot(=policy) · reward · notice · mypage (가이드 §2 표) */
+.dabom-canvas .dbm-header{position:relative;height:56px;flex-shrink:0;display:flex;align-items:center;padding:0 23px 0 16px;
+ background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.05);}
+.dabom-canvas .dbm-header .back{display:flex;align-items:center;gap:8px;min-width:0;flex:1;}
+.dabom-canvas .dbm-header .title{font-size:18px;font-weight:700;line-height:24px;color:var(--d-title);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dabom-canvas .dbm-header .logo{font-size:20px;font-weight:800;flex:1;color:var(--d-title);}
+.dabom-canvas .dbm-header .acts{margin-left:auto;display:flex;align-items:center;gap:14px;}
+.dabom-canvas .dbm-header .bell{position:relative;display:flex;}
+.dabom-canvas .dbm-header .bell .dot{position:absolute;top:-3px;right:-4px;width:8px;height:8px;border-radius:50%;background:var(--d-red);}
+.dabom-canvas .is-hidden-1st{opacity:.35;outline:1px dashed var(--d-g500);outline-offset:2px;}
+
+/* ===== 3. 본문 요소 (사진첩_상세 기준) ===== */
+.dabom-canvas .dbm-main{display:flex;flex-direction:column;gap:22px;padding:13px 16px 24px;}
+.dabom-canvas .dbm-date{display:flex;align-items:center;justify-content:space-between;height:52px;position:relative;}
+.dabom-canvas .dbm-date .d{display:flex;align-items:center;gap:12px;font-size:24px;line-height:32px;color:var(--d-ink);}
+.dabom-canvas .dbm-fav{width:52px;height:52px;border-radius:50%;background:var(--d-g50);border:2px solid var(--d-g200);display:flex;align-items:center;justify-content:center;position:relative;}
+.dabom-canvas .dbm-img{position:relative;height:320px;border-radius:8px;background:var(--d-g300);display:flex;align-items:center;justify-content:center;text-align:center;font-size:18px;line-height:1.35;color:#000;}
+.dabom-canvas .dbm-textview{position:relative;min-height:120px;border-radius:8px;background:var(--d-g50);border:1px solid var(--d-g200);padding:13px 17px;font-size:18px;line-height:30px;color:#000;}
+.dabom-canvas .dbm-btns{display:flex;flex-direction:column;gap:16px;}
+.dabom-canvas .dbm-btn-row{display:flex;gap:16px;}
+.dabom-canvas .dbm-btn-row > *{flex:1;}
+.dabom-canvas .dbm-btn{position:relative;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:12px;
+ font-size:18px;background:var(--d-g600);color:#fff;}
+.dabom-canvas .dbm-btn.secondary{height:62px;background:var(--d-g100);border:1px solid var(--d-g300);color:var(--d-g700);}
+.dabom-canvas .dbm-btn.tertiary{height:62px;background:var(--d-g50);border:1px solid var(--d-g200);color:var(--d-g600);}
+.dabom-canvas .dbm-btn.disabled{background:var(--d-g200);color:var(--d-g400);border:0;}
+.dabom-canvas .dbm-btn.sm{height:44px;font-size:16px;}
+.dabom-canvas .dbm-h1{font-size:24px;font-weight:700;line-height:1.4;}
+.dabom-canvas .dbm-h2{font-size:20px;font-weight:700;}
+.dabom-canvas .dbm-body{font-size:18px;color:var(--d-g700);}
+.dabom-canvas .dbm-caption{font-size:15px;color:var(--d-g500);}
+
+/* ===== 4. App bar — 최하단 Sticky (5탭: 홈 / 두뇌 건강 / 대화 / 내 정원 / 사진첩) ===== */
+.dabom-canvas .dbm-appbar{position:relative;height:68px;flex-shrink:0;display:flex;background:#fff;border-top:1px solid var(--d-g200);}
+.dabom-canvas .dbm-appbar .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:13px;color:var(--d-g500);}
+.dabom-canvas .dbm-appbar .tab::before{content:"";width:24px;height:24px;border-radius:50%;background:var(--d-g200);}
+.dabom-canvas .dbm-appbar .tab.on{color:var(--d-ink);font-weight:700;}
+.dabom-canvas .dbm-appbar .tab.on::before{background:var(--d-g600);}
+
+/* ===== 5. CTA 영역 — 하단 고정(Sticky), 최대 2개 (좌 Negative · 우 Positive) ===== */
+.dabom-canvas .dbm-cta{position:relative;height:60px;flex-shrink:0;display:flex;}
+.dabom-canvas .dbm-cta > :not(.num-badge){display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;}
+.dabom-canvas .dbm-cta .primary{flex:1;background:var(--d-g600);color:#fff;}
+.dabom-canvas .dbm-cta .primary.disabled{background:var(--d-g200);color:var(--d-g400);}
+.dabom-canvas .dbm-cta .secondary{flex:0 0 38%;background:var(--d-g100);color:var(--d-g700);}
+.dabom-canvas .dbm-keypad{height:216px;flex-shrink:0;background:#D1D4DA;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--d-g600);}
+
+/* ===== 6. Input ===== */
+.dabom-canvas .dbm-field{position:relative;display:flex;flex-direction:column;gap:8px;}
+.dabom-canvas .dbm-field > .label{font-size:16px;font-weight:700;color:var(--d-g700);}
+.dabom-canvas .dbm-input{height:52px;border:1px solid var(--d-g300);border-radius:8px;background:#fff;display:flex;align-items:center;gap:8px;padding:0 16px;font-size:18px;}
+.dabom-canvas .dbm-input .ph{color:var(--d-g400);flex:1;} .dabom-canvas .dbm-input .val{flex:1;}
+.dabom-canvas .dbm-input .timer{font-size:15px;color:var(--d-g700);}
+.dabom-canvas .dbm-input.error{border-color:var(--d-red);}
+.dabom-canvas .dbm-input.disabled{background:var(--d-g100);color:var(--d-g400);}
+.dabom-canvas .dbm-err{font-size:15px;color:var(--d-red);}
+.dabom-canvas .dbm-select{height:52px;border:1px solid var(--d-g300);border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:18px;}
+.dabom-canvas .dbm-radio,.dabom-canvas .dbm-check{display:inline-flex;align-items:center;gap:10px;font-size:18px;}
+.dabom-canvas .dbm-radio::before{content:"";width:22px;height:22px;border-radius:50%;border:2px solid var(--d-g400);box-sizing:border-box;}
+.dabom-canvas .dbm-radio.on::before{border:6px solid var(--d-g600);}
+.dabom-canvas .dbm-check::before{content:"";width:22px;height:22px;border-radius:4px;border:2px solid var(--d-g400);box-sizing:border-box;}
+.dabom-canvas .dbm-check.on::before{background:var(--d-g600) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg>") center/14px no-repeat;border-color:var(--d-g600);}
+.dabom-canvas .dbm-toggle{display:inline-flex;width:44px;height:26px;border-radius:13px;background:var(--d-g300);padding:3px;}
+.dabom-canvas .dbm-toggle::after{content:"";width:20px;height:20px;border-radius:50%;background:#fff;}
+.dabom-canvas .dbm-toggle.on{background:var(--d-g600);justify-content:flex-end;}
+.dabom-canvas .dbm-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.dabom-canvas .dbm-chip{height:40px;padding:0 16px;border-radius:20px;background:var(--d-g100);border:1px solid var(--d-g200);color:var(--d-g700);font-size:16px;display:inline-flex;align-items:center;}
+.dabom-canvas .dbm-chip.on{background:var(--d-g600);border-color:var(--d-g600);color:#fff;font-weight:700;}
+
+/* ===== 7. Tabs / Pagination·Indicator / Accordion ===== */
+.dabom-canvas .dbm-tabs{display:flex;border-bottom:1px solid var(--d-g200);}
+.dabom-canvas .dbm-tabs .t{flex:1;height:52px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--d-g500);}
+.dabom-canvas .dbm-tabs .t.on{color:var(--d-ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--d-ink);}
+.dabom-canvas .dbm-dots{display:flex;justify-content:center;gap:6px;}
+.dabom-canvas .dbm-dots i{width:8px;height:8px;border-radius:4px;background:var(--d-g300);}
+.dabom-canvas .dbm-dots i.on{width:22px;background:var(--d-g600);}
+.dabom-canvas .dbm-pageno{display:inline-flex;height:26px;padding:0 10px;border-radius:13px;background:rgba(0,0,0,.45);color:#fff;font-size:14px;align-items:center;}
+.dabom-canvas .dbm-acc .q{height:60px;display:flex;align-items:center;justify-content:space-between;font-size:18px;border-bottom:1px solid var(--d-g200);}
+.dabom-canvas .dbm-acc .a{padding:14px 16px;font-size:16px;color:var(--d-g700);background:var(--d-g50);border-bottom:1px solid var(--d-g200);}
+
+/* ===== 8. Layer — Full Layer Popup / Bottom sheet (Title 최대 1줄) ===== */
+.dabom-canvas .dbm-layer-head{height:56px;display:flex;align-items:center;justify-content:flex-end;padding:0 16px;flex-shrink:0;}
+.dabom-canvas .dbm-layer-title{font-size:22px;font-weight:700;padding:0 16px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dabom-canvas .dbm-dim{position:absolute;inset:0;background:var(--d-dim);z-index:2;border-radius:6px;}
+.dabom-canvas .dbm-bs{position:absolute;left:0;right:0;bottom:0;z-index:3;background:#fff;border-radius:20px 20px 6px 6px;display:flex;flex-direction:column;}
+.dabom-canvas .dbm-bs.full{top:44px;}
+
+/* ===== 9. Dialogs — System Alert/Confirm (Android 기본) · Toast msg — .dbm-flow 안에 배치 ===== */
+.dabom-sysalert{position:relative;width:280px;background:#fff;border-radius:2px;
+ box-shadow:0 3px 6px rgba(0,0,0,.1),0 24px 48px rgba(0,0,0,.2);font-family:Roboto,"Noto Sans KR",sans-serif;}
+.dabom-sysalert .msg{padding:22px 24px 21px;font-size:16px;line-height:24px;color:#3C3C43;}
+.dabom-sysalert .acts{display:flex;justify-content:flex-end;gap:8px;padding:8px;}
+.dabom-sysalert .acts span{position:relative;padding:10px 8px;font-size:14px;font-weight:500;line-height:16px;letter-spacing:.75px;color:#5856D6;}
+.dabom-sysalert.ios{width:270px;border-radius:14px;background:#F2F2F7;text-align:center;font-family:-apple-system,"Apple SD Gothic Neo",sans-serif;}
+.dabom-sysalert.ios .msg{padding:20px 16px;font-size:14px;}
+.dabom-sysalert.ios .acts{border-top:1px solid #D1D1D6;padding:0;gap:0;}
+.dabom-sysalert.ios .acts span{flex:1;padding:12px 0;color:#007AFF;font-size:16px;letter-spacing:0;}
+.dabom-sysalert.ios .acts span + span{border-left:1px solid #D1D1D6;font-weight:600;}
+.dbm-toast{position:relative;width:343px;min-height:46px;border-radius:7px;background:rgba(0,0,0,.8);color:#fff;padding:11px 12px;
+ font-family:"Noto Sans KR",Pretendard,sans-serif;font-size:14px;letter-spacing:-.7px;text-align:center;white-space:nowrap;}
+</style>
