@@ -9,6 +9,8 @@
       --id FO-SB-MW-MS-00000001 --title "홈" --path "홈" --author "홍길동"
   # 여러 화면: --src 를 반복하지 말고 화면마다 한 번씩 실행 (출력 폴더 동일하면 한 폴더에 모임)
 
+  ③ figma_safe_dabom.py 로 HTML→Figma 내보내기 보정 (자동, --no-figma-safe 로 끔) — 가이드 §6
+
 규칙·컴포넌트 카탈로그: reference/dabom-front-guide.md / 템플릿: templates/front-dabom.html
 환경변수: DABOM_OUT(출력 루트, 기본 ~/Downloads/SB_다봄) · DABOM_AUTHOR(작성자 기본 'AX Pilot')
 """
@@ -28,6 +30,8 @@ def main():
     ap.add_argument('--author', default=os.environ.get('DABOM_AUTHOR', 'AX Pilot'))
     ap.add_argument('--out', default=os.environ.get(
         'DABOM_OUT', os.path.join(os.path.expanduser('~'), 'Downloads', 'SB_다봄')))
+    ap.add_argument('--no-figma-safe', action='store_true',
+                    help='HTML→Figma 내보내기 보정 생략 (기본: 빌드 직후 자동 보정)')
     a = ap.parse_args()
 
     src = a.src if os.path.isabs(a.src) else os.path.join(SKILL, a.src)
@@ -50,7 +54,10 @@ def main():
     subprocess.run([sys.executable, os.path.join(HERE, 'generate_sb.py'),
                     '--variant', 'mobile', '--template', 'dabom',
                     '--input', jp, '--output', a.out], check=True)
-    print(f"\n완료: {os.path.join(a.out, a.id + '.html')}  (템플릿: front-dabom)")
+    out_html = os.path.join(a.out, a.id + '.html')
+    if not a.no_figma_safe:   # HTML→Figma 내보내기 보정 (가이드 §6)
+        subprocess.run([sys.executable, os.path.join(HERE, 'figma_safe_dabom.py'), out_html], check=True)
+    print(f"\n완료: {out_html}  (템플릿: front-dabom{'' if a.no_figma_safe else ' · Figma 보정'})")
 
 
 if __name__ == '__main__':

@@ -183,6 +183,7 @@ Step 3   화면별 본문 src 작성 → samples/dabom/ 또는 프로젝트 폴�
 Step 4   python3 .claude/skills/feature-spec/scripts/build_dabom_sb.py \
            --src {src} --id {화면ID} --title "{화면명}" --path "{화면경로}" --author "{author}" [--out {출력폴더}]
          # 내부적으로 generate_sb.py --variant mobile --template dabom 호출 (screens.json 자동 생성)
+         # 이어서 figma_safe_dabom.py 자동 실행 — HTML→Figma 내보내기 보정 + 시트 선 규칙 (가이드 §6)
 ```
 
 - 출력 기본: `~/Downloads/SB_다봄/` (`DABOM_OUT`로 변경). 파이프라인(_project) 구조면 `05_SB/mo/`.
@@ -192,6 +193,7 @@ Step 4   python3 .claude/skills/feature-spec/scripts/build_dabom_sb.py \
   - 넘버 배지 = 반투명 레드 원(31px, 요소 좌상단 모서리 오버레이), 세부·Case = 짙은 레드 캡슐 `.dbm-tag`.
   - Description 문장은 기준 화면 패턴(«탭 시, …», «[화면명] 화면으로 이동함», «[용도] Confirm 제공») — 가이드 §4.
 - Alert/Confirm = **System Alert**(`.dabom-sysalert`). 모든 문구는 다봄 UX Writing(«-해요체») — 가이드 §5.
+- **Figma 내보내기**: 빌드 결과는 자동 보정됨(시트 외곽선 없음 · 표/본문 외곽선 = 표 내부 선 gray-20 1px · 탭 점선/화살표 SVG 등). src에 outline·::before/::after·그라데이션 점선·음수 margin으로 그림을 새로 만들지 않는다 — 가이드 §6.
 
 ### 4.0 Variant 결정 (Step 0)
 

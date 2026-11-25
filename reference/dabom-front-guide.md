@@ -1,4 +1,4 @@
-# 다봄 프론트 와이어프레임 가이드 (front-dabom v0.2)
+# 다봄 프론트 와이어프레임 가이드 (front-dabom v0.3)
 
 다봄(고대 AI 심리 앱) 프로젝트 **전용** 프론트 SB 규칙과 컴포넌트 카탈로그.
 SKILL.md §4.0.0에서 «다봄 SB»로 답하면 이 문서를 따른다.
@@ -8,7 +8,7 @@ SKILL.md §4.0.0에서 «다봄 SB»로 답하면 이 문서를 따른다.
 - **컴포넌트 보조 출처**: Figma «00. 공통» 페이지 (Header 변형·App bar·CTA·Input·Layer 등)
   https://www.figma.com/design/w1l4o5F4fU3gnY2viMzc00/?node-id=22-294
   → 두 출처가 다르면 **기준 화면이 우선** (크기·색·배치·표기).
-- **템플릿**: `templates/front-dabom.html` · **빌더**: `scripts/build_dabom_sb.py`
+- **템플릿**: `templates/front-dabom.html` · **빌더**: `scripts/build_dabom_sb.py` (빌드 직후 Figma 보정 `scripts/figma_safe_dabom.py` 자동 실행 — §6)
 - **샘플**: `samples/dabom/DABOM-SAMPLE-001.src.html` = 기준 화면 재현(사진첩_상세 — 배지·Case·하단 흐름),
   `DABOM-SAMPLE-002.src.html` = 입력 폼(Input·하단 고정 CTA·Confirm·Toast)
 - Figma가 바뀌면 **템플릿 → 이 문서** 순으로 갱신하고 HISTORY.md에 기록.
@@ -29,7 +29,7 @@ SKILL.md §4.0.0에서 «다봄 SB»로 답하면 이 문서를 따른다.
 |---|---|
 | 채널 / variant | Front / **모바일 고정** (PC·태블릿 질문 생략) |
 | 시트 | 2560 (공통 규격), Description 패널 공통 |
-| 와이어프레임 | `.wf-panel.dabom-board` 안 **좌상단** · `.wf-canvas.dabom-canvas` **390 × min 844** · 프레임선 2px #CED4DA(outline) · 라운드 8 |
+| 와이어프레임 | `.wf-panel.dabom-board` 안 **좌상단** · `.wf-canvas.dabom-canvas` **390 × min 844** · 프레임선 2px #CED4DA · 라운드 8 (템플릿은 outline, 빌드 후 border로 자동 보정 — §6) |
 | 콘텐츠 | 좌우 여백 16 → **358** (`.dbm-main` 또는 `.wf-content-area`) — 공통 MO 340 규칙 대신 다봄 Figma 값 |
 | Case 변형 | `.dbm-cases > .dbm-case` 와이어프레임 **우측**에 가로 나열, 각 위에 `.dbm-tag` «CaseN) 이름» |
 | Alert/Confirm/Toast | 와이어프레임 **하단** `.dbm-flow`에 가로 나열. 각 창 위에 **회색 유형명 바** `.dbm-ov-title`(«{용도} Confirm», «{용도} Toast msg»). 우측 서브 캔버스 규칙은 다봄에 적용하지 않음 |
@@ -97,3 +97,30 @@ SKILL.md §4.0.0에서 «다봄 SB»로 답하면 이 문서를 따른다.
   행동요청(입력/선택 유도) «시작해 주세요» · 의사확인(1:1 상황) «시작하시겠어요?» · 광고(배너·마케팅) «시작!»
 - 날짜 `YYYY-MM-DD (수)` (단독 요일은 «수요일»). 화면 표시용 날짜는 화면별 형식(예: «YYYY년 MM월 DD일») 우선.
 - 와이어프레임 예시 문구·Toast·Alert 메시지도 이 규칙으로 작성.
+
+## 6. Figma 내보내기 (HTML to Figma) 규칙
+
+HTML→Figma 변환기는 CSS로만 그린 요소(outline·가상 요소·CSS 변수·그라데이션 점선·음수 margin·배경 이미지 위치)를 옮기지 못한다.
+`build_dabom_sb.py`가 빌드 직후 `figma_safe_dabom.py`로 아래를 **자동 보정**한다 (브라우저 모습은 그대로, 여러 번 실행해도 결과 같음).
+
+| 대상 | 템플릿 방식 | 보정 후 |
+|---|---|---|
+| 휴대폰 프레임선 | outline | 실제 border 2px (콘텐츠 폭 390 유지) |
+| 탭 점선 화살표 `.dbm-tap` | ::before/::after + `--right`/`--down` + 그라데이션 | 인라인 SVG (점선 + 열린 화살촉) |
+| 흐름 화살표 `.dbm-arrow` | 그라데이션 점선 배경 | 인라인 SVG 40×8 |
+| Checkbox · Radio · Toggle · App bar 아이콘 | ::before/::after | 실제 `<i class="fsb">` / `<i class="fsa">` |
+| 푸터 로고 | 배경 이미지 | 실제 `<img>` (우측 정렬) |
+| 시트 좌우 여백 | 음수 margin | 블록별 margin (푸터 구분선이 시트 끝까지) |
+
+**시트 선 규칙 (26.11.25 확정)**
+
+- 시트 바깥 외곽선 **없음** (border·inset 그림자 제거)
+- 메타 표 외곽선 · 본문 영역 좌우선 · 와이어프레임∣Description 구분선 · 푸터 구분선 = **표 내부 선과 동일 (gray-20, 1px)**
+- 와이어프레임 패널 자체 테두리 없음 (본문 영역 좌우선과 겹치지 않게)
+
+**src 작성 시**
+
+- 위 요소는 템플릿 클래스(`.dbm-tap`·`.dbm-arrow`·`.dbm-check` 등)를 그대로 쓰고, 보정용 마크업을 직접 넣지 않는다.
+- src에서 `outline` · `::before`/`::after` · 그라데이션 점선 · 음수 margin · 배경 이미지로 그림을 새로 만들지 않는다 → Figma에서 빠짐.
+- 보정 생략이 필요하면 `build_dabom_sb.py --no-figma-safe`.
+- 예전에 만든 SB 재보정: `python scripts/figma_safe_dabom.py <SB 폴더 또는 html>` (이전 버전 보정 파일은 시트 선 블록만 최신으로 교체).

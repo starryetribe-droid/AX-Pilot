@@ -3,7 +3,7 @@
 > 이 문서는 ETRIBE 기획 자동화 도구(`feature-spec` Claude Code 스킬)의 전체 구축 맥락을 정리합니다.
 > 로컬 PC가 바뀌어도, 새로운 담당자가 이 문서만 보면 전체 맥락을 이해할 수 있도록 설계되었습니다.
 >
-> **마지막 업데이트**: 2026-08-06
+> **마지막 업데이트**: 2026-11-25
 
 ---
 
@@ -350,6 +350,7 @@ base64 -i "00. Assets/etribe-logo.png" | tr -d '\n' > templates/sb-logo-data-url
 | 2026-11-13 | ★ 다봄 가이드 v0.2 — 기준을 Figma «사진첩_상세 Ver.0.3»(node 1385-7006, 실제 다봄 SB)로 재정의 (사용자 요청): 시트 배치(와이어프레임 좌상단·우측 Case 변형·하단 Confirm/Toast 흐름+회색 유형명 바·이동 노트·점선 화살표·Tap 마커·Ver 태그), 넘버 배지 반투명 레드 원 31px + 짙은 레드 캡슐 태그, 콘텐츠 358, 시니어 대상 18px·버튼 60·라운드 8·#525252, Figma 원본 아이콘 9종 data URI(프레임 경계선만 제거), Android System Alert #5856D6·Toast rgba(0,0,0,.8). 샘플 001=사진첩_상세 재현, 002=입력 폼 |
 | 2026-11-13 | Description 컴포넌트명 표기 수정 (사용자 확정): `[구분 Select box]` → `구분 Select box` — 컴포넌트명에 대괄호 쓰지 않음. 대괄호는 화면명·버튼 문구·팝업 이름 인용(`[사진첩_목록]`, `[확인]`, `[삭제 여부] Confirm`)에만. SKILL·다봄 가이드·다봄 샘플 반영 |
 | 2026-11-13 | 다봄 탭 표시 교체 (사용자 요청): 주황 점 마커 → Figma «Tap» 손가락 아이콘(원본 SVG 48×60.7, 손끝 좌표 정렬) + 점선 화살표(`--down` / `--right`), 흐름 화살표 `.dbm-arrow`도 동일 점선+열린 화살촉. 하단 흐름 간격 40→64. 샘플 001(삭제하기→Confirm, 즐겨찾기→채워진 하트 상태), 002(취소→Confirm) 적용 |
+| 2026-11-25 | ★ 다봄 SB HTML→Figma 내보내기 보정 (사용자 요청): `scripts/figma_safe_dabom.py` 추가, `build_dabom_sb.py`가 빌드 직후 자동 실행(`--no-figma-safe`로 생략). 프레임 outline→border, 탭 점선·흐름 화살표→인라인 SVG, Checkbox·Radio·Toggle·App bar 아이콘 가상 요소→실제 `<i>`, 푸터 로고 배경→`<img>`, 음수 margin 제거. 시트 선 규칙: 시트 외곽선 없음 / 메타 표·본문 외곽선·Description·푸터 구분선 = 표 내부 선(gray-20, 1px). 다봄 가이드 v0.3 §6 신설 |
 
 ---
 
